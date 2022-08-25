@@ -6,7 +6,7 @@ local Workspace = game:GetService("Workspace")
 local LocalPlayer = PlayerService.LocalPlayer
 
 local Window = Koko.Utilities.UI:Window({
-    Name = "Gshare Media — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-173),
     Size = UDim2.new(0,346,0,346)
     }) do Window:Watermark({Enabled = true})

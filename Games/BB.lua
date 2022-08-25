@@ -50,7 +50,7 @@ local BanReasons,BanCommands = {
 }
 
 local Window = Koko.Utilities.UI:Window({
-    Name = "Gshare Media — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 

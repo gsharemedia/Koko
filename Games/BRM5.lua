@@ -30,7 +30,7 @@ local Teleports,TI,TI2 = {
 TweenInfo.new(5,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,0,false,0)
 
 local Window = Koko.Utilities.UI:Window({
-    Name = "Gshare Media — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
