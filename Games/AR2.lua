@@ -23,7 +23,7 @@ local Bullets = Framework.Libraries.Bullets
 
 local SpreadFunction = getupvalue(Bullets.Fire,1)
 local Events = getupvalue(Network.Add,4)
-PredictedGravity = getupvalue(Events["Gravity Debug"],1)
+PredictedGravity = getupvalue(Events["Gravity Debug\r"],1)
 
 local NullFunction = function() end
 setupvalue(Network.Send,6,NullFunction)
@@ -73,8 +73,8 @@ Network.Fetch = function(Self,...)
     end return OldFetch(Self,...)
 end]]
 
-local Window = Koko.Utilities.UI:Window({
-    Name = "Koko Hub — "..Koko.Game,
+local Window = Parvus.Utilities.UI:Window({
+    Name = "Parvus Hub — "..Parvus.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -219,7 +219,7 @@ local Window = Koko.Utilities.UI:Window({
         local LightingSection = VisualsTab:Section({Name = "Lighting",Side = "Right"}) do
             LightingSection:Toggle({Name = "Enabled",Flag = "Lighting/Enabled",Value = false,
             Callback = function(Bool) if Bool then return end
-                for Property,Value in pairs(Koko.Utilities.Misc.DefaultLighting) do
+                for Property,Value in pairs(Parvus.Utilities.Misc.DefaultLighting) do
                     Lighting[Property] = Value
                 end
             end})
@@ -335,11 +335,11 @@ local Window = Koko.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko.Utilities.Misc.ReJoin})
+        Callback = Parvus.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko.Utilities.Misc.ServerHop})
+        Callback = Parvus.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko.Utilities.Misc.JoinDiscord})
+        Callback = Parvus.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -412,13 +412,13 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-Koko.Utilities.Misc:SetupWatermark(Window)
-Koko.Utilities.Misc:SetupLighting(Window.Flags)
-Koko.Utilities.Drawing:SetupCursor(Window.Flags)
+Parvus.Utilities.Misc:SetupWatermark(Window)
+Parvus.Utilities.Misc:SetupLighting(Window.Flags)
+Parvus.Utilities.Drawing:SetupCursor(Window.Flags)
 
-Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+Parvus.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Parvus.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+Parvus.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 local RaycastParams1 = RaycastParams.new()
 RaycastParams1.FilterType = Enum.RaycastFilterType.Blacklist
@@ -662,8 +662,7 @@ local function CIIC(Data) -- ConcatItemsInContainer
 end
 
 local OldSend = Network.Send
-Network.Send = function(Self,Name,...)
-    local Args = {...}
+Network.Send = function(Self,Name,...) local Args = {...}
     --[[if Name == "Bullet Fired" and SilentAim
     and math.random(0,100) <= Window.Flags["SilentAim/HitChance"] then
         local Hit,Position,Normal = CastBullet(SilentAim)
@@ -680,16 +679,12 @@ Network.Send = function(Self,Name,...)
             end return OldSend(Self,Name,unpack(Args))
         end
     end]]
-
     if Name == "Set Character State" then
-        for Index,Arg in pairs(Args[1]) do
-            if Window.Flags["AR2/SSCS"] then
-                Arg[1] = "Walking"
-            end
+        if Window.Flags["AR2/SSCS"] then
+            Args[1] = "Walking"
         end
-        --return
     end
-    return OldSend(Self,Name,...)
+    return OldSend(Self,Name,unpack(Args))
 end
 
 setupvalue(Bullets.Fire,1,function(...)
@@ -780,7 +775,7 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
-Koko.Utilities.Misc:NewThreadLoop(0,function()
+Parvus.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
     local TriggerHitbox = GetHitboxWithPrediction({
         Enabled = Window.Flags["Trigger/Enabled"],
@@ -813,13 +808,13 @@ Koko.Utilities.Misc:NewThreadLoop(0,function()
         end mouse1release()
     end
 end)
-Koko.Utilities.Misc:NewThreadLoop(0,function()
+Parvus.Utilities.Misc:NewThreadLoop(0,function()
     PlayerFly({
         Enabled = Window.Flags["AR2/Fly/Enabled"],
         Speed = Window.Flags["AR2/Fly/Speed"]
     })
 end)
-Koko.Utilities.Misc:NewThreadLoop(1,function()
+Parvus.Utilities.Misc:NewThreadLoop(1,function()
     if not Window.Flags["AR2/ESP/Items/Containers/Enabled"] then return end
     local Items = GetItemsAllFOV({Distance = 100})
 
@@ -839,7 +834,7 @@ end)
 for Index,Item in pairs(Loot:GetDescendants()) do
     local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
     if Item:IsA("Model") and ItemData then --print(ItemData.Parent.Name)
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Item.Parent,Item.Parent.Name,Item.Parent.Value.Position},
             "AR2/ESP/Items","AR2/ESP/Items/"..ItemData.Parent.Name,Window.Flags
         )
@@ -847,21 +842,21 @@ for Index,Item in pairs(Loot:GetDescendants()) do
 end
 for Index,Place in pairs(Randoms:GetChildren()) do
     if table.find(Places,Place.Name) then --print(Place.Name)
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Place,Place.Name,Place.Value.Position},
             "AR2/ESP/RandomPlaces","AR2/ESP/RandomPlaces",Window.Flags
         )
     end
 end
 for Index,Vehicle in pairs(Vehicles:GetChildren()) do
-    Koko.Utilities.Drawing:ItemESP(
+    Parvus.Utilities.Drawing:ItemESP(
         {Vehicle,Vehicle.Name,Vehicle.PrimaryPart},
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
 end
 for Index,Zombie in pairs(Zombies:GetChildren()) do
     if string.match(Zombie.Name,"Unique") then
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Zombie,Zombie.Name,Zombie.PrimaryPart},
             "AR2/ESP/Zombies","AR2/ESP/Zombies",Window.Flags
         )
@@ -871,7 +866,7 @@ end
 Loot.DescendantAdded:Connect(function(Item)
     local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
     if Item:IsA("Model") and ItemData then --print(ItemData.Parent.Name)
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Item.Parent,Item.Parent.Name,Item.Parent.Value.Position},
             "AR2/ESP/Items","AR2/ESP/Items/"..ItemData.Parent.Name,Window.Flags
         )
@@ -879,12 +874,12 @@ Loot.DescendantAdded:Connect(function(Item)
 end)
 Randoms.ChildAdded:Connect(function(Place)
     if table.find(Places,Place.Name) then --print(Place.Name)
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Place,Place.Name,Place.Value.Position},
             "AR2/ESP/RandomPlaces","AR2/ESP/RandomPlaces",Window.Flags
         )
         if Window.Flags["AR2/ESP/RandomPlaces/Enabled"] then
-            Koko.Utilities.UI:Notification2({
+            Parvus.Utilities.UI:Notification2({
                 Title = string.format("%s spawned (~%i meters away)",Place.Name,
                 GetDistanceFromCamera(Place.Value.Position) * 0.28),Duration = 20
             })
@@ -893,7 +888,7 @@ Randoms.ChildAdded:Connect(function(Place)
 end)
 Vehicles.ChildAdded:Connect(function(Vehicle)
     repeat task.wait() until Vehicle.PrimaryPart
-    Koko.Utilities.Drawing:ItemESP(
+    Parvus.Utilities.Drawing:ItemESP(
         {Vehicle,Vehicle.Name,Vehicle.PrimaryPart},
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
@@ -901,7 +896,7 @@ end)
 Zombies.ChildAdded:Connect(function(Zombie)
     repeat task.wait() until Zombie.PrimaryPart
     if string.match(Zombie.Name,"Unique") then
-        Koko.Utilities.Drawing:ItemESP(
+        Parvus.Utilities.Drawing:ItemESP(
             {Zombie,Zombie.Name,Zombie.PrimaryPart},
             "AR2/ESP/Zombies","AR2/ESP/Zombies",Window.Flags
         )
@@ -910,41 +905,41 @@ end)
 
 Loot.DescendantRemoving:Connect(function(Item)
     if Item:IsA("Model") then
-        Koko.Utilities.Drawing:RemoveESP(Item.Parent)
+        Parvus.Utilities.Drawing:RemoveESP(Item.Parent)
     end
 end)
 Randoms.ChildRemoved:Connect(function(Place)
-    Koko.Utilities.Drawing:RemoveESP(Place)
+    Parvus.Utilities.Drawing:RemoveESP(Place)
 end)
 Vehicles.ChildRemoved:Connect(function(Vehicle)
-    Koko.Utilities.Drawing:RemoveESP(Vehicle)
+    Parvus.Utilities.Drawing:RemoveESP(Vehicle)
 end)
 Zombies.ChildRemoved:Connect(function(Zombie)
-    Koko.Utilities.Drawing:RemoveESP(Zombie)
+    Parvus.Utilities.Drawing:RemoveESP(Zombie)
 end)
 
-local OldICA, OldCC = Events["Inventory Container Added"], Events["Container Changed"]
-Events["Inventory Container Added"] = function(Id,Data,...)
+local OldICA, OldCC = Events["Inventory Container Added\r"], Events["Container Changed\r"]
+Events["Inventory Container Added\r"] = function(Id,Data,...)
     if Data.WorldPosition and Length(Data.Occupants) > 0 and not string.find(Data.Type,"Corpse") then
-        Koko.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
+        Parvus.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
         "AR2/ESP/Items","AR2/ESP/Items/Containers",Window.Flags)
     end return OldICA(Id,Data,...)
 end
-Events["Container Changed"] = function(Data,...)
-    Koko.Utilities.Drawing:RemoveESP(Data.Id)
+Events["Container Changed\r"] = function(Data,...)
+    Parvus.Utilities.Drawing:RemoveESP(Data.Id)
     if Data.WorldPosition and Length(Data.Occupants) > 0 and not string.find(Data.Type,"Corpse") then
-        Koko.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
+        Parvus.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
         "AR2/ESP/Items","AR2/ESP/Items/Containers",Window.Flags)
     end return OldCC(Data,...)
 end
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Parvus.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Parvus.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    Koko.Utilities.Drawing:RemoveESP(Player)
+    Parvus.Utilities.Drawing:RemoveESP(Player)
 end)
