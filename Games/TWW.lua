@@ -1,1 +1,373 @@
-localUserInputServicegameDoZ61J6u+JxKCJSx6siem61J6u+Jx4iKZaHGpUbp0nq74nHoGpnOhnrUnq74nEoIkbp0nq74nEiKZaHGpT5Wsnq0nq74nHoGpk6GetServicSgiPlayersiKZaHGpVqK5LKWnHoGpk6GetServicSgiWorkspaceCIplocalBackgroundGuigetrenvCgpLrIWq3kuBackgroundGuirepeattaskuwaitKCm6e2KUFpySCui6d0a6Jqd0FpySCui6d0a6Lj2q3p7Z4pZaHGpS6HGpT5WsnqwsAimbotPlayerServiccuLocalPlayeosfalselocalWindowKokoLlLYpYrYnrAuUDpaKd2jKHs1qZ4iKokoHubbgJQiLi4qiSguGameLD6LIrYqJ1A4ptgunewo0C7TLNAs0C7kLC3bjyl9KXaFop3aMDpZq16uZquQKHsSdpuV522u530plocalAimAssistTabWindow6TaYoezWpniIKiZtqIn0pdolocalGlobalSectionAimAssistTabOknnLYqJKHs1qZ4iGlobaiIsSideIi3n7SJ9KXaBpaG2pUnnLYqJOk6IIJUoezWpniJN5qYKF5yQIiwWVqAiTeamCheckCIsValuefalsX0pendlocalAFOVSectionAimAssistTaY6SectiokoezWpniICKZui0U5UKKtyVyIsSideIi3n7SJ9KXaABTlUnnLYqJw6TogglSh7NameIhJ2m5XnIiwWVqAiAimbot/Circle/EnabledCIsValuetrueH0pAFOVSectiok6TogglSh7NameIhYpZXkiLBZWoCICKZui38KKtyV78WKWV50iLFWpbnn2pbF9KQBTlUnnLYqJOgqJaK6YnJHqKHs1qZ4iColorCIsFlagIgIpm6Lfwoq3JXvwqJaKIixVqW54e9Qs0C7rrrrrrrbr3fTbLNQs0C7bLH2pbHh9fSkAU5VJ5y2KiTpKWJ16KHs1qZ4iNumSidesIiwWVqAiAimbot/Circle/NumSideiIsMin3LDGsddMsValue159KQBTlUnnLYqJOkpYnXooezWpniJOGJySd6ywIiwWVqAiAimbot/Circle/ThicknessiLDIp9SwxrHXQLFWpbnt9KXp3ZaHGpQIpm6LUnnLYqJwIpgLLIrLU2mw6SectiokoezWpniICKZuiIixKJ14iRightCJ9KXaAIpm6LUnnLYqJOk6IIJUoezWpniISdpuV5yIsFlagIgIpm6LfxJ2m5XkiLFWpbnn2pbF9KQIpm6LUnnLYqJw6TogglSh7NameIlYrIm4pYrcgoXnJIiwWVqAiAimbot/WallCheckIixVqW559qWxfSkCKZui1J5y2KicOk6IIJUoezWpniIOKy1qdx4KF5yQIiwWVqAiAimbot/DistanceCheckIixVqW559qWxfSkCKZui1J5y2KicOk6IIJUoezWpniIPKdqaJwU5IiwWVqAiAimbot/DynamicFOVCIsValuefalsX0pAimbotSectionDop7JuKdyh7NameIinsm4p3IiwWVqAiAimbot/KeybinSIsValueCIyi6x4G622ifYiLDKLrHra7ngsCallbackfunctionKCnsLCnsg6MJKQIpm6LVop3aMC4WVqCwWyICKZui38SdpuV5Il1qd0p7IOjCd6d0fSkCKZui1J5y2KicOkpYnXooezWpniJKaii2Gd6yIiwWVqAiAimbot/SmoothnessCIsMin0LDGsddMsValue24sUnitIiUifSkCKZui1J5y2KicOkpYnXooezWpniIWJ6V059WJ7CIsFlagIgIpm6LfxYnpXTn1YnsiLDIp9CwxrHnTLFWpbntdNH0pAimbotSectionDpKWJ16KHs1qZ4iDistanceIiwWVqAiAimbot/DistancciLDIp9uQsMax1000sValue250LFJ4rSKZ616uIn0pAimbotSectionDoOuil2jCcoezWpniIGh3I9qu2wIiwWVqAiAimbot/BodyPartsIiwuKy17ezWpniId5p0iLDKHXiJOiCCVIixVqW562u54fSx7NameIh7pmp6InUaKLT2q7SIsModeIk6IIJUifX19KQIpm6LUnnLYqJw6Divideooe03sbSI+t52Jy2KiIn0pAimbotSectionDpOiCCVKHs1qZ4iEnableciLBZWoCICKZui38+t52Jy2Kif8SdpuV50IixVqW559qWxfSkCKZui1J5y2KicOkpYnXooezWpniJV6WhyK3IiLBZWoCICKZui38+t52Jy2Kif9V6WhyK3IiwyKfXTLDGsedNNLFWpbntetNB9KXp3Xp3ZaHGpVYrLmpbE2m1op3aMOk2mKHs1qZ4iVisualsifSl2iWhxqUaWhtqVJ5y2KidWKy5qWxNpOknnLYqJKHs1qZ4iGlobaiIsSideIi3n7SJ9KXaBpaG2pUnnLYqJOgqJaK6YnJHqKHs1qZ4iAllyColorCIsFlagIhEj/z5Wsnq/wJZcIixVqW54e9Au3333333432674408LNAu6666666269302368LNQs0Cx9qWx4fX0pGlobalSectionDoKiWiumJyR6ih7NameIhJ3psgqJaIiLBZWoCIRI/8+VrJ6v8Sd6bIiLFWpbnh71CzQLuuuuuuutuvd9Nt+vCzULNAsfalseH19KRpaG2pUnnLYqJw6TogglSh7NameIk3mpgoXnJAiLBZWoCIRI/8+VrJ6v9N5qYKF5yQiLFWpbnn2pbF9KRpaG2pUnnLYqJw6TogglSh7NameIlLHk3mpgqJaKyIsFlagIhEj/z5Wsnq/03mpgqJaKyIsValuefalsX0pGlobalSectionDpOiCCVKHs1qZ4iDistanceCheckCIsFlagIhEj/z5Wsnq/w4rLWp3HgoXnJCIsValuefalsX0pGlobalSectionDpKWJ16KHs1qZ4iDistanceIiwWVqAiESP/Player/DistancciLDIp9uQsMax1000sValue250LFJ4rSKZ616uIn0pendlocalBoxSectionVisualsTabOknnLYqJKHs1qZ4iBoxesCIsSideIi3n7SJ9KXaAaMUnnLYqJzpOiCCVKHs1qZ4iBoxEnableSIsFlagIhEj/z5Wsnq/waMfxJ2m5XkiLFWpbnn2pbF9KQaMUnnLYqI6TogglSh7NameIh3mpbYW2qwiLBZWoCIRI/8+VrJ6v8GjH8d5qW2FtqsiLFWpbnn2pbF9KQaMUnnLYqI6TogglSh7NameIhYpZXkiLBZWoCIRI/8+VrJ6v8GjH8WKWV50IixVqW559qWxfSkGjFJ5y2KiOk6IIJUoezWpniI662WKdyIsFlagIhEj/z5Wsnq/waMfzrrZYp0iLFWpbnra7nh9KQaMUnnLYqI6Slideih7NameIk4YnJJ3rLAiLBZWoCIRI/8+VrJ6v8GjH9OGJySd6ywiLDIp9SwxrHXQLFWpbnt9KQaMUnnLYqI6Slideih7NameIk62p7KWq3p3MiIsFlagIhEj/z5Wsnq/waMf062p7KWq3p3MIiwyKfQsMax1LD63nIrHtixVqW57fSkGjFJ5y2KiOg4r4nXqKCkGjFJ5y2KiOk6IIJUoezWpniJN7G0SdpuV5yIsFlagIhEj/z5Wsnq/03sbfxJ2m5XnIixVqW559qWxfSkGjFJ5y2KiOk6IIJUoezWpniI662WKdyIsFlagIhEj/z5Wsnq/03sbfzrrZYp3IixVqW562u54fSkGjFJ5y2KiOk6IIJUoezWpniIC62ixxqV4IiwWVqAiESP/Player/Text/AutoscaleCIsValuetrueH0pBoxSectiojoOuil2jCcoezWpniIWie0iLBZWoCIRI/8+VrJ6v9N7G38Wie0iLC4rLXt7NameIlAiLDKHXiIG622iIixVqW562u54fSx7NameIksrLXoiLDKHXiIG622iIn0sezWpniI+V7EiLDKHXiIG622iIn0sezWpniIyieiylpx4Iiwyh14iButtoiJ9fX0pBoxSectiojpKWJ16KHs1qZ4iSizeIiwWVqAiESP/Player/Text/SizeIiwyKfXcLDGsddMsValue159KQaMUnnLYqI6Slideih7NameIk62p7KWq3p3MiIsFlagIhEj/z5Wsnq/03sbf062p7KWq3p3MiIsMin0LDGsdSw+t5yKx7YsValue30pendlocalOoVSectionVisualsTabOknnLYqJKHs1qZ4iOffscreenArrowsiLEonXiIt5+0ifSl2g6hVJ5y2Kic6TogglSh7NameIhJ2m5XnIiwWVqAiESP/Player/Arrow/EnabledIixVqW559qWxfSk6hVJ5y2KiOk6IIJUoezWpniIWKWV5IiwWVqAiESP/Player/Arrow/FilleciLFWpbnra7nh9KTqFUnnLYqI6TogglSh7NameIjrrZYp3IiwWVqAiESP/Player/Arrow/OutlineIixVqW562u54fSk6hVJ5y2KiOkpYnXooezWpniJaJ22EIiwWVqAiESP/Player/Arrow/WidtiIsMin14CwxrHbwLFWpbntffSk6hVJ5y2KiOkpYnXooezWpniId6KCGIiwWVqAiESP/Player/Arrow/HeighsiLDIp9eAsMax28CxVqW57b30pOoVSectiojpKWJ16KHs1qZ4iDistanceFromCenteiIsFlagIhEj/z5Wsnq/wK66MPw4rLWp3HgiLDIp/NAsMax20yxVqW57bTR9KTqFUnnLYqI6Slideih7NameIk4YnJJ3rLAiLBZWoCIRI/8+VrJ6v8CuujD9OGJySd6yIiwyKfUsMax10CxVqW57fSk6hVJ5y2KiOkpYnXooezWpniJOtqeylqt6dzIiLBZWoCIRI/8+VrJ6v8CuujD9Otqeylqt6dzIIiwyKfQsMax1LD63nIrHtixVqW57fSl6d2WhxqUd5p1J5y2KidWKy5qWxNpsOknnLYqJKHs1qZ4iHeadCirclesiLEonXiJGKCG0In0pdoHeadSectionDpOiCCVKHs1qZ4iEnableciLBZWoCIRI/8+VrJ6v8d5p38SdpuV5yIsValuefalsX0pHeadSectiok6TogglSh7NameIhYpZXkiLBZWoCIRI/8+VrJ6v8d5p38WKWV5IixVqW562u54fSkd5p1J5y2KiTpOiCCVKHs1qZ4iOutlinciLBZWoCIRI/8+VrJ6v8d5p38662WKdyIsValuetrueH0pHeadSectiok6TogglSh7NameIgLraLHGpXgiLBZWoCIRI/8+VrJ6v8d5p38C62ixxqV4IixVqW562u54fSkd5p1J5y2KiTpKWJ16KHs1qZ4iRadiuiIsFlagIhEj/z5Wsnq/x3mnf0WnYroiLDIp9SwxrHXQLFWpbnt9KR3mnUnnLYqJOkpYnXooezWpniI26ZKJ16wiLBZWoCIRI/8+VrJ6v8d5p3826ZKJ16wiLDIp9ywxrHXTLFWpbnt9KR3mnUnnLYqJOkpYnXooezWpniJOGJySd6ywIiwWVqAiESP/Player/Head/ThicknessCIsMin1LDGsddAsValue30pHeadSectiok6Slideih7NameIk62p7KWq3p3MiIsFlagIhEj/z5Wsnq/x3mnf062p7KWq3p3MiIsMin0LDGsdSw+t5yKx7YsValue30pendlocalTracerSectionVisualsTaY6SectiokoezWpniJOtpx6uyIsSideIkYoIbQifSl2hOtpx6tJ5y2KiTpOiCCVKHs1qZ4iEnableciLBZWoCIRI/8+VrJ6v9Otpx6v8SdpuV50IixVqW559qWxfSlOtpx6tJ5y2KicOg66KXaMJyh7NameIjKHXiIsFlagIhEj/z5Wsnq/062nHq/zKHUiLC4rLXt7NameIha6JgaLbaIiLDKHXiIG622iIixVqW562u54fSx7NameIha6JjKLrHgiLDKHXiIG622iIn19fSlOtpx6tJ5y2KicOkpYnXooezWpniJOGJySd6ywIiwWVqAiESP/Player/Tracer/ThicknessiLDIp9SwxrHXQLFWpbnt9KU62nHq0nnLYqJw6Slideih7NameIk62p7KWq3p3MiIsFlagIhEj/z5Wsnq/062nHq/062p7KWq3p3MiLDIp9CwxrHUsPrecise2LFWpbnt9KXp3ZaHGpR4oIZYoIbUnnLYqJ1YrLmpbE2k6SectiokoezWpniIeKCGWKCG2IixKJ14iRightCJ9KXaB4oIZYoIbUnnLYqI6TogglSh7NameIhJ2m5XnIiwWVqAiESP/Player/Highlight/EnabledIixVqW559qWxfSkeKCGWKCG1J5y2Kic6Slideih7NameIk62p7KWq3p3MiIsFlagIhEj/z5Wsnq/x4oIZYoIbf062p7KWq3p3MgiLDIp9CwxrHUsPrecise2LFWpbnt9KR4oIZYoIbUnnLYqJzoKiWiumJyR6ih7NameIjrrZYp3gqJaKyIsFlagIhEj/z5Wsnq/x4oIZYoIbfzrrZYp3gqJaKwiLFWpbnh71CzULNAs0C7kLH2pbHh9fSl6d16d2WhxqUyKxxNptaKd2jA6TaYoezWpniIyKxx6WVqd6i6wIn0pdolocalTESPSectionMiscTabDpJ5y2KiSh7NameIk4bp3Xq7La7nJBEjyIsSideIi3n7SJ9KXaExEj0nnLYqJw6TogglSh7NameIhJ2m5XnIiwWVqAiESP/Thunderstruck/EnabledCIsValuefalsX0pTESPSectiok6ColorpickeooezWpniIKiWisIiwWVqAiESP/Thunderstruck/ColooiLFWpbnh71CzQLNQs0Cx9qWx4fX0pTESPSectiok6Slideih7NameIg4rLWp3HiIsFlagIhEj/04bp3Xq7La7nJPw4rLWp3EiLDIp9uQsMax5000sValue1000CxSeK0imeteriJ9KXp3ZaHGpSxEj0nnLYqJzIrHE2k6SectiokoezWpniIt6B6d1qvIRI8iLEonXiJGKCG0In0pdoLESPSectionDpOiCCVKHs1qZ4iEnableciLBZWoCIRI/8t6B6d1qvL8SdpuV50IixVqW559qWxfSksRI9J5y2KiToKiWiumJyR6ih7NameIgqJaKwiLBZWoCIRI/8t6B6d1qvL8KiWiiIsValueHvULNAs1CzQLH2pbHh9fSksRI9J5y2KiTpKWJ16KHs1qZ4iDistanceIiwWVqAiESP/Legendary/DistancSIsMin25CwxrHnTTSxVqW57XTTQLFJ4rSKZ616uIn0pendendlocalSettingsTabWindowOk2mKHs1qZ4iSettingsIn0pdolocalMenuSectionSettingsTabDpJ5y2KiSh7NameIjHp7iIsSideIi3n7SJ9KXaDHp7knnLYqJw6TogglSh7NameIhJ2m5XnIiwiCeit4WVqC2u5LBZWoCJQj9OiCCV4IixVqW55aKd2jC4SdpuV5ywJqWVtpyR+6dy2KicoBoolKVop3aM6TogglSgGiiUpend9KTop7JuKdyh7ValueCJGKCG1KGJ+IiwWVqAiUI/KeybinSIsDoNotCleartruX0pMenuSectiok6TogglSh7NameIjqXpzpy6GkiLBZWoCJQj844IixVqW562u54fSkx6e5J5y2KiTpOiCCVKHs1qZ4iBlurGameplayIiwWVqAiUI/BluoiLFWpbnn2pbEsCallbackfunctionKClaKd2jOk6IIJUoWindoy4SdpuV5yl6d30pMenuSectiok6TogglSh7NameIlmrXq5mq5AiLBZWoCJQj9Zq16uZquQiLFWpbnra7ngsCallbackfunctionKAaKJSlaKd2jLlmrXq5mq5A6TogglSgGiiUpend9KTHp7knnLYqJOk6IIJUoezWpniIK6y2iYyi6xyIsFlagIjKLrHvxJ2m5XnQiLFWpbnn2pbF9KTHp7knnLYqJOgqJaK6YnJHqKHs1qZ4iColorCIsFlagIlCPwqJaKyIsValueHvULNAu2yzULNAstruefSwJqWVtpyR+6dy2KicoHSVARCwKiWisKVop3aM6SetColorKAqJaKwpend9KXp3UnrbYp4LE2k6AddConfigSectionKCIt5+0iKUnrbYp4LE2mOgbrbaIoezWpniJF6OiKIixKJ14iLeftIiwJqWVtpyQqiSguUtilitiesC4yKxwuReJoin0pSettingsTaY6Buttoih7NameIknq73qx6KQiLEonXiIt5+0iLAmpZW2nJCqJKC5S2KWK2J6wLjIrHC5J6u96seikfSlJ622KeCxNpjoG622iKHs1qZ4iJoinDiscordServerCIsSideIi3n7SIsCallbackKokoLlLYpYrYnrAuMiscLiaIpw4rHKK3fSk6ToolTiooIiaIp36K7LqaaK4supdatesandmorSEiKZaHGpQWnJIK6Lp3UnnLYqJ0nrbYp4LE2mw6SectiokoezWpniIFpySCui6dIixKJ14iRightCJ9KXaAWnJIK6Lp3UnnLYqJOg66KXaMJyh7NameIiJmoHgiLBZWoCIFpySCui6d38iZqB4iLC4rLXt7NameIi3oGnMiLDKHXiIG622iIiwJqWVtpyR+6dy2KicoKVop3aMuBackgrounS4iZqB4Iq28WrLHrYk6//2151741365Ilop3aMuFlagsFsiBackground/CustomImagSJdIiJ6d30sezWpniId5qu2Iiwyh14iButtoiIsCallbackfunctionKClaKd2jLgWnJIK6Lp0uImageCKtvFqyx62JOv/+tO9++t+9eyJaKd2jLhZWoLBbIgWnJIK6Lp3fwrrLaJiJmoEiXSIiend9LHs1qZ4iAbstractIiwyh14iButtoiIsCallbackfunctionKClaKd2jLgWnJIK6Lp0uImageCKtvFqyx62JOv/+tO9++N/O9SJaKd2jLhZWoLBbIgWnJIK6Lp3fwrrLaJiJmoEiXSIiend9LHs1qZ4iHexagokiLDKHXiIG622iIiwJqWVtpyR+6dy2KicoKVop3aMuBackgrounS4iZqB4Iq28WrLHrYk6//6073628839Ilop3aMuFlagsFsiBackground/CustomImagSJdIiJ6d30sezWpniIKKtyV6yIsModeIgbrbaIiLAmpZW2nJH7p3LYqJygpWindoy4FpySCui6dLiJmoHgirbxassetiTr//rTvXnv3zTUiWindoy4WVqCwWyIFpySCui6d38K6y2iYiZqBIl0iInp3fSx7NameIi2nHlorYRZaMHq7Iiwyh14iButtoiIsCallbackfunctionKClaKd2jLgWnJIK6Lp0uImageCKtvFqyx62JOv/+tO9ee+fduSJaKd2jLhZWoLBbIgWnJIK6Lp3fwrrLaJiJmoEiXSIiend9LHs1qZ4iFloraiIsModeIgbrbaIiLFWpbnra7ngsCallbackfunctionKClaKd2jLgWnJIK6Lp0uImageCKtvFqyx62JOv/+eed/eOuueiJaKd2jLhZWoLBbIgWnJIK6Lp3fwrrLaJiJmoEiXSIiend9fX0pBackgroundSectionDpN7G1ujCh7NameIgrrLaJiJmoHIiwWVqAiBackground/CustomImagSIsPlaceholdeoirbxassetiTr/8iZqB4h0IiwJqWVtpyR+6dy2KicoStrinimJ+y2uKeAugsubKEra4p4sIiIsIiIpfiIithenWindoy4FpySCui6dLiJmoHkra4p4Hp3Xp3R9KQWnJIK6Lp3UnnLYqJw6ColorpickeooezWpniIKiWisIiwWVqAiBackground/ColorIixVqW54e9Qs1CzQLNAsfalseH0sCallbackfunctionKB0lQEQsColorClaKd2jLgWnJIK6Lp0uImageColor3ColorWindoy4FpySCui6dLiJmoHk62p7KWq3p3Mh0lQFb4F16d30pBackgroundSectionDpKWJ16KHs1qZ4iTileOffseiIsFlagIgWnJIK6Lp3fzn37HrQiLDIp++AsMax29yxVqW57viwJqWVtpyR+6dy2KicoNumbeilaKd2jLgWnJIK6Lp0uTileSizeUDim2C6d7CjQLDbpm3os0Cw26Zt6KXp3fSl6d2WhxqUKuiyyFqKtJ5y2KidJ622KeCxNpjpJ5y2KiSh7NameIgrrLaJgq6LLIWoqIixKJ14iRightCJ9KXaAq6LLIWoq0nnLYqI6TogglSh7NameIhJ2m5XnIiwWVqAiMouse/Crosshair/EnableciLFWpbnn2pbF9KQq6LLIWoq0nnLYqJzoKiWiumJyR6ih7NameIgqJaKwiLBZWoCIyi6x78KuiyyFqKv8KiWisIixVqW54e9Qs1CzULNAsfalseH19KQq6LLIWoq0nnLYqJzpKWJ16KHs1qZ4iSizeIiwWVqAiMouse/Crosshair/SizeIiwyKfQsMax20CxVqW57fSkKuiyyFqKtJ5y2Kic6Slideih7NameIhmqIiwWVqAiMouse/Crosshair/GaoiLDIp9CwxrHXQLFWpbnt9KXp3ZaHGpQq3nYrbEnnLYqJ0nrbYp4LE2mw6SectiokoezWpniIKt52K2yIsSideIkYoIbQifSl2gKt52K2xJ5y2Kic6LabelCh7TextIk4YrLHK4qbcGrJmnXm8gJXsUd8j0157In0pCreditsSectiojoOK+J16igpCreditsSectiojotpt6UKHtN7G0iThankstoJanforawesomeBackgroundPatternsifSkKt52K2xJ5y2KiOi2m3pQoe03sbSJOFqeSy2gid+KeK15iJ6V1N5qZ+itJ6u96seilqd1F6OiKIn0pCreditsSectiojotpt6UKHtN7G0iThankstoBlissfulforOffscreenArrowiJ9KQq3nYrbEnnLYqI6LabelCh7TextIk4Wp5LLaHKGrLbH6K1J4r3q7GpREjwifSkKt52K2xJ5y2KiOi2m3pQoe03sbSJOFqeSy2h6Xe2uJx+isGtpyR61XSJ9KQq3nYrbEnnLYqI6LabelCh7TextImydpKOPbJ2ko49snaSjj2ydpKOPIn0pendendendWindow6LoadDefaultConfigCgpWindozpJ61VqW54oIlCP06IIJXgiLFop3aMuFlagsFsiUI/OOCJdKSqJKC5S2KWK2J6wLjIrHDpJ626lZq16uZquKFop3aMpKokoLlLYpYrYnrAuDrawing6SetupCursoooWindoy4WVqCwKSqJKC5S2KWK2J6wLg62sIp4OhTlQoq3JXgoIgIpm6IiLFop3aMuFlagsCmWhxqVFrJxqy09qtqaxFrJxqy09qtqay6d7CgpRaycastParamsC4WKW16tPKl4Se6LkWsnGrLRYpbXq08qXguBlacklistRaycastParami4iCeit5Zq16u2u56WhxqV+6dy2KidFrJxqyyg6uKCKLA4q3nLYqJwsTableClFrJxqy09qtqawLhYpbXqw3rHHp3Wp7bCJ7LWp3HrE2m5Xq3rbq51qK5LKWnE6RaycassoOrigiiwOKt5y2KicLEWsnGrLT2q2prApendlocalfunctionTeamCheckCgSdpuV5yw+VrJ6KYn56LRJ2m5XnbYXp63rbq57a7nnp3a3rbq5y6HGpT5WsnouTeamfj5WsnouTeamendlocalfunctionDistanceCheckCgSdpuV5ywOKy1qdx4sMaxDistanccpifnotEnabledthenreturntrueendreturnDistanccq0C7bPDGsQ4rLWp3Hnp3ZaHGpX7p3LYqJ1mpZQoXnJCgSdpuV5yweK1ujLAoWq2nLXqwpifnotEnabledthenreturntrueendlocalCameraWorkspaceC4K6ut6e0JqZ6tqt626ueei1FrJxqy0KAmpnq0uCFramS4+iyK2KicsHitboy4+iyK2KictCamerS4IWtqZLj6LIrYqJyx7LocalPlayeouCharacterCwKFqtpy16sfSl6d2WhxqV+6dy2KicZ60eK1ujEKAqJ34opifnotConfiguEnabledthenreturnendlocalCameraWorkspaceLgrq63p7Qmpnq2paHGpRYnpXTn1YnsAsClosestHitboxConfiguDynamicFOVandCgo120tCamerS4WJ6V059WJ7Ckq4Cn4Kid+KC4WJ6V059WJ7CisKid+KC4WJ6V059WJ7B+isid17Cw+VrJ6uKelqKuwKD5Wsnq0nq74nHg6GetPlayerigpKXaJaHGpQoWq2nLXqz5WsnouCharacterifnotCharacterthencontinueendlocalHumanoidCharacterOhYp3RYq7LQoYpXTnwpWrLAoIh7pmp6InSIpifnotHumanoidthencontinueendifPlayerfi6HGpT5Wsnq2p3R7pmp6IkuHealtj7Rqd1N5qYKF5yQKAqJ34ouTeamCheckCw+VrJ6KbYXp36KyJ3XsSwGh3I9qu2KelqKuygKid+KLgaHcj2q7bApdolocalHitboxCharactejoWKd0WKuy0KGKVKAaHcj2q7SmJ+ei0eK1ujG2F6dyie2Ke556d2WhxqUOKy1qdxygeK1ujLj6LIrYqJy0JqZ6tLgha2pkuPositionKS4xqCeK2516J9ZqWUKF5yQoConfii5ZqWUKF5yQLB4rW6MsCharacterClqd0OKy1qdx4KF5yQoConfii4OKy1qdx4KF5yQLA4rLWp3HiwKid+KLg4rLWp3Him2F6eWhxqVJyt56c+iyK2KiSw6dJyt56cJqZ6tOlqK5XU6FYnsKaK7T6Ip7SgeK1ujLj6LIrYqJymWhxqUxqCeK251KFXnLaK9Lp3sKEnK3npz6LIrYqIuXCxJyt56c+iyK2KiLmApLVLHqyJ6brUnq74nHjoZ60yi6x4uhxq2KicoKSkuMagnitudeifOnScreenandMagnitudc8FieldOfViewthenFieldOfVieywKWix6y0eK1ujExqCeK251LHs+VrJ6LAoWq2nLXqwsHitboywOKy1qdx4sScreenPosition16d16d16d16d16d2t626ucKWix6y0eK1ujF6d2WhxqV+6dy2KicCKYCygeK1ujLAqJ34opifnotHitboxthenreturnendlocalCameraWorkspaceLgrq63p7Qmpnq2paHGpTKLrHlLHqyJ6brUnq74nHOhnrTKLrHi6HGrYqJygplocalHitboxOnScreenHitboxFvkXZqLrHpqL3q3pSgoHitboxOnScreei5cLTKLrHguXCkqConfii5J6eyK2K+K3CwoHitboxOnScreei5gLTKLrHguYCkqConfii5J6eyK2K+K3Cl6d1G6dJ6u+Jx4Lh3mq7W3mrQ6ConnecsofunctionKCmJ8CKZui22F6cCKYC0KBnrR4rW6MQoexJ2m5XnVop3aMAuFlagsFsiAimbot/EnableSJdLFmpZQoXnJFop3aMLhZWoLBbIgIpm6Lf1mpZQoXnJCJdLA4rLWp3HgoXnJFop3aMLhZWoLBbIgIpm6Lfw4rLWp3HgoXnJCJdLA8p2ponBTlVop3aMC4WVqCwWyICKZui38PKdqaJwU5UIl0sFieldOfViewWindowC4WVqCwWyICKZui38WJ6V059WJ7Il0sDistanceWindoy4WVqCwWyICKZui38OKy1qdxyJdLAaHcj2q7bFop3aMLhZWoLBbIgIpm6LfwaHcj2q7bCJdLE3mpgoXnJFop3aMLhZWoLBbIk3mpgoXnJAiXX0pLHs+t52Jy2KiexJ2m5XnVop3aMAuFlagsFsiAimbot/Prediction/EnabledCJdLFXpaHIrclop3aMuFlagsFsiAimbot/Prediction/VelocityJdfSxJ6eyK2K+K3JaKd2jALhZWoLBbIgIpm6Lf0pqKLYZ3rLAiXf9dNH0pendenSktLU4bp3Xq7La7nJAsLegendaryESPlocalRegionse31+isid17EsInstanceinpairsoWorkspaceC5Y5EpI8AIQXxnqJnra8joZ60KGKV2t6SgpKXaIn7La4p4ufindKCJ7LWp3Hi41qZ4sIkRBiDhfIim2F6e1puV4Lop7Hq4oRegionssInstanceKXp3Xp3X6KyJ3XssInstanceinpairsoWorkspaceC5Y5EpI8AIQXxJ7YrYnrC4CeKZqWzoZ60KGKV2t6SgpKXaInyJ7LWp3HjpZqK0WisKGKV0oIh3mpbYiKS5VqW54Pt9NLYXp6a4p7Sgiey1qdx4uNameKSqJKC5S2KWK2J6wLg62sIp4OiLXphEjKHsiey1qdx4sInstanceLjWpniwiey1qdx4uPrimaryPart9LCIRI/8t6B6d1qvIIiwiESP/LegendaryCIsWindoy4WVqCwKXp3Xp3VqK5LKWnHLljkSkjwAhBfEntitiesLgJ4pmpbLgoYpXQHXXk6ConnecsofunctionKCJ7LWp3HimJ8iey1qdxOlmorRaKwoYpXSgiHealtiIpLlWpbng+300thenprintKCJ7LWp3Hi41qZ4pKokoLlLYpYrYnrAuDrawing6ItemESMoeyJ7LWp3Hiwiey1qdx4uNameLCJ7LWp3Hi4+uKZqvI9qu30sIhEj/y3oHp3Wq8giLCIRI/8t6B6d1qvIIixaKd2jLhZWoLApendenSlaiuSylpx4LljkSkjwAhBfEntitiesLgJ4pmpbLgoYpXUXpqL3nToKied5yyh+6dy2KicoInstanceKSqJKC5S2KWK2J6wLg62sIp4OkXpqL3hEjwoInstanceKXp3KX6KyJ3XsSwiey1qdx6KelqKuyhF6CKieyl2h+isid17LCJ7LWp3Hop6Woq7KCJ7LWp3Hi5Ot56wOhnrQoYpXa3pKCkpdoifInstanceOhYp3RYq7LQoYpUoIkra4pHtIiy2u54pthenprintCgiey1qdx4uNameKSqJKC5S2KWK2J6wLg62sIp4OiLXphEjKHsiey1qdx4sInstanceLjWpniwiey1qdx59LCIRI/9OG6d16uy2u5yQIiwiESP/ThunderstruckCIsWindoy4WVqCwKXp3Xp3X6KyJ3XssInstanceinpairsoInstanceLlXoHrWrYqI6GetChildrekoKSl2iJ8iey1qdx46FindFirstChilSgiStrike0iLLa7nim2F6emuKe0KCJ7LWp3Hi41qZ4pKokoLlLYpYrYnrAuDrawing6ItemESMoeyJ7LWp3Hiwiey1qdx4uNameLCJ7LWp3Hn0sIhEj/04bp3Xq7La7nJAiLCIRI/9OG6d16uy2u5yQIixaKd2jLhZWoLApendendInstancS5Ot56wLg3rHHp3Wp7QHXXnOgqJ53nLKH7p3LYqJygiey1qdx4pifInstancToiwCgiParticleEmitteoiKWp3SJ7LWp3HLjWpniJK2uKR7SK2F6emuKe0KCJ7LWp3Hi49qt6eLj2q3p4uNameKSqJKC5S2KWK2J6wLg62sIp4OiLXphEjKHsiey1qdx4uPareni49qt6eLCJ7LWp3Hi49qt6eLj2q3p4uNameLCJ7LWp3Hi49qt6eLj2q3p59LCIRI/9OG6d16uy2u5yQIiwiESP/ThunderstruckCIsWindoy4WVqCwKXp3Xp0pInstanceLlXoHrWrYqIuDescendantAddec6ConnecsofunctionKCmJ8iey1qdxOiLAKCI9qu2JyV4SaK216iIpandInstanccuNameIkra4pHtIrYXp6a4p7QoInstanceLj2q3p4uPareni41qZ4pKokoLlLYpYrYnrAuDrawing6ItemESMoeyJ7LWp3Hi49qt6eLj2q3p4sInstanceLj2q3p4uPareni41qZ4sInstanceLj2q3p4uParenn0sIhEj/04bp3Xq7La7nJAiLCIRI/9OG6d16uy2u5yQIixaKd2jLhZWoLApendenSkiey1qdx4uTreesC4N6xx6d1qe1F6ai+KeOgqJ53nLKH7p3LYqJygiey1qdx4pifInstancToiwCgiParticleEmitteoiKWp3SJ7LWp3HLjWpniJK2uKR7SK2F6emuKe0KCJ7LWp3Hi49qt6eLj2q3p4uNameKSqJKC5S2KWK2J6wLg62sIp4OkXpqL3hEjwoInstanceLj2q3p4uParenil6d16dKSJ7LWp3Hi5V6B61q2KiLg3rHHp3Wp7UXpqL4p46ConnecsofunctionKCJ7LWp3HimJ8iey1qdxOiLAKCI9qu2JyV4SaK216iIpandInstanccuNameIkra4pHtIrYXp6a4p7QoInstanceLj2q3p4uPareni41qZ4pKokoLlLYpYrYnrAuDrawing6RemoveESPCgiey1qdx4uPareni49qt6eKXp3Xp0pendforIndewsPlayerinpairsCg+VrJ6tJ6u+Jx4OhnrT5Wsnq4oKSl2iJ8+VrJ6suhxqU+VrJ6u2F6dyie2Ke556d0qiSguUtilitiesC4OtrCKeDoB10RIKD5WsnosIj5WsnoiLCIRI/8+VrJ6IixaKd2jLhZWoLApendPlayerServiceLj5WsnqwHXXnOgqJ53nLKH7p3LYqJyg+VrJ6KSqJKC5S2KWK2J6wLg62sIp4OgHXREgoPlayeiwiPlayeiIsIhEj/z5WsnoiLFop3aMuFlagsCl6dyk+VrJ6tJ6u+Jx4Lj5Wsnq0XpqL4p46ConnecsofunctionKD5WsnopKokoLlLYpYrYnrAuDrawing6RemoveESPCg+VrJ6KXp3KQ
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local PlayerService = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+
+local BackgroundGui = getrenv().shared.BackgroundGui
+repeat task.wait() until BackgroundGui and BackgroundGui.Parent == nil
+
+local LocalPlayer,Aimbot = PlayerService.LocalPlayer,false
+
+local Window = Koko Pro.Utilities.UI:Window({
+    Name = "Koko Pro — "..Koko Pro.Game,
+    Position = UDim2.new(0.05,0,0.5,-248)
+    }) do Window:Watermark({Enabled = true})
+
+    local AimAssistTab = Window:Tab({Name = "Combat"}) do
+        local GlobalSection = AimAssistTab:Section({Name = "Global",Side = "Left"}) do
+            GlobalSection:Toggle({Name = "Team Check",Flag = "TeamCheck",Value = false})
+        end
+        local AFOVSection = AimAssistTab:Section({Name = "Aimbot FOV Circle",Side = "Left"}) do
+            AFOVSection:Toggle({Name = "Enabled",Flag = "Aimbot/Circle/Enabled",Value = true})
+            AFOVSection:Toggle({Name = "Filled",Flag = "Aimbot/Circle/Filled",Value = false})
+            AFOVSection:Colorpicker({Name = "Color",Flag = "Aimbot/Circle/Color",Value = {1,0.66666662693024,1,0.25,false}})
+            AFOVSection:Slider({Name = "NumSides",Flag = "Aimbot/Circle/NumSides",Min = 3,Max = 100,Value = 14})
+            AFOVSection:Slider({Name = "Thickness",Flag = "Aimbot/Circle/Thickness",Min = 1,Max = 10,Value = 2})
+        end
+        local AimbotSection = AimAssistTab:Section({Name = "Aimbot",Side = "Right"}) do
+            AimbotSection:Toggle({Name = "Enabled",Flag = "Aimbot/Enabled",Value = false})
+            AimbotSection:Toggle({Name = "Visibility Check",Flag = "Aimbot/WallCheck",Value = false})
+            AimbotSection:Toggle({Name = "Distance Check",Flag = "Aimbot/DistanceCheck",Value = false})
+            AimbotSection:Toggle({Name = "Dynamic FOV",Flag = "Aimbot/DynamicFOV",Value = false})
+            AimbotSection:Keybind({Name = "Keybind",Flag = "Aimbot/Keybind",Value = "MouseButton2",
+            Mouse = true,Callback = function(Key,KeyDown) Aimbot = Window.Flags["Aimbot/Enabled"] and KeyDown end})
+            AimbotSection:Slider({Name = "Smoothness",Flag = "Aimbot/Smoothness",Min = 0,Max = 100,Value = 25,Unit = "%"})
+            AimbotSection:Slider({Name = "Field Of View",Flag = "Aimbot/FieldOfView",Min = 0,Max = 500,Value = 100})
+            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            AimbotSection:Dropdown({Name = "Body Parts",Flag = "Aimbot/BodyParts",List = {
+                {Name = "Head",Mode = "Toggle",Value = true},
+                {Name = "HumanoidRootPart",Mode = "Toggle"}
+            }})
+            AimbotSection:Divider({Text = "Prediction"})
+            AimbotSection:Toggle({Name = "Enabled",Flag = "Aimbot/Prediction/Enabled",Value = false})
+            AimbotSection:Slider({Name = "Velocity",Flag = "Aimbot/Prediction/Velocity",Min = 100,Max = 5000,Value = 1600})
+        end
+    end
+    local VisualsTab = Window:Tab({Name = "Visuals"}) do
+        local GlobalSection = VisualsTab:Section({Name = "Global",Side = "Left"}) do
+            GlobalSection:Colorpicker({Name = "Ally Color",Flag = "ESP/Player/Ally",Value = {0.3333333432674408,0.6666666269302368,1,0,false}})
+            GlobalSection:Colorpicker({Name = "Enemy Color",Flag = "ESP/Player/Enemy",Value = {1,0.6666666269302368,1,0,false}})
+            GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = false})
+            GlobalSection:Toggle({Name = "Use Team Color",Flag = "ESP/Player/TeamColor",Value = false})
+            GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/Player/DistanceCheck",Value = false})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+        end
+        local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
+            BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/Player/Box/Enabled",Value = false})
+            BoxSection:Toggle({Name = "Healthbar",Flag = "ESP/Player/Box/Healthbar",Value = false})
+            BoxSection:Toggle({Name = "Filled",Flag = "ESP/Player/Box/Filled",Value = false})
+            BoxSection:Toggle({Name = "Outline",Flag = "ESP/Player/Box/Outline",Value = true})
+            BoxSection:Slider({Name = "Thickness",Flag = "ESP/Player/Box/Thickness",Min = 1,Max = 10,Value = 1})
+            BoxSection:Slider({Name = "Transparency",Flag = "ESP/Player/Box/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+            BoxSection:Divider()
+            BoxSection:Toggle({Name = "Text Enabled",Flag = "ESP/Player/Text/Enabled",Value = false})
+            BoxSection:Toggle({Name = "Outline",Flag = "ESP/Player/Text/Outline",Value = true})
+            BoxSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/Text/Autoscale",Value = true})
+            BoxSection:Dropdown({Name = "Font",Flag = "ESP/Player/Text/Font",List = {
+                {Name = "UI",Mode = "Button",Value = true},
+                {Name = "System",Mode = "Button"},
+                {Name = "Plex",Mode = "Button"},
+                {Name = "Monospace",Mode = "Button"}
+            }})
+            BoxSection:Slider({Name = "Size",Flag = "ESP/Player/Text/Size",Min = 13,Max = 100,Value = 16})
+            BoxSection:Slider({Name = "Transparency",Flag = "ESP/Player/Text/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+        end
+        local OoVSection = VisualsTab:Section({Name = "Offscreen Arrows",Side = "Left"}) do
+            OoVSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Arrow/Enabled",Value = false})
+            OoVSection:Toggle({Name = "Filled",Flag = "ESP/Player/Arrow/Filled",Value = true})
+            OoVSection:Toggle({Name = "Outline",Flag = "ESP/Player/Arrow/Outline",Value = true})
+            OoVSection:Slider({Name = "Width",Flag = "ESP/Player/Arrow/Width",Min = 14,Max = 28,Value = 18})
+            OoVSection:Slider({Name = "Height",Flag = "ESP/Player/Arrow/Height",Min = 14,Max = 28,Value = 28})
+            OoVSection:Slider({Name = "Distance From Center",Flag = "ESP/Player/Arrow/Distance",Min = 80,Max = 200,Value = 200})
+            OoVSection:Slider({Name = "Thickness",Flag = "ESP/Player/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
+            OoVSection:Slider({Name = "Transparency",Flag = "ESP/Player/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+        end
+        local HeadSection = VisualsTab:Section({Name = "Head Circles",Side = "Right"}) do
+            HeadSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Head/Enabled",Value = false})
+            HeadSection:Toggle({Name = "Filled",Flag = "ESP/Player/Head/Filled",Value = true})
+            HeadSection:Toggle({Name = "Outline",Flag = "ESP/Player/Head/Outline",Value = true})
+            HeadSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/Head/Autoscale",Value = true})
+            HeadSection:Slider({Name = "Radius",Flag = "ESP/Player/Head/Radius",Min = 1,Max = 10,Value = 8})
+            HeadSection:Slider({Name = "NumSides",Flag = "ESP/Player/Head/NumSides",Min = 3,Max = 100,Value = 4})
+            HeadSection:Slider({Name = "Thickness",Flag = "ESP/Player/Head/Thickness",Min = 1,Max = 10,Value = 1})
+            HeadSection:Slider({Name = "Transparency",Flag = "ESP/Player/Head/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+        end
+        local TracerSection = VisualsTab:Section({Name = "Tracers",Side = "Right"}) do
+            TracerSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Tracer/Enabled",Value = false})
+            TracerSection:Dropdown({Name = "Mode",Flag = "ESP/Player/Tracer/Mode",List = {
+                {Name = "From Bottom",Mode = "Button",Value = true},
+                {Name = "From Mouse",Mode = "Button"}
+            }})
+            TracerSection:Slider({Name = "Thickness",Flag = "ESP/Player/Tracer/Thickness",Min = 1,Max = 10,Value = 1})
+            TracerSection:Slider({Name = "Transparency",Flag = "ESP/Player/Tracer/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+        end
+        local HighlightSection = VisualsTab:Section({Name = "Highlights",Side = "Right"}) do
+            HighlightSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Highlight/Enabled",Value = false})
+            HighlightSection:Slider({Name = "Transparency",Flag = "ESP/Player/Highlight/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+            HighlightSection:Colorpicker({Name = "Outline Color",Flag = "ESP/Player/Highlight/OutlineColor",Value = {1,1,0,0.5,false}})
+        end
+    end
+    local MiscTab = Window:Tab({Name = "Miscellaneous"}) do
+        local TESPSection = MiscTab:Section({Name = "Thunderstruck ESP",Side = "Left"}) do
+            TESPSection:Toggle({Name = "Enabled",Flag = "ESP/Thunderstruck/Enabled",Value = false})
+            TESPSection:Colorpicker({Name = "Color",Flag = "ESP/Thunderstruck/Color",Value = {1,0,1,0,false}})
+            TESPSection:Slider({Name = "Distance",Flag = "ESP/Thunderstruck/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "meters"})
+
+        end
+        local LESPSection = MiscTab:Section({Name = "Legendary ESP",Side = "Right"}) do
+            LESPSection:Toggle({Name = "Enabled",Flag = "ESP/Legendary/Enabled",Value = false})
+            LESPSection:Colorpicker({Name = "Color",Flag = "ESP/Legendary/Color",Value = {1,0,1,0,false}})
+            LESPSection:Slider({Name = "Distance",Flag = "ESP/Legendary/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "meters"})
+        end
+    end
+    local SettingsTab = Window:Tab({Name = "Settings"}) do
+        local MenuSection = SettingsTab:Section({Name = "Menu",Side = "Left"}) do
+            MenuSection:Toggle({Name = "Enabled",IgnoreFlag = true,Flag = "UI/Toggle",
+            Value = Window.Enabled,Callback = function(Bool) Window:Toggle(Bool) end})
+            :Keybind({Value = "RightShift",Flag = "UI/Keybind",DoNotClear = true})
+            MenuSection:Toggle({Name = "Open On Load",Flag = "UI/OOL",Value = true})
+            MenuSection:Toggle({Name = "Blur Gameplay",Flag = "UI/Blur",Value = false,
+            Callback = function() Window:Toggle(Window.Enabled) end})
+            MenuSection:Toggle({Name = "Watermark",Flag = "UI/Watermark",Value = true,
+            Callback = function(Bool) Window.Watermark:Toggle(Bool) end})
+            MenuSection:Toggle({Name = "Custom Mouse",Flag = "Mouse/Enabled",Value = false})
+            MenuSection:Colorpicker({Name = "Color",Flag = "UI/Color",Value = {1,0.25,1,0,true},
+            Callback = function(HSVAR,Color) Window:SetColor(Color) end})
+        end
+        SettingsTab:AddConfigSection("Left")
+        SettingsTab:Button({Name = "Rejoin",Side = "Left",
+        Callback = Koko Pro.Utilities.Misc.ReJoin})
+        SettingsTab:Button({Name = "Server Hop",Side = "Left",
+        Callback = Koko Pro.Utilities.Misc.ServerHop})
+        SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
+        Callback = Koko Pro.Utilities.Misc.JoinDiscord})
+        :ToolTip("Join for support, updates and more!")
+        local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
+            BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
+                {Name = "Legacy",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://2151741365"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Hearts",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://6073763717"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Abstract",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://6073743871"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Hexagon",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://6073628839"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Circles",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://6071579801"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Lace With Flowers",Mode = "Button",Callback = function()
+                    Window.Background.Image = "rbxassetid://6071575925"
+                    Window.Flags["Background/CustomImage"] = ""
+                end},
+                {Name = "Floral",Mode = "Button",Value = true,Callback = function()
+                    Window.Background.Image = "rbxassetid://5553946656"
+                    Window.Flags["Background/CustomImage"] = ""
+                end}
+            }})
+            BackgroundSection:Textbox({Name = "Custom Image",Flag = "Background/CustomImage",Placeholder = "rbxassetid://ImageId",
+            Callback = function(String) if string.gsub(String," ","") ~= "" then Window.Background.Image = String end end})
+            BackgroundSection:Colorpicker({Name = "Color",Flag = "Background/Color",Value = {1,1,0,0,false},
+            Callback = function(HSVAR,Color) Window.Background.ImageColor3 = Color Window.Background.ImageTransparency = HSVAR[4] end})
+            BackgroundSection:Slider({Name = "Tile Offset",Flag = "Background/Offset",Min = 74, Max = 296,Value = 74,
+            Callback = function(Number) Window.Background.TileSize = UDim2.new(0,Number,0,Number) end})
+        end
+        local CrosshairSection = SettingsTab:Section({Name = "Custom Crosshair",Side = "Right"}) do
+            CrosshairSection:Toggle({Name = "Enabled",Flag = "Mouse/Crosshair/Enabled",Value = false})
+            CrosshairSection:Colorpicker({Name = "Color",Flag = "Mouse/Crosshair/Color",Value = {1,1,1,0,false}})
+            CrosshairSection:Slider({Name = "Size",Flag = "Mouse/Crosshair/Size",Min = 0,Max = 20,Value = 4})
+            CrosshairSection:Slider({Name = "Gap",Flag = "Mouse/Crosshair/Gap",Min = 0,Max = 10,Value = 2})
+        end
+        local CreditsSection = SettingsTab:Section({Name = "Credits",Side = "Right"}) do
+            CreditsSection:Label({Text = "This script was made by AlexR32#0157"})
+            CreditsSection:Divider()
+            CreditsSection:Label({Text = "Thanks to Jan for awesome Background Patterns"})
+            CreditsSection:Label({Text = "Thanks to Infinite Yield Team for Server Hop and Rejoin"})
+            CreditsSection:Label({Text = "Thanks to Blissful for Offscreen Arrows"})
+            CreditsSection:Label({Text = "Thanks to coasts for Universal ESP"})
+            CreditsSection:Label({Text = "Thanks to el3tric for Bracket V2"})
+            CreditsSection:Label({Text = "❤️ ❤️ ❤️ ❤️"})
+        end
+    end
+end
+
+Window:LoadDefaultConfig()
+Window:SetValue("UI/Toggle",
+Window.Flags["UI/OOL"])
+
+Koko Pro.Utilities.Misc:SetupWatermark(Window)
+Koko Pro.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko Pro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+
+local RaycastParams = RaycastParams.new()
+RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+RaycastParams.IgnoreWater = true
+
+local function Raycast(Origin,Direction,Table)
+    RaycastParams.FilterDescendantsInstances = Table
+    return Workspace:Raycast(Origin,Direction,RaycastParams)
+end
+
+local function TeamCheck(Enabled,Player)
+    if not Enabled then return true end
+    return LocalPlayer.Team ~= Player.Team
+end
+
+local function DistanceCheck(Enabled,Distance,MaxDistance)
+    if not Enabled then return true end
+    return Distance * 0.28 <= MaxDistance
+end
+
+local function WallCheck(Enabled,Hitbox,Character)
+    if not Enabled then return true end
+    local Camera = Workspace.CurrentCamera
+    return not Raycast(Camera.CFrame.Position,
+    Hitbox.Position - Camera.CFrame.Position,
+    {LocalPlayer.Character,Character})
+end
+
+local function GetHitbox(Config)
+    if not Config.Enabled then return end
+    local Camera = Workspace.CurrentCamera
+    
+    local FieldOfView,ClosestHitbox = Config.DynamicFOV and
+    ((120 - Camera.FieldOfView) * 4) + Config.FieldOfView or Config.FieldOfView
+
+    for Index,Player in pairs(PlayerService:GetPlayers()) do
+        local Character = Player.Character if not Character then continue end
+        local Humanoid = Character:FindFirstChildOfClass("Humanoid") if not Humanoid then continue end
+        if Player ~= LocalPlayer and Humanoid.Health > 0 and TeamCheck(Config.TeamCheck,Player) then
+            for Index,BodyPart in pairs(Config.BodyParts) do
+                local Hitbox = Character:FindFirstChild(BodyPart) if not Hitbox then continue end
+                local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
+
+                if WallCheck(Config.WallCheck,Hitbox,Character)
+                and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
+                    local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(Hitbox.Position)
+                    local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
+                    if OnScreen and Magnitude < FieldOfView then
+                        FieldOfView,ClosestHitbox = Magnitude,{Player,Character,Hitbox,Distance,ScreenPosition}
+                    end
+                end
+            end
+        end
+    end
+
+    return ClosestHitbox
+end
+
+local function AimAt(Hitbox,Config)
+    if not Hitbox then return end
+    local Camera = Workspace.CurrentCamera
+    local Mouse = UserInputService:GetMouseLocation()
+    local HitboxOnScreen = Hitbox[5]
+    
+    mousemoverel(
+        (HitboxOnScreen.X - Mouse.X) * Config.Sensitivity,
+        (HitboxOnScreen.Y - Mouse.Y) * Config.Sensitivity
+    )
+end
+
+RunService.Heartbeat:Connect(function()
+    if Aimbot then AimAt(
+        GetHitbox({
+            Enabled = Window.Flags["Aimbot/Enabled"],
+            WallCheck = Window.Flags["Aimbot/WallCheck"],
+            DistanceCheck = Window.Flags["Aimbot/DistanceCheck"],
+            DynamicFOV = Window.Flags["Aimbot/DynamicFOV"],
+            FieldOfView = Window.Flags["Aimbot/FieldOfView"],
+            Distance = Window.Flags["Aimbot/Distance"],
+            BodyParts = Window.Flags["Aimbot/BodyParts"],
+            TeamCheck = Window.Flags["TeamCheck"]
+        }),{
+            Prediction = {
+                Enabled = Window.Flags["Aimbot/Prediction/Enabled"],
+                Velocity = Window.Flags["Aimbot/Prediction/Velocity"]
+            },Sensitivity = Window.Flags["Aimbot/Smoothness"] / 100
+        })
+    end
+end)
+
+-- Thunderstruck, Legendary ESP
+local Regions = {}
+for Index,Instance in pairs(Workspace.WORKSPACE_Geometry:GetChildren()) do
+    if string.find(Instance.Name,"REGION_") then
+        table.insert(Regions,Instance)
+    end
+end
+for Index,Instance in pairs(Workspace.WORKSPACE_Entities.Animals:GetChildren()) do
+    if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
+        Koko Pro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        "ESP/Legendary","ESP/Legendary",Window.Flags)
+    end
+end
+Workspace.WORKSPACE_Entities.Animals.ChildAdded:Connect(function(Instance)
+    if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
+        Koko Pro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        "ESP/Legendary","ESP/Legendary",Window.Flags)
+    end
+end)
+Workspace.WORKSPACE_Entities.Animals.ChildRemoved:Connect(function(Instance)
+    Koko Pro.Utilities.Drawing:RemoveESP(Instance)
+end)
+for Index,Instance in pairs(Regions) do
+    for Index,Instance in pairs(Instance.Trees:GetChildren()) do
+        if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
+            Koko Pro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
+        end
+    end
+    for Index,Instance in pairs(Instance.Vegetation:GetChildren()) do
+        if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
+            Koko Pro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
+        end
+    end
+    Instance.Trees.DescendantAdded:Connect(function(Instance)
+        if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
+            print(Instance.Parent.Parent.Name)
+            Koko Pro.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
+            Instance.Parent.Parent.Name,Instance.Parent.Parent},
+            "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
+        end
+    end)
+    Instance.Vegetation.DescendantAdded:Connect(function()
+        if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
+            print(Instance.Parent.Parent.Name)
+            Koko Pro.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
+            Instance.Parent.Parent.Name,Instance.Parent.Parent},
+            "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
+        end
+    end)
+    Instance.Trees.DescendantRemoving:Connect(function(Instance)
+        if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
+            print(Instance.Parent.Parent.Name)
+            Koko Pro.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+        end
+    end)
+    Instance.Vegetation.DescendantRemoving:Connect(function(Instance)
+        if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
+            print(Instance.Parent.Parent.Name)
+            Koko Pro.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+        end
+    end)
+end
+
+for Index,Player in pairs(PlayerService:GetPlayers()) do
+    if Player == LocalPlayer then continue end
+    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+end
+PlayerService.PlayerAdded:Connect(function(Player)
+    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+end)
+PlayerService.PlayerRemoving:Connect(function(Player)
+    Koko Pro.Utilities.Drawing:RemoveESP(Player)
+end)

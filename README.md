@@ -1,11 +1,11 @@
-# Koko [![Discord Shield]
+# Koko Pro [![Discord Shield](https://discordapp.com/api/guilds/958056630321303602/widget.png)](https://discord.gg/sYqDpbPYb7)
 Free Roblox Script Hub designed for shooters.  
-***Koko is still in beta stage of development so expect some bugs or lack of features.***  
-***Please fork if you want to modify this hub or make your own based on it.***  
-Made With :heart: By ***Salemmax***  
+***Koko Pro is still in beta stage of development so expect some bugs or lack of features.***  
+***Fork if you want to modify this hub or make your own based on it.***  
+Made With :heart: By ***AlexR32#0157***  
 ### Loadstring
 ```lua
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/gsharemedia/Koko/main/Loader.lua"))()
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/gsharemedia/Koko/main/"))()
 ```
 ### Supported Games
 - [Bad Business](https://www.roblox.com/games/3233893879/)
@@ -25,14 +25,14 @@ loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/gsharemedia/Koko
     - Team Check
     - Prediction
     - Body Parts (Priority)
-    - FoV Circle Customization
+    - FOV Circle Customization
   - Silent Aim
     - Visibility Check
     - Distance Check
     - Team Check
     - Hit Chance
     - Body Parts (Priority)
-    - FoV Circle Customization
+    - FOV Circle Customization
   - Trigger Bot
     - Features same as Aimbot
   - Visuals

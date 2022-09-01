@@ -1,1 +1,170 @@
-localTeleportServicegameOhnrUnq74nEoIk3pXqaK7Unq74nHIimWhxqUe22lJ6u+Jx6BqZ46GetServicSgiHttpServicciKZaHGpUbp0nq74nHoGpnOhnrUnq74nEoIkbp0nq74nEiKZaHGpT5Wsnq0nq74nHoGpk6GetServicSgiPlayersiKZaHGpS4oIbYp4IGpng6GetServicSgiLightingIimWhxqUKit4a6KBqZ46GetServicSgiCoreGugiKZaHGpUrWrbIGpk6GetServicSgiStatsCIplocalMiscHsN59q6W0uKCG2KeHsCZuJ6e0uKCG2KeC4CZuJ6eywGuKCG2d6ywuKCG2KeLga4oIbZ3rIsClockTimeLightingC4KWhyROKZ4LAqJaK0oYn5fBottomLightini4KiWitKGJ+XwaLbaIsColorShifl9OikuKCG2KeC4KiWitKGJ+X06KLBJ74q6J5np7Q4n37rHknGpXi4oIbYp4LhJ74q6J5np7Q4n37rHknGpXLBJ74q6J5np7UqXnLpWq0nGpXi4oIbYp4C4Se+KuieZ6e1Kl5y6VqtJxqV4sExposureCompensationLightingLhMaaLLq3gqJqXp7GrYqJywWiAKiWisuKCG2KeAuFogColorLBaIBJ3S4oIbYp4uFogEnSwWiBK1qu0uKCG2KeAuFogStartLBnqIK2qYYnC2rYrbnXi4oIbYp4uGeographicLatitudSwaWhtqVKFp2jCwuKCG2KeALhpaG2pUoWnaMLAsOutdoorAmbientLightini46612iisCZuJ6eLEoWnaMEqH7Z3rLC4oIbYp4uShadowSoftnesn19repeattasi7BqK0oKbp7YpUrWrYuNetwork6FindFirstChilSgiServerStatsItekiKZaHGpT4p4ErWrYuNetworkuServerStatsItelbIg2rWj4p4CJdlocalLocalPlayerPlayerServiceC4uhxqU+VrJ6uWhxqVF6q56yyizKdqd2zKcLq3qrnrLKaIohttpandhttourequessporrequestdolocalSetIdentitysynandsynLrHrX7Ya3mlfidentityorsetidentitylocalOldPluginManageiwx6yxqBy0tThankstoKiriot22taskLrKWsJwofunctionKClJ60h16e2K3CjYKZaHGpUrnHHrLCwSuuiulxqWKIHra3p7KCkuPluginManagerCkx6yxqB4Suuit6dyk6V0+W6CKcxqdqB6uGiiR+6dy2KicogetrensoKS4+W6CKcxqdqB6sLH7p3LYqJygpreturnerroooMessagcpencpendfunctionMisc6SetupFPSKCmWhxqVK1qu1OKZLE4pnk2m5XgsLastTimeoi5yWhyQKCkse32t626ud+6dy2KiKCktqy1OKZ6iLnJaHJAoKX6KyJ3XsSNOKZ5NpuV4LNQsLdXaE4pnk2m5Xlsid17H7V1OKZ5NpuV4WyJ3XsRdPi2rLU4pni3Vqd1OKZ5NpuV4WyJ3XsRdornilendTimeTableFvUXS2rLU4pnq3rbq56LC5yWhyQKCktStartTimeD7Vqd0jTimeTableoojTimeTableyiiLnJaHJAoKS1K1qu1OKZ4KXp3Xp3X7p3LYqJzIrE6HideObjecig5uN5yKYn4HrYborYXpzm43nIuParentgethuiKCmt626ud6d2J+zKdqd2zKcuprotectfguithensyi6mui15y1+C6Cg5uN5yKTm43nIuParentCoreGuireturnendendfunctionMiscDo17BOGt5p0uiikKFmorSwW6dy2KicptaskLrKWsJwofunctionKCnCGKV61qyQLsGorShZqK0pdolocalSuccesiwSuuiulxqWKBbp3LYqJymJ+ei1K5xx6yy2F6fBqucoIrYa3mnXq66KIi4uErrorCl6d16d16d0KXp3X7p3LYqJzIrHOkXiaIooKYkjPlayerServiceDoZ60+VrJ6uKCk81thenLocalPlayerOionJCgiXJyqJKB7m1ydF6OiKeKeLi4uIim1qyQuwaitKNAu5ClN6V6miu1J6u+JxzpN6V6miu0ogameLj5WnHiHKXpbHk3pXqaK7Unq74nHOk3pXqaK7U6D5WnHiJ7LWp3HKIGpni4+Vpx4hyyBqZ4uJobIdCl6d16d1+6dy2KicyKxOknq73qx6KQoKZaHGpUXqrnrLYGpnjoe22kZ60CzKdwoIobbabA6//gamesurobloy5yib+/X+BqZ6z8Ii4ugameLj5WnHiHLi4i/servers/Public/sortOrderAscJpYporddNCIplocalDataDecodedLEnq73q7B7baUnq74nE6JSONDecodShF6q56yykudataLHt9forIndexLEnq73qw2rWop4qWoq4oDataDecodecpdoiftypeKEnq73qw2rUpIrWm5XgiandServerDataC6JfoGpni4mhsh22F6e1puVLop7Hq4oServerssServerDatS6JKXp3Xp3YnyNJ6u96uz7S2F6dN6V6miu1J6u+Jx46TeleportToPlaceInstanccogameLj5WnHiHLEnq73q7W5mrYS6tqd2iKNQsI0nq73q7KV0pelseKokoLlLYpYrYnrAuUDo2i2J+Jxq2Kicoe04rZXgiKokoHuYiLA3rHK4qbYqJIgqLpXYntfindaserverIiwO6tq2KifkfSl6d16d1+6dy2KicyKxOiaIpw4rHKK3KClF6q56yyh7WyJSuSJdIobbaTr/+WhxqWGiyzrrjrf+ulw/vyIsWyIx62GhIl0iPOSTIixbIh3mnXq7Il17WyIKie16ey1PKl4iXSJqmmWJxq2Kif+OyiciLFsiOrigiiJdIobbabA6//discordC5yiSJ9LFsiBodyIl0e22lJ6u+JxzolI40Sdyh1KHtbInJnIl0iINVITF8FE5ZIRCIsWyKeidx4Il2y2uKeLpaMHqwoHttpServicc6GenerateGUIDKH2pbHgpKSxbImq4LCJde1sicodeIl0isYqDpbPYbyJ9fSl9KXp3X7p3LYqJzIrHOknrbqVmrXq5mq4oWindoymWhxqUZ60U9IyKxzpJ626kU9IoKUbp0nq74nEuHeartbeatDoKied5yyh+6dy2KicoKYn1op3aMC4WVqCwWyJQj9Zq16uZquQiXbYXp1op3aMuWatermarkDpJ61OK2V4ostrini5+iuZqKCIqiSge5iWwJYhT0iWIxCIsoi51q14oIiVcIiksGetFPSgpLJmrYS6ui6d0KD4p4DoZ61VqW54oKSkpKXp3Xp0pendfunctionMisc6SetupLightingCgWVqCwKZaHGpTpXTXsCJ3XsS4oIbYp4C4KFqeB5zoKied5yyh+6dy2KicoPropertyKS0tpcallCh+6dy2KicoKZaHGpRaK5mrXnT66KXq7coHrYYnXXp6a6KXq7coLightingLD66KXq7cimWhxqU2iuZqU+uil6u3KB62GJ116emuil6u3IoLightingLD66KXq7cimJ+3KlKBaK5mrXnT66KXq7cikinumbeiK2F6eJ8+uil6u3IhJ74q6J5np7UqXnLpWq0nGpXiKis+uil6u3IhJ74q6J5np7Q4n37rHknGpXIrYXpxaK5mrXnT66KXq7craJ7pm3qyiy2uKeLn6K5mooIiUu3SIsFormatedPropertyKSl6Wx4WiuZq150+uil6u3K2ie6Zt6sostrini5+iuZqKCIlLtkiLBaK5mrXnT66KXq7cikpendendifFormatedPropertyfiqJKC5S2KWK2J6wLlA6TableToColorKBZWoLBbIi4oIbYp4PwiLi4+uil6u3JdKWp3TaK5mpT66KXq7ch+MiscLg3n2rpbS4oIbYp4Wz66KXq7cl22F6cyKxwuDefaultLightinhbPropertyXTaK5mpT66KXq7cnp3Xp3SktLXp3KTpXTXsCJ3XsYaKJJnrWpnrYaHQogameLCJfX53sIp3XsSIsfunctionKEnpXywid17ELFWpbngpifcheckcallerCgpthenreturnOldNewIndexChJ6V8sIndexCxVqW54KXp3Yn0npXy4oIbYp4LYXpzIrHAuDefaultLightinhbIndexF1VqW556d2t626uc6V017Aid17EKEnpXywid17ELFWpbngpencpRunServicS4d5qu1t5q0OgqJ53nLKH7p3LYqJygpifFlagtbIi4oIbYp4PxJ2m5XnSJdthenforPropertwsValueinpairsKDIrHC4N59q6W0uKCG2KeCl2iWhxqUK6y2iZVqW54qiSLlLYpYrYnrAuUDpNpuV5OgKiWisoFlagsFsiLighting/CIuLj66KXq7cl0pLS2J8K6y2iZVqW54fp4pbYXp7HrYYnXXp6a6KXq7ciguKCG2KeAsPropertyLArrLaJlWpbnKXp3YnwrrLaJlWpbnn6eKW2F6cuKCG2KeFs+uil6u3JdCustomValueendendendencpendreturnMiscA
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+local PlayerService = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local CoreGui = game:GetService("CoreGui")
+local Stats = game:GetService("Stats")
+
+local Misc = {
+    DefaultLighting = {
+        Ambient = Lighting.Ambient,
+        Brightness = Lighting.Brightness,
+        ClockTime = Lighting.ClockTime,
+        ColorShift_Bottom = Lighting.ColorShift_Bottom,
+        ColorShift_Top = Lighting.ColorShift_Top,
+        EnvironmentDiffuseScale = Lighting.EnvironmentDiffuseScale,
+        EnvironmentSpecularScale = Lighting.EnvironmentSpecularScale,
+        ExposureCompensation = Lighting.ExposureCompensation,
+        FogColor = Lighting.FogColor,
+        FogEnd = Lighting.FogEnd,
+        FogStart = Lighting.FogStart,
+        GeographicLatitude = Lighting.GeographicLatitude,
+        GlobalShadows = Lighting.GlobalShadows,
+        OutdoorAmbient = Lighting.OutdoorAmbient,
+        ShadowSoftness = Lighting.ShadowSoftness
+    }
+}
+
+repeat task.wait() until
+Stats.Network:FindFirstChild("ServerStatsItem")
+local Ping = Stats.Network.ServerStatsItem["Data Ping"]
+
+local LocalPlayer = PlayerService.LocalPlayer
+local Request = (syn and syn.request)
+or (http and http.request) or request
+
+do local SetIdentity = syn and syn.set_thread_identity or setidentity
+local OldPluginManager,Message -- Thanks to Kiriot22
+task.spawn(function() SetIdentity(2)
+    local Success,Error = pcall(getrenv().PluginManager)
+    Message = Error
+end)
+OldPluginManager = hookfunction(getrenv().PluginManager, function()
+    return error(Message)
+end) end
+
+function Misc:SetupFPS()
+    local StartTime,TimeTable,
+    LastTime = os.clock(), {}
+    return function() LastTime = os.clock()
+        for Index = #TimeTable, 1, -1 do
+            TimeTable[Index + 1] = TimeTable[Index] >= LastTime - 1 and TimeTable[Index] or nil
+        end TimeTable[1] = LastTime
+        return os.clock() - StartTime >= 1 and #TimeTable or #TimeTable / (os.clock() - StartTime)
+    end
+end
+
+function Misc:HideObject(Object)
+    if gethui then Object.Parent = gethui() return end
+    if syn and syn.protect_gui then
+        syn.protect_gui(Object)
+        Object.Parent = CoreGui
+        return
+    end
+end
+
+function Misc:NewThreadLoop(Wait,Function)
+    task.spawn(function()
+        while task.wait(Wait) do
+            local Success, Error = pcall(Function)
+            if not Success then
+                warn("thread error " .. Error)
+            end
+        end
+    end)
+end
+
+function Misc:ReJoin()
+    if #PlayerService:GetPlayers() <= 1 then
+        LocalPlayer:Kick("\nKoko Pro Hub\nRejoining...")
+        task.wait(0.5) TeleportService:Teleport(game.PlaceId)
+    else
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
+    end
+end
+
+function Misc:ServerHop()
+    local Request = game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")
+    local DataDecoded,Servers = HttpService:JSONDecode(Request).data,{}
+    for Index,ServerData in ipairs(DataDecoded) do
+        if type(ServerData) == "table" and ServerData.id ~= game.JobId then
+            table.insert(Servers,ServerData.id)
+        end
+    end
+    if #Servers > 0 then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, Servers[math.random(1, #Servers)])
+    else
+        Koko Pro.Utilities.UI:Notification({
+            Title = "Koko Pro Hub",
+            Description = "Couldn't find a server",
+            Duration = 5
+        })
+    end
+end
+
+function Misc:JoinDiscord()
+    Request({
+        ["Url"] = "http://localhost:6463/rpc?v=1",
+        ["Method"] = "POST",
+        ["Headers"] = {
+            ["Content-Type"] = "application/json",
+            ["Origin"] = "https://discord.com"
+        },
+        ["Body"] = HttpService:JSONEncode({
+            ["cmd"] = "INVITE_BROWSER",
+            ["nonce"] = string.lower(HttpService:GenerateGUID(false)),
+            ["args"] = {
+                ["code"] = "sYqDpbPYb7"
+            }
+        })
+    })
+end
+
+function Misc:SetupWatermark(Window)
+    local GetFPS = Misc:SetupFPS()
+    RunService.Heartbeat:Connect(function()
+        if Window.Flags["UI/Watermark"] then
+            Window.Watermark:SetTitle(string.format(
+                "Koko Pro Hub    %s    %i FPS    %i MS",
+                os.date("%X"),GetFPS(),math.round(Ping:GetValue())
+            ))
+        end
+    end)
+end
+
+function Misc:SetupLighting(Flags) local OldNewIndex
+    Lighting.Changed:Connect(function(Property) --pcall(function()
+        local FormatedProperty = gethiddenproperty(Lighting,Property)
+        local NormalProperty = gethiddenproperty(Lighting,Property)
+        if type(FormatedProperty) == "number" then
+            if Property == "EnvironmentSpecularScale"
+            or Property == "EnvironmentDiffuseScale" then
+                FormatedProperty = tonumber(string.format("%.3f",FormatedProperty))
+            else FormatedProperty = tonumber(string.format("%.2f",FormatedProperty)) end
+        end
+        
+        if FormatedProperty ~= Koko Pro.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
+        and NormalProperty ~= Misc.DefaultLighting[Property] then
+            Misc.DefaultLighting[Property] = NormalProperty
+        end
+    end) --end)
+    
+    OldNewIndex = hookmetamethod(game,"__newindex",function(Self,Index,Value)
+        if checkcaller() then return OldNewIndex(Self,Index,Value) end
+        if Self == Lighting then Misc.DefaultLighting[Index] = Value end
+        return OldNewIndex(Self,Index,Value)
+    end)
+
+    RunService.Heartbeat:Connect(function()
+        if Flags["Lighting/Enabled"] then
+            for Property,Value in pairs(Misc.DefaultLighting) do
+                local CustomValue = Koko Pro.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
+                --if CustomValue ~= nil then sethiddenproperty(Lighting,Property,CustomValue) end
+                if CustomValue ~= nil then Lighting[Property] = CustomValue end
+            end
+        end
+    end)
+end
+
+return Misc
