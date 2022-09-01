@@ -14,7 +14,7 @@ local DrawingLibrary = {ESPContainer = {}}
 if not HighlightContainer then
     getgenv().HighlightContainer = Instance.new("Folder")
     HighlightContainer.Name = "HighlightContainer"
-    KokoPro.Utilities.Misc:HideObject(HighlightContainer)
+    Koko.Utilities.Misc:HideObject(HighlightContainer)
     --HighlightContainer.Parent = CoreGui
 end
 

@@ -19,8 +19,8 @@ local OCIFunction for Index,Function in pairs(getgc()) do
     end
 end if not OCIFunction then return end
 
-local Window = KokoPro.Utilities.UI:Window({
-    Name = "KokoPro — "..KokoPro.Game,
+local Window = Koko.Utilities.UI:Window({
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -179,11 +179,11 @@ local Window = KokoPro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ReJoin})
+        Callback = Koko.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ServerHop})
+        Callback = Koko.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.JoinDiscord})
+        Callback = Koko.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -246,12 +246,12 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-KokoPro.Utilities.Misc:SetupWatermark(Window)
-KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 
-KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 local RaycastParams = RaycastParams.new()
 RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
@@ -386,7 +386,7 @@ RunService.Heartbeat:Connect(function()
         }),{Sensitivity = Window.Flags["Aimbot/Smoothness"] / 100})
     end
 end)
-KokoPro.Utilities.Misc:NewThreadLoop(0,function()
+Koko.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
     local TriggerHitbox = GetHitbox({
         Enabled = Window.Flags["Trigger/Enabled"],
@@ -417,11 +417,11 @@ KokoPro.Utilities.Misc:NewThreadLoop(0,function()
 end)
 
 for Index,NPC in pairs(NPCFolder:GetChildren()) do
-    KokoPro.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
 end
 NPCFolder.ChildAdded:Connect(function(NPC)
-    KokoPro.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
 end)
 NPCFolder.ChildRemoved:Connect(function(NPC)
-    KokoPro.Utilities.Drawing:RemoveESP(NPC)
+    Koko.Utilities.Drawing:RemoveESP(NPC)
 end)

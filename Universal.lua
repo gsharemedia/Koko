@@ -7,8 +7,8 @@ local Lighting = game:GetService("Lighting")
 local LocalPlayer = PlayerService.LocalPlayer
 local Aimbot,SilentAim,Trigger = false,nil,nil
 
-local Window = KokoPro.Utilities.UI:Window({
-    Name = "KokoPro — "..KokoPro.Game,
+local Window = Koko.Utilities.UI:Window({
+    Name = "Koko Pro — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -164,7 +164,7 @@ local Window = KokoPro.Utilities.UI:Window({
         local LightingSection = VisualsTab:Section({Name = "Lighting",Side = "Right"}) do
             LightingSection:Toggle({Name = "Enabled",Flag = "Lighting/Enabled",Value = false,
             Callback = function(Bool) if Bool then return end
-                for Property,Value in pairs(KokoPro.Utilities.Misc.DefaultLighting) do
+                for Property,Value in pairs(Koko.Utilities.Misc.DefaultLighting) do
                     Lighting[Property] = Value
                 end
             end})
@@ -201,11 +201,11 @@ local Window = KokoPro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ReJoin})
+        Callback = Koko.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ServerHop})
+        Callback = Koko.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.JoinDiscord})
+        Callback = Koko.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -268,13 +268,13 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-KokoPro.Utilities.Misc:SetupWatermark(Window)
-KokoPro.Utilities.Misc:SetupLighting(Window.Flags)
-KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Misc:SetupLighting(Window.Flags)
+Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 
-KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 local RaycastParams = RaycastParams.new()
 RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
@@ -448,7 +448,7 @@ RunService.Heartbeat:Connect(function()
         })
     end
 end)
-KokoPro.Utilities.Misc:NewThreadLoop(0,function()
+Koko.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
     local TriggerHitbox = GetHitboxWithPrediction({
         Enabled = Window.Flags["Trigger/Enabled"],
@@ -492,11 +492,11 @@ end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    KokoPro.Utilities.Drawing:RemoveESP(Player)
+    Koko.Utilities.Drawing:RemoveESP(Player)
 end)

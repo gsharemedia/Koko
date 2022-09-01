@@ -8,8 +8,8 @@ repeat task.wait() until BackgroundGui and BackgroundGui.Parent == nil
 
 local LocalPlayer,Aimbot = PlayerService.LocalPlayer,false
 
-local Window = KokoPro.Utilities.UI:Window({
-    Name = "KokoPro — "..KokoPro.Game,
+local Window = Koko.Utilities.UI:Window({
+    Name = "Koko Pro — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -136,11 +136,11 @@ local Window = KokoPro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ReJoin})
+        Callback = Koko.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ServerHop})
+        Callback = Koko.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.JoinDiscord})
+        Callback = Koko.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -203,9 +203,9 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-KokoPro.Utilities.Misc:SetupWatermark(Window)
-KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
 
 local RaycastParams = RaycastParams.new()
 RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
@@ -305,36 +305,36 @@ for Index,Instance in pairs(Workspace.WORKSPACE_Geometry:GetChildren()) do
 end
 for Index,Instance in pairs(Workspace.WORKSPACE_Entities.Animals:GetChildren()) do
     if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
-        KokoPro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
         "ESP/Legendary","ESP/Legendary",Window.Flags)
     end
 end
 Workspace.WORKSPACE_Entities.Animals.ChildAdded:Connect(function(Instance)
     if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
-        KokoPro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
         "ESP/Legendary","ESP/Legendary",Window.Flags)
     end
 end)
 Workspace.WORKSPACE_Entities.Animals.ChildRemoved:Connect(function(Instance)
-    KokoPro.Utilities.Drawing:RemoveESP(Instance)
+    Koko.Utilities.Drawing:RemoveESP(Instance)
 end)
 for Index,Instance in pairs(Regions) do
     for Index,Instance in pairs(Instance.Trees:GetChildren()) do
         if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
-            KokoPro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end
     for Index,Instance in pairs(Instance.Vegetation:GetChildren()) do
         if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
-            KokoPro.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end
     Instance.Trees.DescendantAdded:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            KokoPro.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
+            Koko.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
             Instance.Parent.Parent.Name,Instance.Parent.Parent},
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
@@ -342,7 +342,7 @@ for Index,Instance in pairs(Regions) do
     Instance.Vegetation.DescendantAdded:Connect(function()
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            KokoPro.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
+            Koko.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
             Instance.Parent.Parent.Name,Instance.Parent.Parent},
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
@@ -350,24 +350,24 @@ for Index,Instance in pairs(Regions) do
     Instance.Trees.DescendantRemoving:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            KokoPro.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+            Koko.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
         end
     end)
     Instance.Vegetation.DescendantRemoving:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            KokoPro.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+            Koko.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
         end
     end)
 end
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    KokoPro.Utilities.Drawing:RemoveESP(Player)
+    Koko.Utilities.Drawing:RemoveESP(Player)
 end)

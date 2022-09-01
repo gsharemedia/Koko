@@ -117,28 +117,28 @@ local function ChooseTabSide(TabAsset,Mode)
 end
 
 local function GetConfigs()
-    if not isfolder("KokoPro") then makefolder("KokoPro") end
-    if not isfolder("KokoPro\\Configs") then makefolder("KokoPro\\Configs") end
-    if not isfile("KokoPro\\DefaultConfig.txt") then writefile("KokoPro\\DefaultConfig.txt","") end
+    if not isfolder("Koko") then makefolder("Koko") end
+    if not isfolder("Koko\\Configs") then makefolder("Koko\\Configs") end
+    if not isfile("Koko\\DefaultConfig.txt") then writefile("Koko\\DefaultConfig.txt","") end
 
     local Configs = {}
-    for Index,File in pairs(listfiles("KokoPro\\Configs") or {}) do
-        File = File:gsub("KokoPro\\Configs\\","")
+    for Index,File in pairs(listfiles("Koko\\Configs") or {}) do
+        File = File:gsub("Koko\\Configs\\","")
         File = File:gsub(".json","")
         Configs[Index] = File
     end
     return Configs
 end
 local function ConfigsToList()
-    if not isfolder("KokoPro") then makefolder("KokoPro") end
-    if not isfolder("KokoPro\\Configs") then makefolder("KokoPro\\Configs") end
-    if not isfile("KokoPro\\DefaultConfig.txt") then writefile("KokoPro\\DefaultConfig.txt","") end
+    if not isfolder("Koko") then makefolder("Koko") end
+    if not isfolder("Koko\\Configs") then makefolder("Koko\\Configs") end
+    if not isfile("Koko\\DefaultConfig.txt") then writefile("Koko\\DefaultConfig.txt","") end
     
     local Configs = {}
-    for Index,File in pairs(listfiles("KokoPro\\Configs") or {}) do
-        File = File:gsub("KokoPro\\Configs\\","")
+    for Index,File in pairs(listfiles("Koko\\Configs") or {}) do
+        File = File:gsub("Koko\\Configs\\","")
         File = File:gsub(".json","")
-        local DefaultConfig = readfile("KokoPro\\DefaultConfig.txt")
+        local DefaultConfig = readfile("Koko\\DefaultConfig.txt")
         Configs[Index] = {Name = File,Mode = "Button",
             Value = File == DefaultConfig}
     end
@@ -163,7 +163,7 @@ local function InitScreen()
     --[[if Debug then
         ScreenAsset.Parent = LocalPlayer.PlayerGui
     else
-        KokoPro.Utilities.Misc:HideObject(ScreenAsset)
+        Koko.Utilities.Misc:HideObject(ScreenAsset)
     end]]
     return {ScreenAsset = ScreenAsset}
 end
@@ -304,18 +304,18 @@ local function InitWindow(ScreenAsset,Window)
     function Window:SaveConfig(Name)
         local Config = {}
         if table.find(GetConfigs(),Name) then
-            Config = HttpService:JSONDecode(readfile("KokoPro\\Configs\\"..Name..".json"))
+            Config = HttpService:JSONDecode(readfile("Koko\\Configs\\"..Name..".json"))
         end
         for Index,Element in pairs(Window.Elements) do
             if not Element.IgnoreFlag then
                 Config[Element.Flag] = Window.Flags[Element.Flag]
             end
         end
-        writefile("KokoPro\\Configs\\"..Name..".json",HttpService:JSONEncode(Config))
+        writefile("Koko\\Configs\\"..Name..".json",HttpService:JSONEncode(Config))
     end
     function Window:LoadConfig(Name)
         if table.find(GetConfigs(),Name) then
-            local DecodedJSON = HttpService:JSONDecode(readfile("KokoPro\\Configs\\"..Name..".json"))
+            local DecodedJSON = HttpService:JSONDecode(readfile("Koko\\Configs\\"..Name..".json"))
             for Index,Element in pairs(Window.Elements) do
                 if DecodedJSON[Element.Flag] ~= nil then
                     Element:SetValue(DecodedJSON[Element.Flag])
@@ -325,25 +325,25 @@ local function InitWindow(ScreenAsset,Window)
     end
     function Window:DeleteConfig(Name)
         if table.find(GetConfigs(),Name) then
-            delfile("KokoPro\\Configs\\"..Name..".json")
+            delfile("Koko\\Configs\\"..Name..".json")
         end
     end
     function Window:GetDefaultConfig()
-        if not isfolder("KokoPro") then makefolder("KokoPro") end
-        if not isfolder("KokoPro\\Configs") then makefolder("KokoPro\\Configs") end
-        if not isfile("KokoPro\\DefaultConfig.txt") then writefile("KokoPro\\DefaultConfig.txt","") end
+        if not isfolder("Koko") then makefolder("Koko") end
+        if not isfolder("Koko\\Configs") then makefolder("Koko\\Configs") end
+        if not isfile("Koko\\DefaultConfig.txt") then writefile("Koko\\DefaultConfig.txt","") end
 
-        local DefaultConfig = readfile("KokoPro\\DefaultConfig.txt")
+        local DefaultConfig = readfile("Koko\\DefaultConfig.txt")
         if table.find(GetConfigs(),DefaultConfig) then
             return DefaultConfig
         end
     end
     function Window:LoadDefaultConfig()
-        if not isfolder("KokoPro") then makefolder("KokoPro") end
-        if not isfolder("KokoPro\\Configs") then makefolder("KokoPro\\Configs") end
-        if not isfile("KokoPro\\DefaultConfig.txt") then writefile("KokoPro\\DefaultConfig.txt","") end
+        if not isfolder("Koko") then makefolder("Koko") end
+        if not isfolder("Koko\\Configs") then makefolder("Koko\\Configs") end
+        if not isfile("Koko\\DefaultConfig.txt") then writefile("Koko\\DefaultConfig.txt","") end
 
-        local DefaultConfig = readfile("KokoPro\\DefaultConfig.txt")
+        local DefaultConfig = readfile("Koko\\DefaultConfig.txt")
         if table.find(GetConfigs(),DefaultConfig) then
             Window:LoadConfig(DefaultConfig)
         end
@@ -1264,13 +1264,13 @@ function Bracket:Window(Window)
                 ConfigSection:Button({Name = "Set",Callback = function()
                     if ConfigDropdown.Value and ConfigDropdown.Value[1] then
                         DefaultConfig = ConfigDropdown.Value[1]
-                        writefile("KokoPro\\DefaultConfig.txt",DefaultConfig)
+                        writefile("Koko\\DefaultConfig.txt",DefaultConfig)
                         ConfigDivider:SetText(
                         "Default Config\n<font color=\"rgb(189,189,189)\">[ "..DefaultConfig.." ]</font>")
                     end
                 end})
                 ConfigSection:Button({Name = "Clear",Callback = function()
-                    writefile("KokoPro\\DefaultConfig.txt","")
+                    writefile("Koko\\DefaultConfig.txt","")
                     ConfigDivider:SetText("Default Config")
                 end})
             end

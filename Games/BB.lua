@@ -7,7 +7,7 @@ local TeamService = game:GetService("Teams")
 
 if game.PlaceVersion > 1289 then
     local Loaded,PromptLib = false,loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR32/Roblox/main/PromptLibrary.lua"))()
-    PromptLib("Unsupported game version","You are at risk of getting autoban\nAre you sure you want to load KokoPro?",{
+    PromptLib("Unsupported game version","You are at risk of getting autoban\nAre you sure you want to load Koko?",{
         {Text = "Yes",LayoutOrder = 0,Primary = false,Callback = function() Loaded = true end},
         {Text = "No",LayoutOrder = 0,Primary = true,Callback = function() end}
     }) repeat task.wait(1) until Loaded
@@ -49,8 +49,8 @@ local BanReasons,BanCommands = {
     "Invoke"
 }
 
-local Window = KokoPro.Utilities.UI:Window({
-    Name = "KokoPro — "..KokoPro.Game,
+local Window = Koko.Utilities.UI:Window({
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -267,11 +267,11 @@ local Window = KokoPro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ReJoin})
+        Callback = Koko.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ServerHop})
+        Callback = Koko.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.JoinDiscord})
+        Callback = Koko.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -334,12 +334,12 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-KokoPro.Utilities.Misc:SetupWatermark(Window)
-KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 
-KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 do local SetIdentity = syn and syn.set_thread_identity or setidentity
 local OldNamecall,OldTaskSpawn,OldRandom,DontBlock
@@ -422,7 +422,7 @@ RaycastParams.IgnoreWater = true
 
 local Notify = Instance.new("BindableEvent")
 Notify.Event:Connect(function(Text)
-    KokoPro.Utilities.UI:Notification2(Text)
+    Koko.Utilities.UI:Notification2(Text)
 end)
 
 local function Raycast(Origin,Direction,Table)
@@ -656,7 +656,7 @@ local function AutoShoot(Hitbox,Enabled)
             Config.Projectile.Amount and Config.Projectile.Amount > 3)
             task.wait(60/CurrentFireMode.FireRate)
             if (OldAmmo - Ammo.Value) >= 1 then
-                KokoPro.Utilities.UI:Notification2({
+                Koko.Utilities.UI:Notification2({
                     Title = "Autoshoot | Hit " .. Hitbox[1].Name .. " | Remaining Ammo: " .. Ammo.Value,
                     Color = Color3.new(1,0.5,0.25),Duration = 3
                 })
@@ -668,7 +668,7 @@ local function AutoShoot(Hitbox,Enabled)
                 local Seconds = ReloadTime % 60
 
                 Tortoiseshell.Network:Fire("Item_Paintball","Reload",Weapon)
-                KokoPro.Utilities.UI:Notification2({
+                Koko.Utilities.UI:Notification2({
                     Title = "Autoshoot | Reloading | Approx Time: " .. string.format("%d sec. %d msec.",Seconds,Milliseconds),
                     Color = Color3.new(1,0.25,0.25),Duration = 3
                 }) task.wait(ReloadTime)
@@ -844,7 +844,7 @@ for Index,Event in pairs(Events) do
                         Title = "Anti-Kick | Rejoining in 10 secs",
                         Color = Color3.new(0.5,1,0.5),Duration = 10
                     }) task.wait(10)
-                    KokoPro.Utilities.Misc:ReJoin()
+                    Koko.Utilities.Misc:ReJoin()
                 end
             end
             return OldCallback(...)
@@ -898,7 +898,7 @@ RunService.Heartbeat:Connect(function()
         Material = Window.Flags["BadBusiness/ArmsCustom/Material"][1]
     })
 end)
-KokoPro.Utilities.Misc:NewThreadLoop(0,function()
+Koko.Utilities.Misc:NewThreadLoop(0,function()
     if not Window.Flags["BadBusiness/AutoShoot"] then return end
     AutoShoot(Window.Flags["BadBusiness/AutoShoot/AllFOV"]
     and GetHitboxAllFOV({
@@ -908,7 +908,7 @@ KokoPro.Utilities.Misc:NewThreadLoop(0,function()
         BodyParts = Window.Flags["SilentAim/BodyParts"]
     }) or SilentAim,Window.Flags["BadBusiness/AutoShoot"])
 end)
-KokoPro.Utilities.Misc:NewThreadLoop(0,function()
+Koko.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
     local TriggerHitbox = GetHitboxWithPrediction({
         Enabled = Window.Flags["Trigger/Enabled"],
@@ -940,7 +940,7 @@ KokoPro.Utilities.Misc:NewThreadLoop(0,function()
     end
 end)
 
-KokoPro.Utilities.Misc:NewThreadLoop(1,function()
+Koko.Utilities.Misc:NewThreadLoop(1,function()
     local Weapon,Config = GetEquippedWeapon()
     if Weapon and Config then
         if Config.Projectile and Config.Projectile.GravityCorrection then
@@ -951,11 +951,11 @@ end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    KokoPro.Utilities.Drawing:RemoveESP(Player)
+    Koko.Utilities.Drawing:RemoveESP(Player)
 end)

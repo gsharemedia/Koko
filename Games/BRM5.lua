@@ -29,8 +29,8 @@ local Teleports,TI,TI2 = {
 },TweenInfo.new(20,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,0,false,0),
 TweenInfo.new(5,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,0,false,0)
 
-local Window = KokoPro.Utilities.UI:Window({
-    Name = "KokoPro — "..KokoPro.Game,
+local Window = Koko.Utilities.UI:Window({
+    Name = "Koko Pro — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -316,7 +316,7 @@ local Window = KokoPro.Utilities.UI:Window({
                 EnableSwitch("fuel_r_r")
                 EnableSwitch("fuel_l_r")
                 Network:FireServer("CallInteraction", "Fire", "Canopy")
-                KokoPro.Utilities.UI:Notification({
+                Koko.Utilities.UI:Notification({
                     Title = "Aircraft thingy",
                     Description = "Please wait till your engines start up, you dont need to touch anything",
                     Duration = 30
@@ -363,11 +363,11 @@ local Window = KokoPro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ReJoin})
+        Callback = Koko.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.ServerHop})
+        Callback = Koko.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = KokoPro.Utilities.Misc.JoinDiscord})
+        Callback = Koko.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -436,12 +436,12 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-KokoPro.Utilities.Misc:SetupWatermark(Window)
-KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
+Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 
-KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-KokoPro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 local RaycastParams = RaycastParams.new()
 RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
@@ -958,7 +958,7 @@ RunService.RenderStepped:Connect(function()
         Lighting.OutdoorAmbient = Color3.new(1,1,1)
     end
 end)
-KokoPro.Utilities.Misc:NewThreadLoop(0,function()
+Koko.Utilities.Misc:NewThreadLoop(0,function()
     local Press = Window.Flags["Trigger/RMBMode"] and mouse2press or mouse1press
     local Release = Window.Flags["Trigger/RMBMode"] and mouse2release or mouse1release
 
@@ -998,22 +998,22 @@ KokoPro.Utilities.Misc:NewThreadLoop(0,function()
 end)
 
 for Index,NPC in pairs(NPCFolder:GetChildren()) do
-    KokoPro.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
 end
 NPCFolder.ChildAdded:Connect(function(NPC)
-    KokoPro.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
 end)
 NPCFolder.ChildRemoved:Connect(function(NPC)
-    KokoPro.Utilities.Drawing:RemoveESP(NPC)
+    Koko.Utilities.Drawing:RemoveESP(NPC)
 end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Koko.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    KokoPro.Utilities.Drawing:RemoveESP(Player)
+    Koko.Utilities.Drawing:RemoveESP(Player)
 end)

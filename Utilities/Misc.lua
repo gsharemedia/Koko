@@ -77,7 +77,7 @@ end
 
 function Misc:ReJoin()
     if #PlayerService:GetPlayers() <= 1 then
-        LocalPlayer:Kick("\nKokoPro Hub\nRejoining...")
+        LocalPlayer:Kick("\nKoko Pro\nRejoining...")
         task.wait(0.5) TeleportService:Teleport(game.PlaceId)
     else
         TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
@@ -95,8 +95,8 @@ function Misc:ServerHop()
     if #Servers > 0 then
         TeleportService:TeleportToPlaceInstance(game.PlaceId, Servers[math.random(1, #Servers)])
     else
-        KokoPro.Utilities.UI:Notification({
-            Title = "KokoPro Hub",
+        Koko.Utilities.UI:Notification({
+            Title = "Koko Pro",
             Description = "Couldn't find a server",
             Duration = 5
         })
@@ -126,7 +126,7 @@ function Misc:SetupWatermark(Window)
     RunService.Heartbeat:Connect(function()
         if Window.Flags["UI/Watermark"] then
             Window.Watermark:SetTitle(string.format(
-                "KokoPro Hub    %s    %i FPS    %i MS",
+                "Koko Pro    %s    %i FPS    %i MS",
                 os.date("%X"),GetFPS(),math.round(Ping:GetValue())
             ))
         end
@@ -144,7 +144,7 @@ function Misc:SetupLighting(Flags) local OldNewIndex
             else FormatedProperty = tonumber(string.format("%.2f",FormatedProperty)) end
         end
         
-        if FormatedProperty ~= KokoPro.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
+        if FormatedProperty ~= Koko.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
         and NormalProperty ~= Misc.DefaultLighting[Property] then
             Misc.DefaultLighting[Property] = NormalProperty
         end
@@ -159,7 +159,7 @@ function Misc:SetupLighting(Flags) local OldNewIndex
     RunService.Heartbeat:Connect(function()
         if Flags["Lighting/Enabled"] then
             for Property,Value in pairs(Misc.DefaultLighting) do
-                local CustomValue = KokoPro.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
+                local CustomValue = Koko.Utilities.UI:TableToColor(Flags["Lighting/"..Property])
                 --if CustomValue ~= nil then sethiddenproperty(Lighting,Property,CustomValue) end
                 if CustomValue ~= nil then Lighting[Property] = CustomValue end
             end
