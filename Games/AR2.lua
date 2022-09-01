@@ -73,8 +73,8 @@ Network.Fetch = function(Self,...)
     end return OldFetch(Self,...)
 end]]
 
-local Window = Koko Pro.Utilities.UI:Window({
-    Name = "Koko Pro — "..Koko Pro.Game,
+local Window = KokoPro.Utilities.UI:Window({
+    Name = "KokoPro — "..KokoPro.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -219,7 +219,7 @@ local Window = Koko Pro.Utilities.UI:Window({
         local LightingSection = VisualsTab:Section({Name = "Lighting",Side = "Right"}) do
             LightingSection:Toggle({Name = "Enabled",Flag = "Lighting/Enabled",Value = false,
             Callback = function(Bool) if Bool then return end
-                for Property,Value in pairs(Koko Pro.Utilities.Misc.DefaultLighting) do
+                for Property,Value in pairs(KokoPro.Utilities.Misc.DefaultLighting) do
                     Lighting[Property] = Value
                 end
             end})
@@ -335,11 +335,11 @@ local Window = Koko Pro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.ReJoin})
+        Callback = KokoPro.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.ServerHop})
+        Callback = KokoPro.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.JoinDiscord})
+        Callback = KokoPro.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -412,13 +412,13 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-Koko Pro.Utilities.Misc:SetupWatermark(Window)
-Koko Pro.Utilities.Misc:SetupLighting(Window.Flags)
-Koko Pro.Utilities.Drawing:SetupCursor(Window.Flags)
+KokoPro.Utilities.Misc:SetupWatermark(Window)
+KokoPro.Utilities.Misc:SetupLighting(Window.Flags)
+KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
 
-Koko Pro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
-Koko Pro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
-Koko Pro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
+KokoPro.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
+KokoPro.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
+KokoPro.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
 local RaycastParams1 = RaycastParams.new()
 RaycastParams1.FilterType = Enum.RaycastFilterType.Blacklist
@@ -775,7 +775,7 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
-Koko Pro.Utilities.Misc:NewThreadLoop(0,function()
+KokoPro.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
     local TriggerHitbox = GetHitboxWithPrediction({
         Enabled = Window.Flags["Trigger/Enabled"],
@@ -808,13 +808,13 @@ Koko Pro.Utilities.Misc:NewThreadLoop(0,function()
         end mouse1release()
     end
 end)
-Koko Pro.Utilities.Misc:NewThreadLoop(0,function()
+KokoPro.Utilities.Misc:NewThreadLoop(0,function()
     PlayerFly({
         Enabled = Window.Flags["AR2/Fly/Enabled"],
         Speed = Window.Flags["AR2/Fly/Speed"]
     })
 end)
-Koko Pro.Utilities.Misc:NewThreadLoop(1,function()
+KokoPro.Utilities.Misc:NewThreadLoop(1,function()
     if not Window.Flags["AR2/ESP/Items/Containers/Enabled"] then return end
     local Items = GetItemsAllFOV({Distance = 100})
 
@@ -834,7 +834,7 @@ end)
 for Index,Item in pairs(Loot:GetDescendants()) do
     local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
     if Item:IsA("Model") and ItemData then --print(ItemData.Parent.Name)
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Item.Parent,Item.Parent.Name,Item.Parent.Value.Position},
             "AR2/ESP/Items","AR2/ESP/Items/"..ItemData.Parent.Name,Window.Flags
         )
@@ -842,21 +842,21 @@ for Index,Item in pairs(Loot:GetDescendants()) do
 end
 for Index,Place in pairs(Randoms:GetChildren()) do
     if table.find(Places,Place.Name) then --print(Place.Name)
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Place,Place.Name,Place.Value.Position},
             "AR2/ESP/RandomPlaces","AR2/ESP/RandomPlaces",Window.Flags
         )
     end
 end
 for Index,Vehicle in pairs(Vehicles:GetChildren()) do
-    Koko Pro.Utilities.Drawing:ItemESP(
+    KokoPro.Utilities.Drawing:ItemESP(
         {Vehicle,Vehicle.Name,Vehicle.PrimaryPart},
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
 end
 for Index,Zombie in pairs(Zombies:GetChildren()) do
     if string.match(Zombie.Name,"Unique") then
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Zombie,Zombie.Name,Zombie.PrimaryPart},
             "AR2/ESP/Zombies","AR2/ESP/Zombies",Window.Flags
         )
@@ -866,7 +866,7 @@ end
 Loot.DescendantAdded:Connect(function(Item)
     local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
     if Item:IsA("Model") and ItemData then --print(ItemData.Parent.Name)
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Item.Parent,Item.Parent.Name,Item.Parent.Value.Position},
             "AR2/ESP/Items","AR2/ESP/Items/"..ItemData.Parent.Name,Window.Flags
         )
@@ -874,12 +874,12 @@ Loot.DescendantAdded:Connect(function(Item)
 end)
 Randoms.ChildAdded:Connect(function(Place)
     if table.find(Places,Place.Name) then --print(Place.Name)
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Place,Place.Name,Place.Value.Position},
             "AR2/ESP/RandomPlaces","AR2/ESP/RandomPlaces",Window.Flags
         )
         if Window.Flags["AR2/ESP/RandomPlaces/Enabled"] then
-            Koko Pro.Utilities.UI:Notification2({
+            KokoPro.Utilities.UI:Notification2({
                 Title = string.format("%s spawned (~%i meters away)",Place.Name,
                 GetDistanceFromCamera(Place.Value.Position) * 0.28),Duration = 20
             })
@@ -888,7 +888,7 @@ Randoms.ChildAdded:Connect(function(Place)
 end)
 Vehicles.ChildAdded:Connect(function(Vehicle)
     repeat task.wait() until Vehicle.PrimaryPart
-    Koko Pro.Utilities.Drawing:ItemESP(
+    KokoPro.Utilities.Drawing:ItemESP(
         {Vehicle,Vehicle.Name,Vehicle.PrimaryPart},
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
@@ -896,7 +896,7 @@ end)
 Zombies.ChildAdded:Connect(function(Zombie)
     repeat task.wait() until Zombie.PrimaryPart
     if string.match(Zombie.Name,"Unique") then
-        Koko Pro.Utilities.Drawing:ItemESP(
+        KokoPro.Utilities.Drawing:ItemESP(
             {Zombie,Zombie.Name,Zombie.PrimaryPart},
             "AR2/ESP/Zombies","AR2/ESP/Zombies",Window.Flags
         )
@@ -905,41 +905,41 @@ end)
 
 Loot.DescendantRemoving:Connect(function(Item)
     if Item:IsA("Model") then
-        Koko Pro.Utilities.Drawing:RemoveESP(Item.Parent)
+        KokoPro.Utilities.Drawing:RemoveESP(Item.Parent)
     end
 end)
 Randoms.ChildRemoved:Connect(function(Place)
-    Koko Pro.Utilities.Drawing:RemoveESP(Place)
+    KokoPro.Utilities.Drawing:RemoveESP(Place)
 end)
 Vehicles.ChildRemoved:Connect(function(Vehicle)
-    Koko Pro.Utilities.Drawing:RemoveESP(Vehicle)
+    KokoPro.Utilities.Drawing:RemoveESP(Vehicle)
 end)
 Zombies.ChildRemoved:Connect(function(Zombie)
-    Koko Pro.Utilities.Drawing:RemoveESP(Zombie)
+    KokoPro.Utilities.Drawing:RemoveESP(Zombie)
 end)
 
 local OldICA, OldCC = Events["Inventory Container Added\r"], Events["Container Changed\r"]
 Events["Inventory Container Added\r"] = function(Id,Data,...)
     if Data.WorldPosition and Length(Data.Occupants) > 0 and not string.find(Data.Type,"Corpse") then
-        Koko Pro.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
+        KokoPro.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
         "AR2/ESP/Items","AR2/ESP/Items/Containers",Window.Flags)
     end return OldICA(Id,Data,...)
 end
 Events["Container Changed\r"] = function(Data,...)
-    Koko Pro.Utilities.Drawing:RemoveESP(Data.Id)
+    KokoPro.Utilities.Drawing:RemoveESP(Data.Id)
     if Data.WorldPosition and Length(Data.Occupants) > 0 and not string.find(Data.Type,"Corpse") then
-        Koko Pro.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
+        KokoPro.Utilities.Drawing:ItemESP({Data.Id,CIIC(Data),Data.WorldPosition},
         "AR2/ESP/Items","AR2/ESP/Items/Containers",Window.Flags)
     end return OldCC(Data,...)
 end
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    Koko Pro.Utilities.Drawing:RemoveESP(Player)
+    KokoPro.Utilities.Drawing:RemoveESP(Player)
 end)

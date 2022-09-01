@@ -5,8 +5,8 @@ local Workspace = game:GetService("Workspace")
 
 local LocalPlayer = PlayerService.LocalPlayer
 
-local Window = Koko Pro.Utilities.UI:Window({
-    Name = "Koko Pro — "..Koko Pro.Game,
+local Window = KokoPro.Utilities.UI:Window({
+    Name = "KokoPro — "..KokoPro.Game,
     Position = UDim2.new(0.05,0,0.5,-173),
     Size = UDim2.new(0,346,0,346)
     }) do Window:Watermark({Enabled = true})
@@ -80,11 +80,11 @@ local Window = Koko Pro.Utilities.UI:Window({
         end
         SettingsTab:AddConfigSection("Left")
         SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.ReJoin})
+        Callback = KokoPro.Utilities.Misc.ReJoin})
         SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.ServerHop})
+        Callback = KokoPro.Utilities.Misc.ServerHop})
         SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko Pro.Utilities.Misc.JoinDiscord})
+        Callback = KokoPro.Utilities.Misc.JoinDiscord})
         :ToolTip("Join for support, updates and more!")
         local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
             BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
@@ -147,8 +147,8 @@ Window:LoadDefaultConfig()
 Window:SetValue("UI/Toggle",
 Window.Flags["UI/OOL"])
 
-Koko Pro.Utilities.Misc:SetupWatermark(Window)
-Koko Pro.Utilities.Drawing:SetupCursor(Window.Flags)
+KokoPro.Utilities.Misc:SetupWatermark(Window)
+KokoPro.Utilities.Drawing:SetupCursor(Window.Flags)
 
 local MaxVector = Vector3.new(math.huge,math.huge,math.huge)
 local BodyVelocity = Instance.new("BodyVelocity")
@@ -262,11 +262,11 @@ end)]]
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    Koko Pro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    KokoPro.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    Koko Pro.Utilities.Drawing:RemoveESP(Player)
+    KokoPro.Utilities.Drawing:RemoveESP(Player)
 end)
