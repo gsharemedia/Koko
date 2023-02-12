@@ -1,36 +1,43 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local PlayerService = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
 
 repeat task.wait() until Workspace:FindFirstChild("Bots")
+local Packages = ReplicatedStorage:WaitForChild("Packages")
 local Events = ReplicatedStorage:WaitForChild("Events")
 local RemoteEvent = Events:WaitForChild("RemoteEvent")
 
+local Camera = Workspace.CurrentCamera
 local LocalPlayer = PlayerService.LocalPlayer
-local Aimbot,SilentAim,NPCFolder,Network,
-GroundTip,AircraftTip,PredictedVelocity
-= false,nil,Workspace.Bots,{},nil,nil,1000
-local NoClipEvent
+local SilentAim,Aimbot,Trigger = nil,false,false
 
-local Teleports,TI,TI2 = {
-    ["Forward Operating Base"] = Vector3.new(-4004.792, 64.188, 808.497),
-    ["Ronograd City"] = Vector3.new(3814.537, 176.622, -160.004),
-    ["El Chara"] = Vector3.new(-4789.463, 107.638, 5298.004),
-    ["Communications Tower"] = Vector3.new(-1487.503, 809.622, -4416.927),
-    ["Naval Docks"] = Vector3.new(6167.5, 129.622, 2092),
-    ["Quarry"] = Vector3.new(272.762, 85.563, 2208.969),
-    ["Department of Utilities"] = Vector3.new(1176.5, 60.247, -5206),
-    ["Fort Ronograd"] = Vector3.new(6269.501, 185.632, -1232.474),
-    ["Vietnama Village"] = Vector3.new(539.497, 117.622, -358.074)
-},TweenInfo.new(20,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,0,false,0),
-TweenInfo.new(5,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,0,false,0)
+local ProjectileSpeed,ProjectileGravity,GravityCorrection
+= 1000,Vector3.new(0,Workspace.Gravity,0),2
+
+local NPCFolder,Network,GroundTip,AircraftTip
+= Workspace.Bots,{},nil,nil
+
+local Teleports,NoClipEvent,NoClipObjects,WhiteColor,RaycastFolder,Squads = {
+    {"Forward Operating Base",Vector3.new(-3962.565, 64.188, 805.001)},
+    {"Communications Tower",Vector3.new(-1487.503, 809.622, -4416.927)},
+    {"Department of Utilities",Vector3.new(306.193, 62.148, -3153.789)},
+    {"Vietnama Village",Vector3.new(737.021, 117.422, -97.472)},
+    {"Fort Ronograd",Vector3.new(6269.501, 185.632, -1232.474)},
+    {"Ronograd City",Vector3.new(3536.074, 175.622, 1099.497)},
+    {"Sochraina City",Vector3.new(-918, 73.622, 4178.497)},
+    {"El Chara",Vector3.new(-4789.463, 107.638, 5298.004)},
+    {"Naval Docks",Vector3.new(6167.5, 129.622, 2092)},
+    {"Quarry",Vector3.new(272.762, 85.563, 2208.969)},
+},nil,{},Color3.new(1,1,1),Workspace:FindFirstChild("Raycast"),nil
+
+local Server = require(Packages:WaitForChild("server"))
+local ServerSettings = getupvalue(Server.Get,1)
 
 local Window = Koko.Utilities.UI:Window({
-    Name = "Koko Pro — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
@@ -49,7 +56,7 @@ local Window = Koko.Utilities.UI:Window({
             Mouse = true,Callback = function(Key,KeyDown) Aimbot = Window.Flags["Aimbot/Enabled"] and KeyDown end})
             AimbotSection:Slider({Name = "Smoothness",Flag = "Aimbot/Smoothness",Min = 0,Max = 100,Value = 25,Unit = "%"})
             AimbotSection:Slider({Name = "Field Of View",Flag = "Aimbot/FieldOfView",Min = 0,Max = 500,Value = 100})
-            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             AimbotSection:Dropdown({Name = "Body Parts",Flag = "Aimbot/BodyParts",List = {
                 {Name = "Head",Mode = "Toggle",Value = true},
                 {Name = "HumanoidRootPart",Mode = "Toggle"}
@@ -78,7 +85,7 @@ local Window = Koko.Utilities.UI:Window({
             SilentAimSection:Toggle({Name = "Dynamic FOV",Flag = "SilentAim/DynamicFOV",Value = false})
             SilentAimSection:Slider({Name = "Hit Chance",Flag = "SilentAim/HitChance",Min = 0,Max = 100,Value = 100,Unit = "%"})
             SilentAimSection:Slider({Name = "Field Of View",Flag = "SilentAim/FieldOfView",Min = 0,Max = 500,Value = 100})
-            SilentAimSection:Slider({Name = "Distance",Flag = "SilentAim/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            SilentAimSection:Slider({Name = "Distance",Flag = "SilentAim/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             SilentAimSection:Dropdown({Name = "Body Parts",Flag = "SilentAim/BodyParts",List = {
                 {Name = "Head",Mode = "Toggle",Value = true},
                 {Name = "HumanoidRootPart",Mode = "Toggle"}
@@ -101,7 +108,7 @@ local Window = Koko.Utilities.UI:Window({
             TriggerSection:Keybind({Name = "Keybind",Flag = "Trigger/Keybind",Value = "MouseButton2",
             Mouse = true,Callback = function(Key,KeyDown) Trigger = Window.Flags["Trigger/Enabled"] and KeyDown end})
             TriggerSection:Slider({Name = "Field Of View",Flag = "Trigger/FieldOfView",Min = 0,Max = 500,Value = 25})
-            TriggerSection:Slider({Name = "Distance",Flag = "Trigger/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            TriggerSection:Slider({Name = "Distance",Flag = "Trigger/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             TriggerSection:Slider({Name = "Delay",Flag = "Trigger/Delay",Min = 0,Max = 1,Precise = 2,Value = 0.15})
             TriggerSection:Toggle({Name = "Hold Mode",Flag = "Trigger/HoldMode",Value = false})
             TriggerSection:Toggle({Name = "Switch To RMB",Flag = "Trigger/RMBMode",Value = false})
@@ -115,10 +122,10 @@ local Window = Koko.Utilities.UI:Window({
         local GlobalSection = VisualsTab:Section({Name = "Global",Side = "Left"}) do
             GlobalSection:Colorpicker({Name = "Ally Color",Flag = "ESP/Player/Ally",Value = {0.3333333432674408,0.6666666269302368,1,0,false}})
             GlobalSection:Colorpicker({Name = "Enemy Color",Flag = "ESP/Player/Enemy",Value = {1,0.6666666269302368,1,0,false}})
-            GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = false})
+            GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = true})
             GlobalSection:Toggle({Name = "Use Team Color",Flag = "ESP/Player/TeamColor",Value = false})
             GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/Player/DistanceCheck",Value = false})
-            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
         end
         local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/Player/Box/Enabled",Value = false})
@@ -150,7 +157,7 @@ local Window = Koko.Utilities.UI:Window({
             OoVSection:Slider({Name = "Thickness",Flag = "ESP/Player/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
             OoVSection:Slider({Name = "Transparency",Flag = "ESP/Player/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
-        local HeadSection = VisualsTab:Section({Name = "Head Circles",Side = "Right"}) do
+        local HeadSection = VisualsTab:Section({Name = "Head Dots",Side = "Right"}) do
             HeadSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Head/Enabled",Value = false})
             HeadSection:Toggle({Name = "Filled",Flag = "ESP/Player/Head/Filled",Value = true})
             HeadSection:Toggle({Name = "Outline",Flag = "ESP/Player/Head/Outline",Value = true})
@@ -181,10 +188,11 @@ local Window = Koko.Utilities.UI:Window({
             GlobalSection:Colorpicker({Name = "Enemy Color",Flag = "ESP/NPC/Enemy",Value = {1,0.75,1,0,false}})
             GlobalSection:Toggle({Name = "Hide Civilians",Flag = "ESP/NPC/TeamCheck",Value = true})
             GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/NPC/DistanceCheck",Value = true})
-            GlobalSection:Slider({Name = "Distance",Flag = "ESP/NPC/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/NPC/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
         end
         local BoxSection = NPCVisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/NPC/Box/Enabled",Value = false})
+            BoxSection:Toggle({Name = "Healthbar",Flag = "ESP/NPC/Box/Healthbar",Value = false})
             BoxSection:Toggle({Name = "Filled",Flag = "ESP/NPC/Box/Filled",Value = false})
             BoxSection:Toggle({Name = "Outline",Flag = "ESP/NPC/Box/Outline",Value = true})
             BoxSection:Slider({Name = "Thickness",Flag = "ESP/NPC/Box/Thickness",Min = 1,Max = 10,Value = 1})
@@ -206,13 +214,13 @@ local Window = Koko.Utilities.UI:Window({
             OoVSection:Toggle({Name = "Enabled",Flag = "ESP/NPC/Arrow/Enabled",Value = false})
             OoVSection:Toggle({Name = "Filled",Flag = "ESP/NPC/Arrow/Filled",Value = true})
             OoVSection:Toggle({Name = "Outline",Flag = "ESP/NPC/Arrow/Outline",Value = true})
-            OoVSection:Slider({Name = "Height",Flag = "ESP/NPC/Arrow/Height",Min = 14,Max = 28,Value = 28})
             OoVSection:Slider({Name = "Width",Flag = "ESP/NPC/Arrow/Width",Min = 14,Max = 28,Value = 18})
+            OoVSection:Slider({Name = "Height",Flag = "ESP/NPC/Arrow/Height",Min = 14,Max = 28,Value = 28})
             OoVSection:Slider({Name = "Distance From Center",Flag = "ESP/NPC/Arrow/Distance",Min = 80,Max = 200,Value = 200})
             OoVSection:Slider({Name = "Thickness",Flag = "ESP/NPC/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
             OoVSection:Slider({Name = "Transparency",Flag = "ESP/NPC/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
-        local HeadSection = NPCVisualsTab:Section({Name = "Head Circles",Side = "Right"}) do
+        local HeadSection = NPCVisualsTab:Section({Name = "Head Dots",Side = "Right"}) do
             HeadSection:Toggle({Name = "Enabled",Flag = "ESP/NPC/Head/Enabled",Value = false})
             HeadSection:Toggle({Name = "Filled",Flag = "ESP/NPC/Head/Filled",Value = true})
             HeadSection:Toggle({Name = "Outline",Flag = "ESP/NPC/Head/Outline",Value = true})
@@ -244,7 +252,7 @@ local Window = Koko.Utilities.UI:Window({
                 Lighting.GlobalShadows = not Bool
             end})
             EnvSection:Slider({Name = "Clock Time",Flag = "BRM5/Lighting/Time",Min = 0,Max = 24,Value = 12})
-            EnvSection:Slider({Name = "Fog Density",Flag = "BRM5/Lighting/Fog",Min = 0,Max = 1,Precise = 2,Value = 0.25})
+            EnvSection:Slider({Name = "Fog Density",Flag = "BRM5/Lighting/Fog",Min = 0,Max = 1,Precise = 3,Value = 0.255})
         end
         local WeaponSection = MiscTab:Section({Name = "Weapon"}) do
             WeaponSection:Toggle({Name = "Recoil",Flag = "BRM5/Recoil/Enabled",Value = false})
@@ -261,11 +269,24 @@ local Window = Koko.Utilities.UI:Window({
             Callback = function(Bool)
                 if Bool and not NoClipEvent then
                     NoClipEvent = RunService.Stepped:Connect(function()
-                        NoClip(true)
+                        if not LocalPlayer.Character then return end
+                
+                        for Index,Object in pairs(LocalPlayer.Character:GetDescendants()) do
+                            if Object:IsA("BasePart") then
+                                if NoClipObjects[Object] == nil then
+                                    NoClipObjects[Object] = Object.CanCollide
+                                end Object.CanCollide = false
+                            end
+                        end
                     end)
                 elseif not Bool and NoClipEvent then
-                    NoClipEvent:Disconnect() NoClipEvent = nil
-                    task.wait(0.1) NoClip(false)
+                    NoClipEvent:Disconnect()
+                    NoClipEvent = nil
+            
+                    task.wait(0.1)
+                    for Object,CanCollide in pairs(NoClipObjects) do
+                        Object.CanCollide = CanCollide
+                    end table.clear(NoClipObjects)
                 end
             end}):Keybind()
             CharSection:Toggle({Name = "Anti Skydive",Flag = "BRM5/AntiFall",Value = false}):Keybind()
@@ -276,9 +297,9 @@ local Window = Koko.Utilities.UI:Window({
             CharSection:Slider({Name = "Speed",Flag = "BRM5/WalkSpeed/Value",Min = 16,Max = 1000,Value = 120})
         end
         local TPSection = MiscTab:Section({Name = "Teleports"}) do
-            for Name,Value in pairs(Teleports) do
-                TPSection:Button({Name = Name,Callback = function()
-                    TeleportCharacter(Value)
+            for Index,Table in pairs(Teleports) do
+                TPSection:Button({Name = Table[1],Callback = function()
+                    TeleportCharacter(Table[2])
                 end})
             end
         end
@@ -328,11 +349,18 @@ local Window = Koko.Utilities.UI:Window({
             AirSection:Button({Name = "Unlock Camera",Callback = function()
                 local Aircraft = RequireModule("MovementService")
                 local CameraMod = RequireModule("CameraService")
-                CameraMod:Mount(Aircraft._handler._controller, "Character")
-                CameraMod._handler._zoom = 128
+                if Aircraft._handler and Aircraft._handler._controller then
+                    CameraMod:Mount(Aircraft._handler._controller, "Character")
+                    CameraMod._handler._zoom = 128
+                end
             end})
         end
-        local MiscSection = MiscTab:Section({Name = "Misc"}) do
+        local MiscSection = MiscTab:Section({Name = "Misc",Side = "Left"}) do
+            MiscSection:Toggle({Name = "FirstPerson Locked",Flag = "BRM5/Misc/FPLocked",
+            Value = ServerSettings["FIRSTPERSON_LOCKED"],Callback = function(Value)
+                ServerSettings["FIRSTPERSON_LOCKED"] = Value
+            end})
+
             MiscSection:Button({Name = "Enable Fake RGE",Callback = function()
                 local serverSettings = getupvalue(require(ReplicatedStorage.Packages.server).Get,1)
                 if not serverSettings.CHEATS_ENABLED then
@@ -346,282 +374,142 @@ local Window = Koko.Utilities.UI:Window({
                 Network:FireServer("ResetCharacter")
             end})
         end
-    end
-    local SettingsTab = Window:Tab({Name = "Settings"}) do
-        local MenuSection = SettingsTab:Section({Name = "Menu",Side = "Left"}) do
-            MenuSection:Toggle({Name = "Enabled",IgnoreFlag = true,Flag = "UI/Toggle",
-            Value = Window.Enabled,Callback = function(Bool) Window:Toggle(Bool) end})
-            :Keybind({Value = "RightShift",Flag = "UI/Keybind",DoNotClear = true})
-            MenuSection:Toggle({Name = "Open On Load",Flag = "UI/OOL",Value = true})
-            MenuSection:Toggle({Name = "Blur Gameplay",Flag = "UI/Blur",Value = false,
-            Callback = function() Window:Toggle(Window.Enabled) end})
-            MenuSection:Toggle({Name = "Watermark",Flag = "UI/Watermark",Value = true,
-            Callback = function(Bool) Window.Watermark:Toggle(Bool) end})
-            MenuSection:Toggle({Name = "Custom Mouse",Flag = "Mouse/Enabled",Value = true})
-            MenuSection:Colorpicker({Name = "Color",Flag = "UI/Color",Value = {1,0.25,1,0,true},
-            Callback = function(HSVAR,Color) Window:SetColor(Color) end})
-        end
-        SettingsTab:AddConfigSection("Left")
-        SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko.Utilities.Misc.ReJoin})
-        SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko.Utilities.Misc.ServerHop})
-        SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko.Utilities.Misc.JoinDiscord})
-        :ToolTip("Join for support, updates and more!")
-        local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
-            BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
-                {Name = "Legacy",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://2151741365"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hearts",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073763717"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Abstract",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073743871"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hexagon",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073628839"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Circles",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071579801"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Lace With Flowers",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071575925"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Floral",Mode = "Button",Value = true,Callback = function()
-                    Window.Background.Image = "rbxassetid://5553946656"
-                    Window.Flags["Background/CustomImage"] = ""
-                end}
-            }})
-            BackgroundSection:Textbox({Name = "Custom Image",Flag = "Background/CustomImage",Placeholder = "rbxassetid://ImageId",
-            Callback = function(String) if string.gsub(String," ","") ~= "" then Window.Background.Image = String end end})
-            BackgroundSection:Colorpicker({Name = "Color",Flag = "Background/Color",Value = {1,1,0,0,false},
-            Callback = function(HSVAR,Color) Window.Background.ImageColor3 = Color Window.Background.ImageTransparency = HSVAR[4] end})
-            BackgroundSection:Slider({Name = "Tile Offset",Flag = "Background/Offset",Min = 74, Max = 296,Value = 74,
-            Callback = function(Number) Window.Background.TileSize = UDim2.new(0,Number,0,Number) end})
-        end
-        local CrosshairSection = SettingsTab:Section({Name = "Custom Crosshair",Side = "Right"}) do
-            CrosshairSection:Toggle({Name = "Enabled",Flag = "Mouse/Crosshair/Enabled",Value = false})
-            CrosshairSection:Colorpicker({Name = "Color",Flag = "Mouse/Crosshair/Color",Value = {1,1,1,0,false}})
-            CrosshairSection:Slider({Name = "Size",Flag = "Mouse/Crosshair/Size",Min = 0,Max = 20,Value = 4})
-            CrosshairSection:Slider({Name = "Gap",Flag = "Mouse/Crosshair/Gap",Min = 0,Max = 10,Value = 2})
-        end
-        local CreditsSection = SettingsTab:Section({Name = "Credits",Side = "Right"}) do
-            CreditsSection:Label({Text = "This script was made by AlexR32#0157"})
-            CreditsSection:Divider()
-            CreditsSection:Label({Text = "Thanks to Jan for awesome Background Patterns"})
-            CreditsSection:Label({Text = "Thanks to Infinite Yield Team for Server Hop and Rejoin"})
-            CreditsSection:Label({Text = "Thanks to Blissful for Offscreen Arrows"})
-            CreditsSection:Label({Text = "Thanks to coasts for Universal ESP"})
-            CreditsSection:Label({Text = "Thanks to el3tric for Bracket V2"})
-            CreditsSection:Label({Text = "❤️ ❤️ ❤️ ❤️"})
-        end
-    end
+    end Koko.Utilities.Misc:SettingsSection(Window,"RightShift",true)
 end
 
-function NoClip(Enabled) if not LocalPlayer.Character then return end
-    for Index,Value in pairs(LocalPlayer.Character:GetDescendants()) do
-        if Value:IsA("BasePart") then Value.CanCollide = not Enabled end
-    end
-end
-
-Window:LoadDefaultConfig()
-Window:SetValue("UI/Toggle",
-Window.Flags["UI/OOL"])
+Window:SetValue("Background/Offset",296)
+Window:LoadDefaultConfig("Koko")
+Window:SetValue("UI/Toggle",Window.Flags["UI/OOL"])
 
 Koko.Utilities.Misc:SetupWatermark(Window)
 Koko.Utilities.Drawing:SetupCursor(Window.Flags)
-
 Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
 Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
 Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
-local RaycastParams = RaycastParams.new()
-RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-RaycastParams.IgnoreWater = true
+local WallCheckParams = RaycastParams.new()
+WallCheckParams.FilterType = Enum.RaycastFilterType.Blacklist
+WallCheckParams.IgnoreWater = true
+
+-- Fly Logic
+local XZ,YPlus,YMinus = Vector3.new(1,0,1),Vector3.new(0,1,0),Vector3.new(0,-1,0)
+local function FixUnit(Vector) if Vector.Magnitude == 0 then return Vector3.zero end return Vector.Unit end
+local function FlatCameraVector(CameraCF) return CameraCF.LookVector * XZ,CameraCF.RightVector * XZ end
+local function InputToVelocity() local LookVector,RightVector = FlatCameraVector(Camera.CFrame)
+    local Forward  = UserInputService:IsKeyDown(Enum.KeyCode.W) and LookVector or Vector3.zero
+    local Backward = UserInputService:IsKeyDown(Enum.KeyCode.S) and -LookVector or Vector3.zero
+    local Left     = UserInputService:IsKeyDown(Enum.KeyCode.A) and -RightVector or Vector3.zero
+    local Right    = UserInputService:IsKeyDown(Enum.KeyCode.D) and RightVector or Vector3.zero
+    local Up       = UserInputService:IsKeyDown(Enum.KeyCode.Space) and YPlus or Vector3.zero
+    local Down     = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) and YMinus or Vector3.zero
+    return FixUnit(Forward + Backward + Left + Right + Up + Down)
+end
+
+local function toScale(value, inputMin, inputMax, outputMin, outputMax)
+    local scaledOutput = outputMax - outputMin
+    local percentage = value / (inputMax - inputMin)
+    return percentage * scaledOutput + outputMin
+end
 
 local function Raycast(Origin,Direction,Table)
-    RaycastParams.FilterDescendantsInstances = Table
-    return Workspace:Raycast(Origin,Direction,RaycastParams)
-end
-
-local function FixUnit(Vector)
-	if Vector.Magnitude == 0 then
-	return Vector3.zero end
-	return Vector.Unit
-end
-local function FlatCameraVector()
-    local Camera = Workspace.CurrentCamera
-	return Camera.CFrame.LookVector * Vector3.new(1,0,1),
-		Camera.CFrame.RightVector * Vector3.new(1,0,1)
-end
-local function InputToVelocity() local Velocities,LookVector,RightVector = {},FlatCameraVector()
-	Velocities[1] = UserInputService:IsKeyDown(Enum.KeyCode.W) and LookVector or Vector3.zero
-	Velocities[2] = UserInputService:IsKeyDown(Enum.KeyCode.S) and -LookVector or Vector3.zero
-	Velocities[3] = UserInputService:IsKeyDown(Enum.KeyCode.A) and -RightVector or Vector3.zero
-	Velocities[4] = UserInputService:IsKeyDown(Enum.KeyCode.D) and RightVector or Vector3.zero
-    Velocities[5] = UserInputService:IsKeyDown(Enum.KeyCode.Space) and Vector3.new(0,1,0) or Vector3.zero
-    Velocities[6] = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) and Vector3.new(0,-1,0) or Vector3.zero
-	return FixUnit(Velocities[1] + Velocities[2] + Velocities[3] + Velocities[4] + Velocities[5] + Velocities[6])
+    WallCheckParams.FilterDescendantsInstances = Table
+    return Workspace:Raycast(Origin,Direction,WallCheckParams)
 end
 
 local function TeamCheck(Enabled,Player)
     if not Enabled then return true end
-    return LocalPlayer.Team ~= Player.Team
+    if Player.Neutral then
+        local LPColor = Squads._tags[LocalPlayer] and Squads._tags[LocalPlayer].Tag.TextLabel.TextColor3 or WhiteColor
+        local TargetColor = Squads._tags[Player] and Squads._tags[Player].Tag.TextLabel.TextColor3 or WhiteColor
+        return LPColor ~= TargetColor,TargetColor
+    else
+        return LocalPlayer.Team ~= Player.Team
+    end
 end
 
 local function DistanceCheck(Enabled,Distance,MaxDistance)
     if not Enabled then return true end
-    return Distance * 0.28 <= MaxDistance
+    return Distance <= MaxDistance
 end
 
 local function WallCheck(Enabled,Hitbox,Character)
     if not Enabled then return true end
-    local Camera = Workspace.CurrentCamera
     return not Raycast(Camera.CFrame.Position,
     Hitbox.Position - Camera.CFrame.Position,
-    {LocalPlayer.Character,Character})
+    {LocalPlayer.Character,RaycastFolder,Character})
 end
 
-local function GetHitbox(Config)
-    if not Config.Enabled then return end
-    local Camera = Workspace.CurrentCamera
+local function CalculateTrajectory(Origin,Velocity,Time,Gravity)
+    local PredictedPosition = Origin + Velocity * Time
+    local Delta = (PredictedPosition - Origin).Magnitude
+    Time = Time + Delta / ProjectileSpeed
+    return Origin + Velocity * Time + Gravity * Time * Time / GravityCorrection
+end
 
-    local FieldOfView,ClosestHitbox = Config.DynamicFOV and
-    ((120 - Camera.FieldOfView) * 4) + Config.FieldOfView or Config.FieldOfView
+local function GetClosest(Enabled,NPCMode,FOV,DFOV,TC,BP,WC,DC,MD,PE)
+    -- FieldOfView,DynamicFieldOfView,TeamCheck
+    -- BodyParts,WallCheck,DistanceCheck,MaxDistance
+    -- PredictionEnabled
 
-    if Config.NPCMode then
+    if not Enabled then return end local Closest = nil
+    FOV = DFOV and FOV * (1 + (80 - Camera.FieldOfView) / 100) or FOV
+
+    if NPCMode then
         for Index,NPC in pairs(NPCFolder:GetChildren()) do
             local Humanoid = NPC:FindFirstChildOfClass("Humanoid")
             local IsAlive = Humanoid and Humanoid.Health > 0
-            if not NPC:FindFirstChildWhichIsA("ProximityPrompt",true) and IsAlive then
-                for Index,BodyPart in pairs(Config.BodyParts) do
-                    local Hitbox = NPC:FindFirstChild(BodyPart) if not Hitbox then continue end
-                    local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
+            if not NPC:FindFirstChildWhichIsA("ProximityPrompt",true) and
+            NPC:FindFirstChildWhichIsA("AlignOrientation",true) and IsAlive then
+                for Index,BodyPart in pairs(BP) do
+                    BodyPart = NPC:FindFirstChild(BodyPart) if not BodyPart then continue end
+                    local Distance = (BodyPart.Position - Camera.CFrame.Position).Magnitude
+                    if WallCheck(WC,BodyPart,NPC) and DistanceCheck(DC,Distance,MD) then
+                        local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(PE and CalculateTrajectory(BodyPart.Position,
+                        BodyPart.AssemblyLinearVelocity,Distance / ProjectileSpeed,ProjectileGravity) or BodyPart.Position)
 
-                    if WallCheck(Config.WallCheck,Hitbox,NPC)
-                    and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                        local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(Hitbox.Position)
-                        local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                        if OnScreen and Magnitude < FieldOfView then
-                            FieldOfView,ClosestHitbox = Magnitude,{NPC,NPC,Hitbox,Distance,ScreenPosition}
-                        end
+                        local NewFOV = (Vector2.new(ScreenPosition.X,ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
+                        if OnScreen and NewFOV <= FOV then FOV,Closest = NewFOV,{NPC,NPC,BodyPart,ScreenPosition} end
                     end
                 end
             end
         end
     else
         for Index,Player in pairs(PlayerService:GetPlayers()) do
-            local Character = Player.Character if not Character then continue end
-            local Humanoid = Character:FindFirstChildOfClass("Humanoid") if not Humanoid then continue end
-            if Player ~= LocalPlayer and Humanoid.Health > 0 and TeamCheck(Config.TeamCheck,Player) then
-                for Index,BodyPart in pairs(Config.BodyParts) do
-                    local Hitbox = Character:FindFirstChild(BodyPart) if not Hitbox then continue end
-                    local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
+            if Player == LocalPlayer then continue end
+            local Character = Player.Character
 
-                    if WallCheck(Config.WallCheck,Hitbox,Character)
-                    and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                        local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(Hitbox.Position)
-                        local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                        if OnScreen and Magnitude < FieldOfView then
-                            FieldOfView,ClosestHitbox = Magnitude,{Player,Character,Hitbox,Distance,ScreenPosition}
-                        end
+            if Character and TeamCheck(TC,Player) then
+                local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+                if not Humanoid then continue end if Humanoid.Health <= 0 then continue end
+
+                for Index,BodyPart in pairs(BP) do
+                    BodyPart = Character:FindFirstChild(BodyPart) if not BodyPart then continue end
+                    local Distance = (BodyPart.Position - Camera.CFrame.Position).Magnitude
+                    if WallCheck(WC,BodyPart,Character) and DistanceCheck(DC,Distance,MD) then
+                        local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(PE and CalculateTrajectory(BodyPart.Position,
+                        BodyPart.AssemblyLinearVelocity,Distance / ProjectileSpeed,ProjectileGravity) or BodyPart.Position)
+
+                        local NewFOV = (Vector2.new(ScreenPosition.X,ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
+                        if OnScreen and NewFOV <= FOV then FOV,Closest = NewFOV,{Player,Character,BodyPart,ScreenPosition} end
                     end
                 end
             end
         end
     end
 
-    return ClosestHitbox
+    return Closest
 end
 
-local function GetHitboxWithPrediction(Config)
-    if not Config.Enabled then return end
-    local Camera = Workspace.CurrentCamera
-
-    local FieldOfView,ClosestHitbox = Config.DynamicFOV and
-    ((120 - Camera.FieldOfView) * 4) + Config.FieldOfView or Config.FieldOfView
-    
-    if Config.NPCMode then
-        for Index,NPC in pairs(NPCFolder:GetCharacter()) do
-            local Humanoid = NPC:FindFirstChildOfClass("Humanoid")
-            local IsAlive = Humanoid and Humanoid.Health > 0
-            if not NPC:FindFirstChildWhichIsA("ProximityPrompt",true) and IsAlive then
-                for Index,BodyPart in pairs(Config.BodyParts) do
-                    local Hitbox = NPC:FindFirstChild(BodyPart) if not Hitbox then continue end
-                    local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
-
-                    if WallCheck(Config.WallCheck,Hitbox,NPC)
-                    and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                        local PredictionVelocity = (Hitbox.AssemblyLinearVelocity * Distance) / PredictedVelocity
-                        local ScreenPosition, OnScreen = Camera:WorldToViewportPoint(Config.Prediction
-                        and Hitbox.Position + PredictionVelocity or Hitbox.Position)
-    
-                        local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                        if OnScreen and Magnitude < FieldOfView then
-                            FieldOfView,ClosestHitbox = Magnitude,{NPC,NPC,Hitbox,Distance,ScreenPosition}
-                        end
-                    end
-                end
-            end
-        end
-    else
-        for Index,Player in pairs(PlayerService:GetPlayers()) do
-            local Character = Player.Character if not Character then continue end
-            local Humanoid = Character:FindFirstChildOfClass("Humanoid") if not Humanoid then continue end
-            if Player ~= LocalPlayer and Humanoid.Health > 0 and TeamCheck(Config.TeamCheck,Player) then
-                for Index,BodyPart in pairs(Config.BodyParts) do
-                    local Hitbox = Character:FindFirstChild(BodyPart) if not Hitbox then continue end
-                    local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
-
-                    if WallCheck(Config.WallCheck,Hitbox,Character)
-                    and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                        local PredictionVelocity = (Hitbox.AssemblyLinearVelocity * Distance) / Config.Prediction.Velocity
-                        local ScreenPosition, OnScreen = Camera:WorldToViewportPoint(Config.Prediction
-                        and Hitbox.Position + PredictionVelocity or Hitbox.Position)
-    
-                        local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                        if OnScreen and Magnitude < FieldOfView then
-                            FieldOfView,ClosestHitbox = Magnitude,{Player,Character,Hitbox,Distance,ScreenPosition}
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    return ClosestHitbox
-end
-
-local function AimAt(Hitbox,Config)
+local function AimAt(Hitbox,Smoothness)
     if not Hitbox then return end
-    local Camera = Workspace.CurrentCamera
     local Mouse = UserInputService:GetMouseLocation()
 
-    local PredictionVelocity = (Hitbox[3].AssemblyLinearVelocity * Hitbox[4]) / PredictedVelocity
-    local HitboxOnScreen = Camera:WorldToViewportPoint(Config.Prediction
-    and Hitbox[3].Position + PredictionVelocity or Hitbox[3].Position)
-
     mousemoverel(
-        (HitboxOnScreen.X - Mouse.X) * Config.Sensitivity,
-        (HitboxOnScreen.Y - Mouse.Y) * Config.Sensitivity
+        (Hitbox[4].X - Mouse.X) * Smoothness,
+        (Hitbox[4].Y - Mouse.Y) * Smoothness
     )
 end
 
-function RequireModule(Name)
-    for Index, Instance in pairs(getloadedmodules()) do
-        if Instance.Name == Name then
-            return require(Instance)
-        end
-    end
-end
 local function HookFunction(ModuleName,Function,Callback)
     local Module,OldFunction = RequireModule(ModuleName)
     while task.wait() do
@@ -631,10 +519,8 @@ local function HookFunction(ModuleName,Function,Callback)
         end
         Module = RequireModule(ModuleName)
     end
-    Module[Function] = function(...)
-        local Args = Callback({...})
-        if not Args then return end
-        return OldFunction(unpack(Args))
+    Module[Function] = function(...) local Args = Callback({...})
+        if Args then return OldFunction(unpack(Args)) end
     end
 end
 local function HookSignal(Signal,Index,Callback)
@@ -643,18 +529,25 @@ local function HookSignal(Signal,Index,Callback)
     local OldConnection = Connection.Function
     if not OldConnection then return end
     Connection:Disable()
-    Signal:Connect(function(...)
-        local Args = Callback({...})
-        if not Args then return end
-        OldConnection(unpack(Args))
+    Signal:Connect(function(...) local Args = Callback({...})
+        if Args then return OldConnection(unpack(Args)) end
     end)
 end
+local function AircraftFly(Enabled,Speed,CameraControl,Args)
+    if not Enabled then return Args end
+    Args[1]._force.MaxForce = Vector3.new(1, 1, 1) * 40000000
+    Args[1]._force.Velocity = InputToVelocity() * Speed
+    if CameraControl then
+        Args[1]._gyro.MaxTorque = Vector3.new(1, 1, 1) * 4000
+        Args[1]._gyro.CFrame = Camera.CFrame * CFrame.Angles(0,math.pi,0)
+    end
+end
+local function Teleport(Position,Velocity)
+	local PrimaryPart = LocalPlayer.Character
+    and LocalPlayer.Character.PrimaryPart
+    if not PrimaryPart then return end
+    local TPModule = {}
 
-local function Teleport(Position,Orientation,Velocity)
-	if not LocalPlayer.Character then return end
-	local PrimaryPart = LocalPlayer.Character.PrimaryPart
-	if not PrimaryPart then return end
-	
 	local AlignPosition = Instance.new("AlignPosition")
 	AlignPosition.Mode = Enum.PositionAlignmentMode.OneAttachment
 	AlignPosition.Attachment0 = PrimaryPart.RootRigAttachment
@@ -670,7 +563,6 @@ local function Teleport(Position,Orientation,Velocity)
 	AlignPosition.Parent = PrimaryPart
     AlignOrientation.Parent = PrimaryPart
 
-	local TPModule = {}
 	function TPModule:Update(Position,Velocity)
         AlignPosition.MaxVelocity = Velocity
 		AlignPosition.Position = Position
@@ -683,38 +575,37 @@ local function Teleport(Position,Orientation,Velocity)
 		end
 	end
 	function TPModule:Destroy()
+        TPModule:Wait()
 		AlignPosition:Destroy()
         AlignOrientation:Destroy()
-	end
-	
-	return TPModule
+    end return TPModule
 end
 
+function RequireModule(Name)
+    for Index, Instance in pairs(getloadedmodules()) do
+        if Instance.Name == Name then
+            return require(Instance)
+        end
+    end
+end
 function TeleportCharacter(Position)
-    if not LocalPlayer.Character then return end
-    local PrimaryPart = LocalPlayer.Character.PrimaryPart
+    local PrimaryPart = LocalPlayer.Character
+    and LocalPlayer.Character.PrimaryPart
     if not PrimaryPart then return end
 
     local OldAF = Window:GetValue("BRM5/AntiFall")
     local OldNC = Window:GetValue("BRM5/NoClip")
-
-    local ClientHandler = RequireModule("ClientHandler")
-    local Controller = ClientHandler._controller
     Window:SetValue("BRM5/AntiFall",true)
     Window:SetValue("BRM5/NoClip",true)
 
     LocalPlayer.Character.Humanoid.Sit = true
-    Network:FireServer("ReplicateSkydive",1) Network:FireServer("ReplicateSkydive",2)
-    local TP = Teleport(PrimaryPart.Position + Vector3.new(0,1000,0),
-    PrimaryPart.Orientation,500)
-
-    TP:Wait() TP:Update(Position + Vector3.new(0,1000,0),500) TP:Wait()
-    TP:Update(Position,250) TP:Wait() Controller:EndParachute() TP:Destroy()
+    PrimaryPart.CFrame = CFrame.new(PrimaryPart.Position + Vector3.new(0,500,0))
+    local TP = Teleport(Position + Vector3.new(0,500,0),500)
+    TP:Destroy() PrimaryPart.CFrame = CFrame.new(Position)
+    LocalPlayer.Character.Humanoid.Sit = false
 
     Window:SetValue("BRM5/AntiFall",OldAF)
     Window:SetValue("BRM5/NoClip",OldNC)
-
-    LocalPlayer.Character.Humanoid.Sit = false
 end
 function EnableSwitch(Switch)
     local CameraMod = RequireModule("CameraService")
@@ -729,16 +620,11 @@ function EnableSwitch(Switch)
         end
     end
 end
-local function AircraftFly(Config,Args)
-    if not Config.Enabled then return Args end
-    local Camera = Workspace.CurrentCamera
-    Args[1]._force.MaxForce = Vector3.new(1, 1, 1) * 40000000
-    Args[1]._force.Velocity = InputToVelocity() * Config.Speed
-    if Config.Camera then
-        Args[1]._gyro.MaxTorque = Vector3.new(1, 1, 1) * 4000
-        Args[1]._gyro.CFrame = Camera.CFrame * CFrame.Angles(0,math.pi,0)
-    end
-end
+
+Squads = RequireModule("SquadInterface")
+local OldRecoilValue = Window.Flags["BRM5/Recoil/Value"]
+local RecoilFunction = RequireModule("CharacterCamera").Recoil
+setconstant(RecoilFunction,6,toScale(OldRecoilValue,0,100,250,100))
 
 HookFunction("ControllerClass","LateUpdate",function(Args)
     if Window.Flags["BRM5/WalkSpeed/Enabled"] then
@@ -752,32 +638,39 @@ HookFunction("MovementService","Mount",function(Args)
         end
     end return Args
 end)
+HookFunction("ViewmodelClass","Update",function(Args)
+    if Window.Flags["BRM5/WalkSpeed/Enabled"] and Args[3] then
+        Args[3] = CFrame.new(Args[3].Position)
+    end return Args
+end)
+HookFunction("CameraService","Activate",function(Args)
+    if Window.Flags["BRM5/Recoil/Enabled"] and Args[2] == "Recoil" then
+        local RecoilValue = Window.Flags["BRM5/Recoil/Value"]
+        Args[3] = Args[3] * (RecoilValue / 100)
+        if OldRecoilValue ~= RecoilValue then
+            OldRecoilValue = RecoilValue
+            setconstant(RecoilFunction,6,
+            toScale(RecoilValue,0,100,250,100))
+        end
+    end return Args
+end)
 HookFunction("CharacterCamera","Update",function(Args)
     if Window.Flags["BRM5/NoBob"] then
-        Args[1]._shakes = {}
         Args[1]._bob = 0
-    end
-    if Window.Flags["BRM5/Recoil/Enabled"] then
-        Args[1]._recoil.Velocity = Args[1]._recoil.Velocity * (Window.Flags["BRM5/Recoil/Value"] / 100)
     end return Args
 end)
-HookFunction("TurretCamera","Update",function(Args)
-    if Window.Flags["BRM5/Recoil/Enabled"] then
-        Args[1]._recoil.Velocity = Args[1]._recoil.Velocity * (Window.Flags["BRM5/Recoil/Value"] / 100)
-    end return Args
-end)
-HookFunction("FirearmInventory","new",function(Args)
+HookFunction("FirearmInventory","_firemode",function(Args)
     if Window.Flags["BRM5/Firemodes"] then
-        if not table.find(Args[2].Tune.Firemodes,1) then
-            table.insert(Args[2].Tune.Firemodes,1)
+        local Config = Args[1]._config
+        if not table.find(Config.Tune.Firemodes,1) then
+            table.insert(Config.Tune.Firemodes,1)
         end
-        if not table.find(Args[2].Tune.Firemodes,2) then
-            table.insert(Args[2].Tune.Firemodes,2)
+        if not table.find(Config.Tune.Firemodes,2) then
+            table.insert(Config.Tune.Firemodes,2)
         end
-        if not table.find(Args[2].Tune.Firemodes,3) then
-            table.insert(Args[2].Tune.Firemodes,3)
+        if not table.find(Config.Tune.Firemodes,3) then
+            table.insert(Config.Tune.Firemodes,3)
         end
-        Args[2].Mode = 1
     end return Args
 end)
 HookFunction("FirearmInventory","_discharge",function(Args)
@@ -786,8 +679,23 @@ HookFunction("FirearmInventory","_discharge",function(Args)
     end
     if Window.Flags["BRM5/BulletDrop"] then
         Args[1]._config.Tune.Velocity = 1e6
-    end PredictedVelocity = Args[1]._config.Tune.Velocity
+        Args[1]._config.Tune.Range = 1e6
+    end ProjectileSpeed = Args[1]._config.Tune.Velocity
     return Args
+end)
+HookFunction("TurretMovement","_discharge",function(Args)
+    if Window.Flags["BRM5/BulletDrop"] then
+        Args[1]._tune.Velocity = 1e6
+        Args[1]._tune.Range = 1e6
+    end ProjectileSpeed = Args[1]._tune.Velocity
+    GroundTip = Args[1]._tip return Args
+end)
+HookFunction("AircraftMovement","_discharge",function(Args)
+    if Window.Flags["BRM5/BulletDrop"] then
+        Args[1]._tune.Velocity = 1e6
+        Args[1]._tune.Range = 1e6
+    end ProjectileSpeed = Args[1]._tune.Velocity
+    AircraftTip = Args[1]._tip return Args
 end)
 HookFunction("GroundMovement","Update",function(Args)
     if Window.Flags["BRM5/Vehicle/Enabled"] then
@@ -800,12 +708,6 @@ HookFunction("HelicopterMovement","Update",function(Args)
         Args[1]._tune.Speed = Window.Flags["BRM5/Helicopter/Speed"]
     end return Args
 end)
-HookFunction("AircraftMovement","_discharge",function(Args)
-    if Window.Flags["BRM5/BulletDrop"] then
-        Args[1]._tune.Velocity = 1e6
-    end PredictedVelocity = Args[1]._tune.Velocity
-    AircraftTip = Args[1]._tip return Args
-end)
 HookFunction("AircraftMovement","Update",function(Args)
     if Window.Flags["BRM5/Aircraft/Enabled"] then
         --[[Args[1]._speed = 1
@@ -814,17 +716,11 @@ HookFunction("AircraftMovement","Update",function(Args)
         Args[1]._force.MaxForce = Vector3.new(1, 1, 1) * 40000000 * Args[1]._speed 
         Args[1]._force.Velocity = Args[1]._main.CFrame.LookVector * -Window.Flags["BRM5/Aircraft/Speed"]]
         Args[1]._model.RPM.Value = Window.Flags["BRM5/Aircraft/Speed"]
-    end Args = AircraftFly({
-        Enabled = Window.Flags["BRM5/Aircraft/FlyEnabled"],
-        Camera = Window.Flags["BRM5/Aircraft/Camera"],
-        Speed = Window.Flags["BRM5/Aircraft/FlySpeed"]
-    },Args) return Args
-end)
-HookFunction("TurretMovement","_discharge",function(Args)
-    if Window.Flags["BRM5/BulletDrop"] then
-        Args[1]._tune.Velocity = 1e6
-    end PredictedVelocity = Args[1]._tune.Velocity
-    GroundTip = Args[1]._tip return Args
+    end Args = AircraftFly(
+        Window.Flags["BRM5/Aircraft/FlyEnabled"],
+        Window.Flags["BRM5/Aircraft/FlySpeed"],
+        Window.Flags["BRM5/Aircraft/Camera"],Args
+    ) return Args
 end)
 HookFunction("EnvironmentService","Update",function(Args)
     if Window.Flags["BRM5/Lighting/Enabled"] then
@@ -835,6 +731,7 @@ HookFunction("EnvironmentService","Update",function(Args)
         end
     end return Args
 end)
+
 HookSignal(RemoteEvent.OnClientEvent,1,function(Args)
     if Args[1] == "ReplicateNVG" then
         if Window.Flags["BRM5/DisableNVG"] then
@@ -871,15 +768,15 @@ task.spawn(function()
         and rawget(Table,"InvokeServer")  then
             local OldFireServer = Table.FireServer
             --local OldInvokeServer = Table.InvokeServer
-            Table.FireServer = function(Self, ...) local Args = {...}
-                if checkcaller() then return OldFireServer(Self, ...) end
+            Table.FireServer = function(Self,...) local Args = {...}
+                if checkcaller() then return OldFireServer(Self,...) end
                 if Window.Flags["BRM5/AntiFall"] then
                     if Args[1] == "ReplicateSkydive" and
                     (Args[2] == 3 or Args[2] == 2) then
                         return
                     end
                 end
-                return OldFireServer(Self, ...)
+                return OldFireServer(Self,...)
             end
             --[[Table.FireServer = function(Self, ...)
                 local Args = {...}
@@ -898,7 +795,7 @@ task.spawn(function()
 end)
 
 local OldNamecall
-OldNamecall = hookmetamethod(game,"__namecall",function(Self, ...)
+OldNamecall = hookmetamethod(game,"__namecall",function(Self,...)
     local Method,Args = getnamecallmethod(),{...}
     if Window.Flags["BRM5/AntiFall"] then
         if Method == "TakeDamage" then return end
@@ -906,7 +803,6 @@ OldNamecall = hookmetamethod(game,"__namecall",function(Self, ...)
 
     if SilentAim and Method == "Raycast" then
         if math.random(0,100) <= Window.Flags["SilentAim/HitChance"] then
-            local Camera = Workspace.CurrentCamera
             if Args[1] == Camera.CFrame.Position then
                 Args[2] = SilentAim[3].Position - Camera.CFrame.Position
             elseif AircraftTip and Args[1] == AircraftTip.WorldCFrame.Position then
@@ -917,91 +813,104 @@ OldNamecall = hookmetamethod(game,"__namecall",function(Self, ...)
         end
     end
 
-    return OldNamecall(Self, unpack(Args))
+    return OldNamecall(Self,unpack(Args))
 end)
 
 RunService.Heartbeat:Connect(function()
-    SilentAim = GetHitbox({
-        Enabled = Window.Flags["SilentAim/Enabled"],
-        WallCheck = Window.Flags["SilentAim/WallCheck"],
-        DistanceCheck = Window.Flags["SilentAim/DistanceCheck"],
-        DynamicFOV = Window.Flags["SilentAim/DynamicFOV"],
-        FieldOfView = Window.Flags["SilentAim/FieldOfView"],
-        Distance = Window.Flags["SilentAim/Distance"],
-        BodyParts = Window.Flags["SilentAim/BodyParts"],
-        NPCMode = Window.Flags["BRM5/NPCMode"],
-        TeamCheck = Window.Flags["TeamCheck"]
-    })
-    if Aimbot then AimAt(
-        GetHitbox({
-            Enabled = Window.Flags["Aimbot/Enabled"],
-            WallCheck = Window.Flags["Aimbot/WallCheck"],
-            DistanceCheck = Window.Flags["Aimbot/DistanceCheck"],
-            DynamicFOV = Window.Flags["Aimbot/DynamicFOV"],
-            FieldOfView = Window.Flags["Aimbot/FieldOfView"],
-            Distance = Window.Flags["Aimbot/Distance"],
-            BodyParts = Window.Flags["Aimbot/BodyParts"],
-            NPCMode = Window.Flags["BRM5/NPCMode"],
-            TeamCheck = Window.Flags["TeamCheck"]
-        }),{
-            Prediction = Window.Flags["Aimbot/Prediction"],
-            Sensitivity = Window.Flags["Aimbot/Smoothness"] / 100
-        })
+    SilentAim = GetClosest(
+        Window.Flags["SilentAim/Enabled"],
+        Window.Flags["BRM5/NPCMode"],
+        Window.Flags["SilentAim/FieldOfView"],
+        Window.Flags["SilentAim/DynamicFOV"],
+        Window.Flags["TeamCheck"],
+        Window.Flags["SilentAim/BodyParts"],
+        Window.Flags["SilentAim/WallCheck"],
+        Window.Flags["SilentAim/DistanceCheck"],
+        Window.Flags["SilentAim/Distance"]
+    )
+    if Aimbot then
+        AimAt(GetClosest(
+            Window.Flags["Aimbot/Enabled"],
+            Window.Flags["BRM5/NPCMode"],
+            Window.Flags["Aimbot/FieldOfView"],
+            Window.Flags["Aimbot/DynamicFOV"],
+            Window.Flags["TeamCheck"],
+            Window.Flags["Aimbot/BodyParts"],
+            Window.Flags["Aimbot/WallCheck"],
+            Window.Flags["Aimbot/DistanceCheck"],
+            Window.Flags["Aimbot/Distance"],
+            Window.Flags["Aimbot/Prediction"]
+        ),Window.Flags["Aimbot/Smoothness"] / 100)
     end
+end)
 
-    if Window.Flags["BRM5/Lighting/Enabled"] then
+Lighting.Changed:Connect(function(Property)
+    if Property == "OutdoorAmbient" and
+    Window.Flags["BRM5/Lighting/Brightness"] and
+    Lighting.OutdoorAmbient ~= WhiteColor then
+        Lighting.OutdoorAmbient = WhiteColor
+    end
+    if Property == "ClockTime" and
+    Window.Flags["BRM5/Lighting/Enabled"] and
+    Lighting.ClockTime ~= Window.Flags["BRM5/Lighting/Time"] then
         Lighting.ClockTime = Window.Flags["BRM5/Lighting/Time"]
     end
 end)
-RunService.RenderStepped:Connect(function()
-    if Window.Flags["BRM5/Lighting/Brightness"] then
-        Lighting.OutdoorAmbient = Color3.new(1,1,1)
-    end
-end)
+
 Koko.Utilities.Misc:NewThreadLoop(0,function()
     local Press = Window.Flags["Trigger/RMBMode"] and mouse2press or mouse1press
     local Release = Window.Flags["Trigger/RMBMode"] and mouse2release or mouse1release
 
     if not Trigger then return end
-    local TriggerHitbox = GetHitboxWithPrediction({
-        Enabled = Window.Flags["Trigger/Enabled"],
-        Prediction = Window.Flags["Trigger/Prediction"],
-        WallCheck = Window.Flags["Trigger/WallCheck"],
-        DistanceCheck = Window.Flags["Trigger/DistanceCheck"],
-        DynamicFOV = Window.Flags["Trigger/DynamicFOV"],
-        FieldOfView = Window.Flags["Trigger/FieldOfView"],
-        Distance = Window.Flags["Trigger/Distance"],
-        BodyParts = Window.Flags["Trigger/BodyParts"],
-        NPCMode = Window.Flags["BRM5/NPCMode"],
-        TeamCheck = Window.Flags["TeamCheck"]
-    })
+    local TriggerHitbox = GetClosest(
+        Window.Flags["Trigger/Enabled"],
+        Window.Flags["BRM5/NPCMode"],
+        Window.Flags["Trigger/FieldOfView"],
+        Window.Flags["Trigger/DynamicFOV"],
+        Window.Flags["TeamCheck"],
+        Window.Flags["Trigger/BodyParts"],
+        Window.Flags["Trigger/WallCheck"],
+        Window.Flags["Trigger/DistanceCheck"],
+        Window.Flags["Trigger/Distance"],
+        Window.Flags["Trigger/Prediction"]
+    )
 
     if TriggerHitbox then Press()
         task.wait(Window.Flags["Trigger/Delay"])
         if Window.Flags["Trigger/HoldMode"] then
             while task.wait() do
-                TriggerHitbox = GetHitboxWithPrediction({
-                    Enabled = Window.Flags["Trigger/Enabled"],
-                    Prediction = Window.Flags["Trigger/Prediction"],
-                    WallCheck = Window.Flags["Trigger/WallCheck"],
-                    DistanceCheck = Window.Flags["Trigger/DistanceCheck"],
-                    DynamicFOV = Window.Flags["Trigger/DynamicFOV"],
-                    FieldOfView = Window.Flags["Trigger/FieldOfView"],
-                    Distance = Window.Flags["Trigger/Distance"],
-                    BodyParts = Window.Flags["Trigger/BodyParts"],
-                    NPCMode = Window.Flags["BRM5/NPCMode"],
-                    TeamCheck = Window.Flags["TeamCheck"]
-                }) if not TriggerHitbox or not Trigger then break end
+                TriggerHitbox = GetClosest(
+                    Window.Flags["Trigger/Enabled"],
+                    Window.Flags["BRM5/NPCMode"],
+                    Window.Flags["Trigger/FieldOfView"],
+                    Window.Flags["Trigger/DynamicFOV"],
+                    Window.Flags["TeamCheck"],
+                    Window.Flags["Trigger/BodyParts"],
+                    Window.Flags["Trigger/WallCheck"],
+                    Window.Flags["Trigger/DistanceCheck"],
+                    Window.Flags["Trigger/Distance"],
+                    Window.Flags["Trigger/Prediction"]
+                ) if not TriggerHitbox or not Trigger then break end
             end
         end Release()
     end
 end)
 
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    Camera = Workspace.CurrentCamera
+end)
+
 for Index,NPC in pairs(NPCFolder:GetChildren()) do
-    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    if NPC:WaitForChild("HumanoidRootPart",5) and
+    NPC.HumanoidRootPart:FindFirstChild("AlignOrientation") then
+        Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    end
 end
 NPCFolder.ChildAdded:Connect(function(NPC)
-    Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    if NPC:WaitForChild("HumanoidRootPart",5) and
+    NPC.HumanoidRootPart:FindFirstChild("AlignOrientation") then
+        Koko.Utilities.Drawing:AddESP(NPC,"NPC","ESP/NPC",Window.Flags)
+    end
 end)
 NPCFolder.ChildRemoved:Connect(function(NPC)
     Koko.Utilities.Drawing:RemoveESP(NPC)

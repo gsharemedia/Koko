@@ -6,25 +6,27 @@ local Workspace = game:GetService("Workspace")
 local BackgroundGui = getrenv().shared.BackgroundGui
 repeat task.wait() until BackgroundGui and BackgroundGui.Parent == nil
 
-local LocalPlayer,Aimbot = PlayerService.LocalPlayer,false
+local Camera = Workspace.CurrentCamera
+local LocalPlayer = PlayerService.LocalPlayer
+local Aimbot = false
 
 local Window = Koko.Utilities.UI:Window({
-    Name = "Koko Pro — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-248)
     }) do Window:Watermark({Enabled = true})
 
     local AimAssistTab = Window:Tab({Name = "Combat"}) do
-        local GlobalSection = AimAssistTab:Section({Name = "Global",Side = "Left"}) do
+        local GlobalSection = AimAssistTab:Section({Name = "Global",Side = "Right"}) do
             GlobalSection:Toggle({Name = "Team Check",Flag = "TeamCheck",Value = false})
         end
-        local AFOVSection = AimAssistTab:Section({Name = "Aimbot FOV Circle",Side = "Left"}) do
+        local AFOVSection = AimAssistTab:Section({Name = "Aimbot FOV Circle",Side = "Right"}) do
             AFOVSection:Toggle({Name = "Enabled",Flag = "Aimbot/Circle/Enabled",Value = true})
             AFOVSection:Toggle({Name = "Filled",Flag = "Aimbot/Circle/Filled",Value = false})
             AFOVSection:Colorpicker({Name = "Color",Flag = "Aimbot/Circle/Color",Value = {1,0.66666662693024,1,0.25,false}})
             AFOVSection:Slider({Name = "NumSides",Flag = "Aimbot/Circle/NumSides",Min = 3,Max = 100,Value = 14})
             AFOVSection:Slider({Name = "Thickness",Flag = "Aimbot/Circle/Thickness",Min = 1,Max = 10,Value = 2})
         end
-        local AimbotSection = AimAssistTab:Section({Name = "Aimbot",Side = "Right"}) do
+        local AimbotSection = AimAssistTab:Section({Name = "Aimbot",Side = "Left"}) do
             AimbotSection:Toggle({Name = "Enabled",Flag = "Aimbot/Enabled",Value = false})
             AimbotSection:Toggle({Name = "Visibility Check",Flag = "Aimbot/WallCheck",Value = false})
             AimbotSection:Toggle({Name = "Distance Check",Flag = "Aimbot/DistanceCheck",Value = false})
@@ -33,14 +35,11 @@ local Window = Koko.Utilities.UI:Window({
             Mouse = true,Callback = function(Key,KeyDown) Aimbot = Window.Flags["Aimbot/Enabled"] and KeyDown end})
             AimbotSection:Slider({Name = "Smoothness",Flag = "Aimbot/Smoothness",Min = 0,Max = 100,Value = 25,Unit = "%"})
             AimbotSection:Slider({Name = "Field Of View",Flag = "Aimbot/FieldOfView",Min = 0,Max = 500,Value = 100})
-            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             AimbotSection:Dropdown({Name = "Body Parts",Flag = "Aimbot/BodyParts",List = {
                 {Name = "Head",Mode = "Toggle",Value = true},
                 {Name = "HumanoidRootPart",Mode = "Toggle"}
             }})
-            AimbotSection:Divider({Text = "Prediction"})
-            AimbotSection:Toggle({Name = "Enabled",Flag = "Aimbot/Prediction/Enabled",Value = false})
-            AimbotSection:Slider({Name = "Velocity",Flag = "Aimbot/Prediction/Velocity",Min = 100,Max = 5000,Value = 1600})
         end
     end
     local VisualsTab = Window:Tab({Name = "Visuals"}) do
@@ -50,7 +49,7 @@ local Window = Koko.Utilities.UI:Window({
             GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = false})
             GlobalSection:Toggle({Name = "Use Team Color",Flag = "ESP/Player/TeamColor",Value = false})
             GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/Player/DistanceCheck",Value = false})
-            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
         end
         local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/Player/Box/Enabled",Value = false})
@@ -82,7 +81,7 @@ local Window = Koko.Utilities.UI:Window({
             OoVSection:Slider({Name = "Thickness",Flag = "ESP/Player/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
             OoVSection:Slider({Name = "Transparency",Flag = "ESP/Player/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
-        local HeadSection = VisualsTab:Section({Name = "Head Circles",Side = "Right"}) do
+        local HeadSection = VisualsTab:Section({Name = "Head Dots",Side = "Right"}) do
             HeadSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Head/Enabled",Value = false})
             HeadSection:Toggle({Name = "Filled",Flag = "ESP/Player/Head/Filled",Value = true})
             HeadSection:Toggle({Name = "Outline",Flag = "ESP/Player/Head/Outline",Value = true})
@@ -105,115 +104,40 @@ local Window = Koko.Utilities.UI:Window({
             HighlightSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Highlight/Enabled",Value = false})
             HighlightSection:Slider({Name = "Transparency",Flag = "ESP/Player/Highlight/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
             HighlightSection:Colorpicker({Name = "Outline Color",Flag = "ESP/Player/Highlight/OutlineColor",Value = {1,1,0,0.5,false}})
-        end
+        end Koko.Utilities.Misc:LightingSection(VisualsTab,"Right")
     end
     local MiscTab = Window:Tab({Name = "Miscellaneous"}) do
         local TESPSection = MiscTab:Section({Name = "Thunderstruck ESP",Side = "Left"}) do
             TESPSection:Toggle({Name = "Enabled",Flag = "ESP/Thunderstruck/Enabled",Value = false})
-            TESPSection:Colorpicker({Name = "Color",Flag = "ESP/Thunderstruck/Color",Value = {1,0,1,0,false}})
-            TESPSection:Slider({Name = "Distance",Flag = "ESP/Thunderstruck/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "meters"})
-
+            :Colorpicker({Flag = "ESP/Thunderstruck/Color",Value = {1,0,1,0.5,false}})
+            TESPSection:Toggle({Name = "Distance Check",Flag = "ESP/Thunderstruck/DistanceCheck",Value = false})
+            TESPSection:Slider({Name = "Distance",Flag = "ESP/Thunderstruck/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "studs"})
         end
         local LESPSection = MiscTab:Section({Name = "Legendary ESP",Side = "Right"}) do
             LESPSection:Toggle({Name = "Enabled",Flag = "ESP/Legendary/Enabled",Value = false})
-            LESPSection:Colorpicker({Name = "Color",Flag = "ESP/Legendary/Color",Value = {1,0,1,0,false}})
-            LESPSection:Slider({Name = "Distance",Flag = "ESP/Legendary/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "meters"})
+            :Colorpicker({Name = "Color",Flag = "ESP/Legendary/Color",Value = {1,0,1,0.5,false}})
+            LESPSection:Toggle({Name = "Distance Check",Flag = "ESP/Legendary/DistanceCheck",Value = false})
+            LESPSection:Slider({Name = "Distance",Flag = "ESP/Legendary/Distance",Min = 25,Max = 5000,Value = 1000,Unit = "studs"})
         end
-    end
-    local SettingsTab = Window:Tab({Name = "Settings"}) do
-        local MenuSection = SettingsTab:Section({Name = "Menu",Side = "Left"}) do
-            MenuSection:Toggle({Name = "Enabled",IgnoreFlag = true,Flag = "UI/Toggle",
-            Value = Window.Enabled,Callback = function(Bool) Window:Toggle(Bool) end})
-            :Keybind({Value = "RightShift",Flag = "UI/Keybind",DoNotClear = true})
-            MenuSection:Toggle({Name = "Open On Load",Flag = "UI/OOL",Value = true})
-            MenuSection:Toggle({Name = "Blur Gameplay",Flag = "UI/Blur",Value = false,
-            Callback = function() Window:Toggle(Window.Enabled) end})
-            MenuSection:Toggle({Name = "Watermark",Flag = "UI/Watermark",Value = true,
-            Callback = function(Bool) Window.Watermark:Toggle(Bool) end})
-            MenuSection:Toggle({Name = "Custom Mouse",Flag = "Mouse/Enabled",Value = false})
-            MenuSection:Colorpicker({Name = "Color",Flag = "UI/Color",Value = {1,0.25,1,0,true},
-            Callback = function(HSVAR,Color) Window:SetColor(Color) end})
-        end
-        SettingsTab:AddConfigSection("Left")
-        SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko.Utilities.Misc.ReJoin})
-        SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko.Utilities.Misc.ServerHop})
-        SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko.Utilities.Misc.JoinDiscord})
-        :ToolTip("Join for support, updates and more!")
-        local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
-            BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
-                {Name = "Legacy",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://2151741365"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hearts",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073763717"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Abstract",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073743871"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hexagon",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073628839"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Circles",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071579801"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Lace With Flowers",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071575925"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Floral",Mode = "Button",Value = true,Callback = function()
-                    Window.Background.Image = "rbxassetid://5553946656"
-                    Window.Flags["Background/CustomImage"] = ""
-                end}
-            }})
-            BackgroundSection:Textbox({Name = "Custom Image",Flag = "Background/CustomImage",Placeholder = "rbxassetid://ImageId",
-            Callback = function(String) if string.gsub(String," ","") ~= "" then Window.Background.Image = String end end})
-            BackgroundSection:Colorpicker({Name = "Color",Flag = "Background/Color",Value = {1,1,0,0,false},
-            Callback = function(HSVAR,Color) Window.Background.ImageColor3 = Color Window.Background.ImageTransparency = HSVAR[4] end})
-            BackgroundSection:Slider({Name = "Tile Offset",Flag = "Background/Offset",Min = 74, Max = 296,Value = 74,
-            Callback = function(Number) Window.Background.TileSize = UDim2.new(0,Number,0,Number) end})
-        end
-        local CrosshairSection = SettingsTab:Section({Name = "Custom Crosshair",Side = "Right"}) do
-            CrosshairSection:Toggle({Name = "Enabled",Flag = "Mouse/Crosshair/Enabled",Value = false})
-            CrosshairSection:Colorpicker({Name = "Color",Flag = "Mouse/Crosshair/Color",Value = {1,1,1,0,false}})
-            CrosshairSection:Slider({Name = "Size",Flag = "Mouse/Crosshair/Size",Min = 0,Max = 20,Value = 4})
-            CrosshairSection:Slider({Name = "Gap",Flag = "Mouse/Crosshair/Gap",Min = 0,Max = 10,Value = 2})
-        end
-        local CreditsSection = SettingsTab:Section({Name = "Credits",Side = "Right"}) do
-            CreditsSection:Label({Text = "This script was made by AlexR32#0157"})
-            CreditsSection:Divider()
-            CreditsSection:Label({Text = "Thanks to Jan for awesome Background Patterns"})
-            CreditsSection:Label({Text = "Thanks to Infinite Yield Team for Server Hop and Rejoin"})
-            CreditsSection:Label({Text = "Thanks to Blissful for Offscreen Arrows"})
-            CreditsSection:Label({Text = "Thanks to coasts for Universal ESP"})
-            CreditsSection:Label({Text = "Thanks to el3tric for Bracket V2"})
-            CreditsSection:Label({Text = "❤️ ❤️ ❤️ ❤️"})
-        end
-    end
+    end Koko.Utilities.Misc:SettingsSection(Window,"RightShift",false)
 end
 
-Window:LoadDefaultConfig()
-Window:SetValue("UI/Toggle",
-Window.Flags["UI/OOL"])
+Window:SetValue("Background/Offset",296)
+Window:LoadDefaultConfig("Koko")
+Window:SetValue("UI/Toggle",Window.Flags["UI/OOL"])
 
 Koko.Utilities.Misc:SetupWatermark(Window)
+Koko.Utilities.Misc:SetupLighting(Window.Flags)
 Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
 
-local RaycastParams = RaycastParams.new()
-RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-RaycastParams.IgnoreWater = true
+local WallCheckParams = RaycastParams.new()
+WallCheckParams.FilterType = Enum.RaycastFilterType.Blacklist
+WallCheckParams.IgnoreWater = true
 
 local function Raycast(Origin,Direction,Table)
-    RaycastParams.FilterDescendantsInstances = Table
-    return Workspace:Raycast(Origin,Direction,RaycastParams)
+    WallCheckParams.FilterDescendantsInstances = Table
+    return Workspace:Raycast(Origin,Direction,WallCheckParams)
 end
 
 local function TeamCheck(Enabled,Player)
@@ -223,76 +147,69 @@ end
 
 local function DistanceCheck(Enabled,Distance,MaxDistance)
     if not Enabled then return true end
-    return Distance * 0.28 <= MaxDistance
+    return Distance <= MaxDistance
 end
 
 local function WallCheck(Enabled,Hitbox,Character)
     if not Enabled then return true end
-    local Camera = Workspace.CurrentCamera
     return not Raycast(Camera.CFrame.Position,
     Hitbox.Position - Camera.CFrame.Position,
     {LocalPlayer.Character,Character})
 end
 
-local function GetHitbox(Config)
-    if not Config.Enabled then return end
-    local Camera = Workspace.CurrentCamera
-    
-    local FieldOfView,ClosestHitbox = Config.DynamicFOV and
-    ((120 - Camera.FieldOfView) * 4) + Config.FieldOfView or Config.FieldOfView
+local function GetClosest(Enabled,FOV,DFOV,TC,BP,WC,DC,MD)
+    -- FieldOfView,DynamicFieldOfView,TeamCheck
+    -- BodyParts,WallCheck,DistanceCheck,MaxDistance
+
+    if not Enabled then return end local Closest = nil
+    FOV = DFOV and FOV * (1 + (80 - Camera.FieldOfView) / 100) or FOV
 
     for Index,Player in pairs(PlayerService:GetPlayers()) do
-        local Character = Player.Character if not Character then continue end
-        local Humanoid = Character:FindFirstChildOfClass("Humanoid") if not Humanoid then continue end
-        if Player ~= LocalPlayer and Humanoid.Health > 0 and TeamCheck(Config.TeamCheck,Player) then
-            for Index,BodyPart in pairs(Config.BodyParts) do
-                local Hitbox = Character:FindFirstChild(BodyPart) if not Hitbox then continue end
-                local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
+        if Player == LocalPlayer then continue end
+        local Character = Player.Character
 
-                if WallCheck(Config.WallCheck,Hitbox,Character)
-                and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                    local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(Hitbox.Position)
-                    local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                    if OnScreen and Magnitude < FieldOfView then
-                        FieldOfView,ClosestHitbox = Magnitude,{Player,Character,Hitbox,Distance,ScreenPosition}
-                    end
+        if Character and TeamCheck(TC,Player) then
+            local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+            if not Humanoid then continue end if Humanoid.Health <= 0 then continue end
+
+            for Index,BodyPart in pairs(BP) do
+                BodyPart = Character:FindFirstChild(BodyPart) if not BodyPart then continue end
+                local Distance = (BodyPart.Position - Camera.CFrame.Position).Magnitude
+                if WallCheck(WC,BodyPart,Character) and DistanceCheck(DC,Distance,MD) then
+                    local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(BodyPart.Position)
+
+                    local NewFOV = (Vector2.new(ScreenPosition.X,ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
+                    if OnScreen and NewFOV <= FOV then FOV,Closest = NewFOV,{Player,Character,BodyPart,ScreenPosition} end
                 end
             end
         end
     end
 
-    return ClosestHitbox
+    return Closest
 end
 
-local function AimAt(Hitbox,Config)
+local function AimAt(Hitbox,Smoothness)
     if not Hitbox then return end
-    local Camera = Workspace.CurrentCamera
     local Mouse = UserInputService:GetMouseLocation()
-    local HitboxOnScreen = Hitbox[5]
-    
+
     mousemoverel(
-        (HitboxOnScreen.X - Mouse.X) * Config.Sensitivity,
-        (HitboxOnScreen.Y - Mouse.Y) * Config.Sensitivity
+        (Hitbox[4].X - Mouse.X) * Smoothness,
+        (Hitbox[4].Y - Mouse.Y) * Smoothness
     )
 end
 
 RunService.Heartbeat:Connect(function()
-    if Aimbot then AimAt(
-        GetHitbox({
-            Enabled = Window.Flags["Aimbot/Enabled"],
-            WallCheck = Window.Flags["Aimbot/WallCheck"],
-            DistanceCheck = Window.Flags["Aimbot/DistanceCheck"],
-            DynamicFOV = Window.Flags["Aimbot/DynamicFOV"],
-            FieldOfView = Window.Flags["Aimbot/FieldOfView"],
-            Distance = Window.Flags["Aimbot/Distance"],
-            BodyParts = Window.Flags["Aimbot/BodyParts"],
-            TeamCheck = Window.Flags["TeamCheck"]
-        }),{
-            Prediction = {
-                Enabled = Window.Flags["Aimbot/Prediction/Enabled"],
-                Velocity = Window.Flags["Aimbot/Prediction/Velocity"]
-            },Sensitivity = Window.Flags["Aimbot/Smoothness"] / 100
-        })
+    if Aimbot then
+        AimAt(GetClosest(
+            Window.Flags["Aimbot/Enabled"],
+            Window.Flags["Aimbot/FieldOfView"],
+            Window.Flags["Aimbot/DynamicFOV"],
+            Window.Flags["TeamCheck"],
+            Window.Flags["Aimbot/BodyParts"],
+            Window.Flags["Aimbot/WallCheck"],
+            Window.Flags["Aimbot/DistanceCheck"],
+            Window.Flags["Aimbot/Distance"]
+        ),Window.Flags["Aimbot/Smoothness"] / 100)
     end
 end)
 
@@ -305,61 +222,65 @@ for Index,Instance in pairs(Workspace.WORKSPACE_Geometry:GetChildren()) do
 end
 for Index,Instance in pairs(Workspace.WORKSPACE_Entities.Animals:GetChildren()) do
     if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
-        Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        Koko.Utilities.Drawing:AddObject(Instance,Instance.Name,Instance.PrimaryPart,
         "ESP/Legendary","ESP/Legendary",Window.Flags)
     end
 end
 Workspace.WORKSPACE_Entities.Animals.ChildAdded:Connect(function(Instance)
     if Instance:WaitForChild("Health").Value > 300 then print(Instance.Name)
-        Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance.PrimaryPart},
+        Koko.Utilities.Drawing:AddObject(Instance,Instance.Name,Instance.PrimaryPart,
         "ESP/Legendary","ESP/Legendary",Window.Flags)
     end
 end)
 Workspace.WORKSPACE_Entities.Animals.ChildRemoved:Connect(function(Instance)
-    Koko.Utilities.Drawing:RemoveESP(Instance)
+    Koko.Utilities.Drawing:RemoveObject(Instance)
 end)
 for Index,Instance in pairs(Regions) do
     for Index,Instance in pairs(Instance.Trees:GetChildren()) do
         if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
-            Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            Koko.Utilities.Drawing:AddObject(Instance,Instance.Name,Instance.PrimaryPart,
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end
     for Index,Instance in pairs(Instance.Vegetation:GetChildren()) do
         if Instance:FindFirstChild("Strike2",true) then print(Instance.Name)
-            Koko.Utilities.Drawing:ItemESP({Instance,Instance.Name,Instance},
+            Koko.Utilities.Drawing:AddObject(Instance,Instance.Name,Instance.PrimaryPart,
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end
     Instance.Trees.DescendantAdded:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            Koko.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
-            Instance.Parent.Parent.Name,Instance.Parent.Parent},
+            Koko.Utilities.Drawing:AddObject(Instance.Parent.Parent,
+            Instance.Parent.Parent.Name,Instance.Parent.Parent.PrimaryPart,
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end)
     Instance.Vegetation.DescendantAdded:Connect(function()
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            Koko.Utilities.Drawing:ItemESP({Instance.Parent.Parent,
-            Instance.Parent.Parent.Name,Instance.Parent.Parent},
+            Koko.Utilities.Drawing:AddObject(Instance.Parent.Parent,
+            Instance.Parent.Parent.Name,Instance.Parent.Parent.PrimaryPart,
             "ESP/Thunderstruck","ESP/Thunderstruck",Window.Flags)
         end
     end)
     Instance.Trees.DescendantRemoving:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            Koko.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+            Koko.Utilities.Drawing:RemoveObject(Instance.Parent.Parent)
         end
     end)
     Instance.Vegetation.DescendantRemoving:Connect(function(Instance)
         if Instance:IsA("ParticleEmitter") and Instance.Name == "Strike2" then
             print(Instance.Parent.Parent.Name)
-            Koko.Utilities.Drawing:RemoveESP(Instance.Parent.Parent)
+            Koko.Utilities.Drawing:RemoveObject(Instance.Parent.Parent)
         end
     end)
 end
+
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    Camera = Workspace.CurrentCamera
+end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end

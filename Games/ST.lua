@@ -3,10 +3,19 @@ local RunService = game:GetService("RunService")
 local PlayerService = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 
+local Camera = Workspace.CurrentCamera
 local LocalPlayer = PlayerService.LocalPlayer
 
+local StarterPlayer = game:GetService("StarterPlayer")
+local StarterPlayerScripts = StarterPlayer.StarterPlayerScripts
+local FrameWork = StarterPlayerScripts.FrameWork
+local Functions = require(FrameWork.Functions)
+
+local FXModule = require(FrameWork.NewModules.FXModule)
+local proceedArmor = getupvalue(FXModule.ViewArmor,8)
+
 local Window = Koko.Utilities.UI:Window({
-    Name = "Koko Pro — "..Koko.Game,
+    Name = "Koko Hub — "..Koko.Game,
     Position = UDim2.new(0.05,0,0.5,-173),
     Size = UDim2.new(0,346,0,346)
     }) do Window:Watermark({Enabled = true})
@@ -18,7 +27,7 @@ local Window = Koko.Utilities.UI:Window({
             GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = true})
             GlobalSection:Toggle({Name = "Use Team Color",Flag = "ESP/Player/TeamColor",Value = false})
             GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/Player/DistanceCheck",Value = false})
-            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 1000,Unit = "meters"})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/Player/Distance",Min = 25,Max = 1000,Value = 1000,Unit = "studs"})
         end
         local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/Player/Box/Enabled",Value = false})
@@ -57,103 +66,70 @@ local Window = Koko.Utilities.UI:Window({
         end
     end
     local MiscTab = Window:Tab({Name = "Miscellaneous"}) do
-        local FlySection = MiscTab:Section({Name = "Fly"}) do
-            FlySection:Toggle({Name = "Enabled",Flag = "ST/Fly/Enabled",Value = false})
-            :Keybind({Flag = "ST/Fly/Keybind"})
+        local FlySection = MiscTab:Section({Name = "Fly",Side = "Left"}) do
+            FlySection:Toggle({Name = "Enabled",Flag = "ST/Fly/Enabled",Value = false}):Keybind()
             FlySection:Toggle({Name = "Attach To Camera",Flag = "ST/Fly/Camera",Value = true})
-            FlySection:Slider({Name = "Speed",Flag = "ST/Fly/Speed",Min = 10,Max = 500,Value = 100})
+            FlySection:Slider({Name = "Speed",Flag = "ST/Fly/Speed",Min = 100,Max = 500,Value = 100})
         end
-    end
-    local SettingsTab = Window:Tab({Name = "Settings"}) do
-        local MenuSection = SettingsTab:Section({Name = "Menu",Side = "Left"}) do
-            MenuSection:Toggle({Name = "Enabled",IgnoreFlag = true,Flag = "UI/Toggle",
-            Value = Window.Enabled,Callback = function(Bool) Window:Toggle(Bool) end})
-            :Keybind({Value = "RightShift",Flag = "UI/Keybind",DoNotClear = true})
-            MenuSection:Toggle({Name = "Open On Load",Flag = "UI/OOL",Value = true})
-            MenuSection:Toggle({Name = "Blur Gameplay",Flag = "UI/Blur",Value = false,
-            Callback = function() Window:Toggle(Window.Enabled) end})
-            MenuSection:Toggle({Name = "Watermark",Flag = "UI/Watermark",Value = true,
-            Callback = function(Bool) Window.Watermark:Toggle(Bool) end})
-            MenuSection:Toggle({Name = "Custom Mouse",Flag = "Mouse/Enabled",Value = false})
-            MenuSection:Colorpicker({Name = "Color",Flag = "UI/Color",Value = {1,0.25,1,0,true},
-            Callback = function(HSVAR,Color) Window:SetColor(Color) end})
+        local MiscSection = MiscTab:Section({Name = "Misc",Side = "Right"}) do
+            MiscSection:Toggle({Name = "XRay",Flag = "ST/XRay",Value = false,Callback = function(Bool)
+                Bool = Bool and 1 or 0
+                for Index,Child in pairs(Workspace:GetChildren()) do
+                    if Child:FindFirstChild("Owner") and
+                    Child.Owner.Value ~= LocalPlayer.Name
+                    and Child.Alive.Value then
+                        proceedArmor(Child,Bool,0,true)
+                        Functions.DisableUpperVisuals(Child)
+                    end
+                end
+            end}):Keybind()
         end
-        SettingsTab:AddConfigSection("Left")
-        SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko.Utilities.Misc.ReJoin})
-        SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko.Utilities.Misc.ServerHop})
-        SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko.Utilities.Misc.JoinDiscord})
-        :ToolTip("Join for support, updates and more!")
-        local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
-            BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
-                {Name = "Legacy",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://2151741365"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hearts",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073763717"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Abstract",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073743871"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hexagon",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073628839"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Circles",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071579801"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Lace With Flowers",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071575925"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Floral",Mode = "Button",Value = true,Callback = function()
-                    Window.Background.Image = "rbxassetid://5553946656"
-                    Window.Flags["Background/CustomImage"] = ""
-                end}
-            }})
-            BackgroundSection:Textbox({Name = "Custom Image",Flag = "Background/CustomImage",Placeholder = "rbxassetid://ImageId",
-            Callback = function(String) if string.gsub(String," ","") ~= "" then Window.Background.Image = String end end})
-            BackgroundSection:Colorpicker({Name = "Color",Flag = "Background/Color",Value = {1,1,0,0,false},
-            Callback = function(HSVAR,Color) Window.Background.ImageColor3 = Color Window.Background.ImageTransparency = HSVAR[4] end})
-            BackgroundSection:Slider({Name = "Tile Offset",Flag = "Background/Offset",Min = 74, Max = 296,Value = 74,
-            Callback = function(Number) Window.Background.TileSize = UDim2.new(0,Number,0,Number) end})
-        end
-        local CrosshairSection = SettingsTab:Section({Name = "Custom Crosshair",Side = "Right"}) do
-            CrosshairSection:Toggle({Name = "Enabled",Flag = "Mouse/Crosshair/Enabled",Value = false})
-            CrosshairSection:Colorpicker({Name = "Color",Flag = "Mouse/Crosshair/Color",Value = {1,1,1,0,false}})
-            CrosshairSection:Slider({Name = "Size",Flag = "Mouse/Crosshair/Size",Min = 0,Max = 20,Value = 4})
-            CrosshairSection:Slider({Name = "Gap",Flag = "Mouse/Crosshair/Gap",Min = 0,Max = 10,Value = 2})
-        end
-        local CreditsSection = SettingsTab:Section({Name = "Credits",Side = "Right"}) do
-            CreditsSection:Label({Text = "This script was made by AlexR32#0157"})
-            CreditsSection:Divider()
-            CreditsSection:Label({Text = "Thanks to Jan for awesome Background Patterns"})
-            CreditsSection:Label({Text = "Thanks to Infinite Yield Team for Server Hop and Rejoin"})
-            CreditsSection:Label({Text = "Thanks to Blissful for Offscreen Arrows"})
-            CreditsSection:Label({Text = "Thanks to coasts for Universal ESP"})
-            CreditsSection:Label({Text = "Thanks to el3tric for Bracket V2"})
-            CreditsSection:Label({Text = "❤️ ❤️ ❤️ ❤️"})
-        end
-    end
+    end Koko.Utilities.Misc:SettingsSection(Window,"RightShift",false)
 end
 
-Window:LoadDefaultConfig()
-Window:SetValue("UI/Toggle",
-Window.Flags["UI/OOL"])
+function GetPlayerTank(Player)
+    local Char = Player:WaitForChild("Char")
+    if not Char then return end
+    if not Char.Value then return end
+    return Char.Value.Parent.Parent.Parent
+end
+
+Window:SetValue("Background/Offset",296)
+Window:LoadDefaultConfig("Koko")
+Window:SetValue("UI/Toggle",Window.Flags["UI/OOL"])
 
 Koko.Utilities.Misc:SetupWatermark(Window)
 Koko.Utilities.Drawing:SetupCursor(Window.Flags)
 
-local MaxVector = Vector3.new(math.huge,math.huge,math.huge)
+--[[local MaxVector = Vector3.new(math.huge,math.huge,math.huge)
 local BodyVelocity = Instance.new("BodyVelocity")
 local BodyGyro = Instance.new("BodyGyro")
-BodyGyro.P = 50000
+BodyGyro.P = 50000]]
+
+-- Fly Logic
+local XZ,YPlus,YMinus = Vector3.new(1,0,1),Vector3.new(0,1,0),Vector3.new(0,-1,0)
+local function FixUnit(Vector) if Vector.Magnitude == 0 then return Vector3.zero end return Vector.Unit end
+local function FlatCameraVector(CameraCF) return CameraCF.LookVector * XZ,CameraCF.RightVector * XZ end
+local function InputToVelocity() local LookVector,RightVector = FlatCameraVector(Camera.CFrame)
+    local Forward  = UserInputService:IsKeyDown(Enum.KeyCode.W) and LookVector or Vector3.zero
+    local Backward = UserInputService:IsKeyDown(Enum.KeyCode.S) and -LookVector or Vector3.zero
+    local Left     = UserInputService:IsKeyDown(Enum.KeyCode.A) and -RightVector or Vector3.zero
+    local Right    = UserInputService:IsKeyDown(Enum.KeyCode.D) and RightVector or Vector3.zero
+    local Up       = UserInputService:IsKeyDown(Enum.KeyCode.Space) and YPlus or Vector3.zero
+    local Down     = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) and YMinus or Vector3.zero
+    return FixUnit(Forward + Backward + Left + Right + Up + Down)
+end
+
+local function PlayerFly(Enabled,Speed,EnableCamera)
+    if not Enabled then return end
+    local LPTank = GetPlayerTank(LocalPlayer)
+    if LPTank and LPTank.PrimaryPart then
+        if EnableCamera then
+            LPTank:PivotTo(CFrame.new(LPTank:GetPivot().Position) * Camera.CFrame.Rotation)
+        end
+        LPTank.PrimaryPart.AssemblyLinearVelocity = InputToVelocity() * Speed
+    end
+end
 
 local OldNamecall
 OldNamecall = hookmetamethod(game, "__namecall", function(Self, ...)
@@ -162,103 +138,45 @@ OldNamecall = hookmetamethod(game, "__namecall", function(Self, ...)
         if Self.Name == "XEvent" then
             return
         end
-    elseif Method == "addItem" then
-        if Args[1] == BodyGyro or Args[1] == BodyVelocity then
+    --[[elseif Method == "addItem" then
+        if Args[1] == BodyVelocity
+        or Args[1] == BodyGyro then
             return
-        end
+        end]]
     end
     return OldNamecall(Self, ...)
 end)
 
-local function GetPlayerTank(Player)
-    local Char = Player:WaitForChild("Char")
-    if not Char then return end
-    if not Char.Value then return end
-    return Char.Value.Parent.Parent.Parent
-end
-
-local function FixUnit(Vector)
-	if Vector.Magnitude == 0 then
-	return Vector3.zero end
-	return Vector.Unit
-end
-local function FlatCameraVector()
-    local Camera = Workspace.CurrentCamera
-	return Camera.CFrame.LookVector * Vector3.new(1,0,1),
-		Camera.CFrame.RightVector * Vector3.new(1,0,1)
-end
-local function InputToVelocity() local Velocities,LookVector,RightVector = {},FlatCameraVector()
-	Velocities[1] = UserInputService:IsKeyDown(Enum.KeyCode.W) and LookVector or Vector3.zero
-	Velocities[2] = UserInputService:IsKeyDown(Enum.KeyCode.S) and -LookVector or Vector3.zero
-	Velocities[3] = UserInputService:IsKeyDown(Enum.KeyCode.A) and -RightVector or Vector3.zero
-	Velocities[4] = UserInputService:IsKeyDown(Enum.KeyCode.D) and RightVector or Vector3.zero
-    Velocities[5] = UserInputService:IsKeyDown(Enum.KeyCode.Space) and Vector3.new(0,1,0) or Vector3.zero
-    Velocities[6] = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) and Vector3.new(0,-1,0) or Vector3.zero
-	return FixUnit(Velocities[1] + Velocities[2] + Velocities[3] + Velocities[4] + Velocities[5] + Velocities[6])
-end
-
-local function PlayerFly(Config)
-    if not Config.Enabled then
-        BodyVelocity.MaxForce = Vector3.zero
-        BodyGyro.MaxTorque = Vector3.zero
-        return
-    end
-    local LPTank = GetPlayerTank(LocalPlayer)
-    local Camera = Workspace.CurrentCamera
-    if LPTank and LPTank.PrimaryPart then
-        if Config.Camera then
-            BodyGyro.Parent = LPTank.PrimaryPart
-            BodyGyro.MaxTorque = MaxVector
-            BodyGyro.CFrame = Camera.CFrame
-        else BodyGyro.MaxTorque = Vector3.zero end
-        BodyVelocity.Parent = LPTank.PrimaryPart
-        BodyVelocity.MaxForce = MaxVector
-        BodyVelocity.Velocity = InputToVelocity() * Config.Speed
-    end
-end
-
 RunService.Heartbeat:Connect(function()
-    PlayerFly({
-        Enabled = Window.Flags["ST/Fly/Enabled"],
-        Camera = Window.Flags["ST/Fly/Camera"],
-        Speed = Window.Flags["ST/Fly/Speed"]
-    })
+    PlayerFly(
+        Window.Flags["ST/Fly/Enabled"],
+        Window.Flags["ST/Fly/Speed"],
+        Window.Flags["ST/Fly/Camera"]
+    )
 end)
 
---[[local function highlight(object, color, fill)
-    local highlight = Instance.new('Highlight', object)
-    highlight.FillColor = color
-    highlight.FillTransparency = fill
-    highlight.OutlineColor = color
-    highlight.OutlineTransparency = 0.98
-end
-
-local Ammo = Instance.new("Model", Workspace)
-highlight(Ammo, Color3.fromRGB(255, 0, 0), 0.7)
-local Fuel = Instance.new("Model", Workspace)
-highlight(Fuel, Color3.fromRGB(255, 255, 0), 0.9)
-local Barrel = Instance.new("Model", Workspace)
-highlight(Barrel, Color3.fromRGB(0, 0, 255), 0.7)
-
-local parts = {
-    ["Ammo rack"] = Ammo,
-    ["Fuel tank"] = Fuel,
-    ["Barrel"] = Barrel
-}
-
-for _,v in pairs(Workspace:GetDescendants()) do
-    if parts[v.Name] and ((GetPlayerTank(LocalPlayer) and not v:IsDescendantOf(GetPlayerTank(LocalPlayer))) or (not GetPlayerTank(LocalPlayer) and not v:IsDescendantOf(Workspace.Ignore))) then
-        v.Transparency = 0
-        v.Parent = parts[v.Name]
+for Index,Child in pairs(Workspace:GetChildren()) do
+    if not Window.Flags["ST/XRay"] then continue end
+    if Child:FindFirstChild("Owner") and
+    Child.Owner.Value ~= LocalPlayer.Name
+    and Child.Alive.Value then
+        proceedArmor(Child,1,0,true)
+        Functions.DisableUpperVisuals(Child)
     end
 end
 
-Workspace.DescendantAdded:Connect(function(v) task.wait(5)
-    if parts[v.Name] and ((GetPlayerTank(LocalPlayer) and not v:IsDescendantOf(GetPlayerTank(LocalPlayer))) or (not GetPlayerTank(LocalPlayer) and not v:IsDescendantOf(Workspace.Ignore))) then
-        v.Transparency = 0
-        v.Parent = parts[v.Name]
+Workspace.ChildAdded:Connect(function(Child)
+    if not Window.Flags["ST/XRay"] then return end
+    task.wait(0.5) if Child:FindFirstChild("Owner") and
+    Child.Owner.Value ~= LocalPlayer.Name then
+        proceedArmor(Child,1,0,true)
+        Functions.DisableUpperVisuals(Child)
     end
-end)]]
+end)
+
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    Camera = Workspace.CurrentCamera
+end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end

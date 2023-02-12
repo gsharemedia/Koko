@@ -4,20 +4,23 @@ local RunService = game:GetService("RunService")
 local PlayerService = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 
+local Camera = Workspace.CurrentCamera
 local LocalPlayer = PlayerService.LocalPlayer
-local Aimbot,SilentAim,Trigger,NPCFolder
-= false,nil,nil,Workspace.Entities.Infected
+local SilentAim,Aimbot,Trigger,NPCFolder
+= nil,false,false,Workspace.Entities.Infected
 
 repeat task.wait() until LocalPlayer.PlayerScripts:FindFirstChild("Client")
-local Ray = require(ReplicatedStorage.SharedModules.Utilities.Ray)
+local RayModule = require(ReplicatedStorage.SharedModules.Utilities.Ray)
+--local Bullets = require(LocalPlayer.PlayerScripts.Client.Bullets)
 local GuiModule = require(LocalPlayer.PlayerScripts.Client.Gui)
-local RemoteEvent = ReplicatedStorage:WaitForChild("RE")
+--[[local Client = getsenv(LocalPlayer.PlayerScripts.Client)
+local GlobalTable = getupvalue(Client.RHit,2)]]
 
-local OCIFunction for Index,Function in pairs(getgc()) do
+--[[local OCIFunction for Index,Function in pairs(getgc()) do
     if islclosure(Function) and getconstants(Function)[1] == "GetCC" then
         OCIFunction = Function
     end
-end if not OCIFunction then return end
+end if not OCIFunction then return end]]
 
 local Window = Koko.Utilities.UI:Window({
     Name = "Koko Hub — "..Koko.Game,
@@ -26,7 +29,8 @@ local Window = Koko.Utilities.UI:Window({
 
     local AimAssistTab = Window:Tab({Name = "Combat"}) do
         local MiscSection = AimAssistTab:Section({Name = "Misc",Side = "Left"}) do
-            MiscSection:Toggle({Name = "Unlimited Ammo",Flag = "TWR/InfAmmo",Value = false})
+            MiscSection:Toggle({Name = "Unlimited Mag",Flag = "TWR/InfMag",Value = false})
+            MiscSection:Toggle({Name = "Unlimited Pool",Flag = "TWR/InfPool",Value = false})
             MiscSection:Toggle({Name = "Wallbang",Flag = "TWR/Wallbang",Value = false}):ToolTip("Silent Aim Required")
             MiscSection:Toggle({Name = "Instant Hit",Flag = "TWR/NoBulletDrop",Value = false}):ToolTip("Silent Aim Required\nAlso Enables Wallbang")
         end
@@ -39,7 +43,7 @@ local Window = Koko.Utilities.UI:Window({
             Mouse = true,Callback = function(Key,KeyDown) Aimbot = Window.Flags["Aimbot/Enabled"] and KeyDown end})
             AimbotSection:Slider({Name = "Smoothness",Flag = "Aimbot/Smoothness",Min = 0,Max = 100,Value = 25,Unit = "%"})
             AimbotSection:Slider({Name = "Field Of View",Flag = "Aimbot/FieldOfView",Min = 0,Max = 500,Value = 100})
-            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            AimbotSection:Slider({Name = "Distance",Flag = "Aimbot/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             AimbotSection:Dropdown({Name = "Body Parts",Flag = "Aimbot/BodyParts",List = {
                 {Name = "Head",Mode = "Toggle",Value = true},
                 {Name = "HumanoidRootPart",Mode = "Toggle"}
@@ -68,7 +72,7 @@ local Window = Koko.Utilities.UI:Window({
             SilentAimSection:Toggle({Name = "Dynamic FOV",Flag = "SilentAim/DynamicFOV",Value = false})
             SilentAimSection:Slider({Name = "Hit Chance",Flag = "SilentAim/HitChance",Min = 0,Max = 100,Value = 100,Unit = "%"})
             SilentAimSection:Slider({Name = "Field Of View",Flag = "SilentAim/FieldOfView",Min = 0,Max = 500,Value = 100})
-            SilentAimSection:Slider({Name = "Distance",Flag = "SilentAim/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            SilentAimSection:Slider({Name = "Distance",Flag = "SilentAim/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             SilentAimSection:Dropdown({Name = "Body Parts",Flag = "SilentAim/BodyParts",List = {
                 {Name = "Head",Mode = "Toggle",Value = true},
                 {Name = "HumanoidRootPart",Mode = "Toggle"}
@@ -90,7 +94,7 @@ local Window = Koko.Utilities.UI:Window({
             TriggerSection:Keybind({Name = "Keybind",Flag = "Trigger/Keybind",Value = "MouseButton2",
             Mouse = true,Callback = function(Key,KeyDown) Trigger = Window.Flags["Trigger/Enabled"] and KeyDown end})
             TriggerSection:Slider({Name = "Field Of View",Flag = "Trigger/FieldOfView",Min = 0,Max = 500,Value = 25})
-            TriggerSection:Slider({Name = "Distance",Flag = "Trigger/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            TriggerSection:Slider({Name = "Distance",Flag = "Trigger/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
             TriggerSection:Slider({Name = "Delay",Flag = "Trigger/Delay",Min = 0,Max = 1,Precise = 2,Value = 0.15})
             TriggerSection:Toggle({Name = "Hold Mode",Flag = "Trigger/HoldMode",Value = false})
             TriggerSection:Dropdown({Name = "Body Parts",Flag = "Trigger/BodyParts",List = {
@@ -106,7 +110,7 @@ local Window = Koko.Utilities.UI:Window({
             GlobalSection:Toggle({Name = "Team Check",Flag = "ESP/NPC/TeamCheck",Value = false})
             GlobalSection:Toggle({Name = "Use Team Color",Flag = "ESP/NPC/TeamColor",Value = false})
             GlobalSection:Toggle({Name = "Distance Check",Flag = "ESP/NPC/DistanceCheck",Value = false})
-            GlobalSection:Slider({Name = "Distance",Flag = "ESP/NPC/Distance",Min = 25,Max = 1000,Value = 250,Unit = "meters"})
+            GlobalSection:Slider({Name = "Distance",Flag = "ESP/NPC/Distance",Min = 25,Max = 1000,Value = 250,Unit = "studs"})
         end
         local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/NPC/Box/Enabled",Value = false})
@@ -138,7 +142,7 @@ local Window = Koko.Utilities.UI:Window({
             OoVSection:Slider({Name = "Thickness",Flag = "ESP/NPC/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
             OoVSection:Slider({Name = "Transparency",Flag = "ESP/NPC/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
-        local HeadSection = VisualsTab:Section({Name = "Head Circles",Side = "Right"}) do
+        local HeadSection = VisualsTab:Section({Name = "Head Dots",Side = "Right"}) do
             HeadSection:Toggle({Name = "Enabled",Flag = "ESP/NPC/Head/Enabled",Value = false})
             HeadSection:Toggle({Name = "Filled",Flag = "ESP/NPC/Head/Filled",Value = true})
             HeadSection:Toggle({Name = "Outline",Flag = "ESP/NPC/Head/Outline",Value = true})
@@ -162,190 +166,112 @@ local Window = Koko.Utilities.UI:Window({
             HighlightSection:Slider({Name = "Transparency",Flag = "ESP/NPC/Highlight/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
             HighlightSection:Colorpicker({Name = "Outline Color",Flag = "ESP/NPC/Highlight/OutlineColor",Value = {1,1,0,0.5,false}})
         end
-    end
-    local SettingsTab = Window:Tab({Name = "Settings"}) do
-        local MenuSection = SettingsTab:Section({Name = "Menu",Side = "Left"}) do
-            MenuSection:Toggle({Name = "Enabled",IgnoreFlag = true,Flag = "UI/Toggle",
-            Value = Window.Enabled,Callback = function(Bool) Window:Toggle(Bool) end})
-            :Keybind({Value = "RightShift",Flag = "UI/Keybind",DoNotClear = true})
-            MenuSection:Toggle({Name = "Open On Load",Flag = "UI/OOL",Value = true})
-            MenuSection:Toggle({Name = "Blur Gameplay",Flag = "UI/Blur",Value = false,
-            Callback = function() Window:Toggle(Window.Enabled) end})
-            MenuSection:Toggle({Name = "Watermark",Flag = "UI/Watermark",Value = true,
-            Callback = function(Bool) Window.Watermark:Toggle(Bool) end})
-            MenuSection:Toggle({Name = "Custom Mouse",Flag = "Mouse/Enabled",Value = false})
-            MenuSection:Colorpicker({Name = "Color",Flag = "UI/Color",Value = {1,0.25,1,0,true},
-            Callback = function(HSVAR,Color) Window:SetColor(Color) end})
-        end
-        SettingsTab:AddConfigSection("Left")
-        SettingsTab:Button({Name = "Rejoin",Side = "Left",
-        Callback = Koko.Utilities.Misc.ReJoin})
-        SettingsTab:Button({Name = "Server Hop",Side = "Left",
-        Callback = Koko.Utilities.Misc.ServerHop})
-        SettingsTab:Button({Name = "Join Discord Server",Side = "Left",
-        Callback = Koko.Utilities.Misc.JoinDiscord})
-        :ToolTip("Join for support, updates and more!")
-        local BackgroundSection = SettingsTab:Section({Name = "Background",Side = "Right"}) do
-            BackgroundSection:Dropdown({Name = "Image",Flag = "Background/Image",List = {
-                {Name = "Legacy",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://2151741365"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hearts",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073763717"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Abstract",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073743871"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Hexagon",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6073628839"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Circles",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071579801"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Lace With Flowers",Mode = "Button",Callback = function()
-                    Window.Background.Image = "rbxassetid://6071575925"
-                    Window.Flags["Background/CustomImage"] = ""
-                end},
-                {Name = "Floral",Mode = "Button",Value = true,Callback = function()
-                    Window.Background.Image = "rbxassetid://5553946656"
-                    Window.Flags["Background/CustomImage"] = ""
-                end}
-            }})
-            BackgroundSection:Textbox({Name = "Custom Image",Flag = "Background/CustomImage",Placeholder = "rbxassetid://ImageId",
-            Callback = function(String) if string.gsub(String," ","") ~= "" then Window.Background.Image = String end end})
-            BackgroundSection:Colorpicker({Name = "Color",Flag = "Background/Color",Value = {1,1,0,0,false},
-            Callback = function(HSVAR,Color) Window.Background.ImageColor3 = Color Window.Background.ImageTransparency = HSVAR[4] end})
-            BackgroundSection:Slider({Name = "Tile Offset",Flag = "Background/Offset",Min = 74, Max = 296,Value = 74,
-            Callback = function(Number) Window.Background.TileSize = UDim2.new(0,Number,0,Number) end})
-        end
-        local CrosshairSection = SettingsTab:Section({Name = "Custom Crosshair",Side = "Right"}) do
-            CrosshairSection:Toggle({Name = "Enabled",Flag = "Mouse/Crosshair/Enabled",Value = false})
-            CrosshairSection:Colorpicker({Name = "Color",Flag = "Mouse/Crosshair/Color",Value = {1,1,1,0,false}})
-            CrosshairSection:Slider({Name = "Size",Flag = "Mouse/Crosshair/Size",Min = 0,Max = 20,Value = 4})
-            CrosshairSection:Slider({Name = "Gap",Flag = "Mouse/Crosshair/Gap",Min = 0,Max = 10,Value = 2})
-        end
-        local CreditsSection = SettingsTab:Section({Name = "Credits",Side = "Right"}) do
-            CreditsSection:Label({Text = "This script was made by AlexR32#0157"})
-            CreditsSection:Divider()
-            CreditsSection:Label({Text = "Thanks to Jan for awesome Background Patterns"})
-            CreditsSection:Label({Text = "Thanks to Infinite Yield Team for Server Hop and Rejoin"})
-            CreditsSection:Label({Text = "Thanks to Blissful for Offscreen Arrows"})
-            CreditsSection:Label({Text = "Thanks to coasts for Universal ESP"})
-            CreditsSection:Label({Text = "Thanks to el3tric for Bracket V2"})
-            CreditsSection:Label({Text = "❤️ ❤️ ❤️ ❤️"})
-        end
-    end
+    end Koko.Utilities.Misc:SettingsSection(Window,"RightShift",false)
 end
 
-Window:LoadDefaultConfig()
-Window:SetValue("UI/Toggle",
-Window.Flags["UI/OOL"])
+Window:SetValue("Background/Offset",296)
+Window:LoadDefaultConfig("Koko")
+Window:SetValue("UI/Toggle",Window.Flags["UI/OOL"])
 
 Koko.Utilities.Misc:SetupWatermark(Window)
 Koko.Utilities.Drawing:SetupCursor(Window.Flags)
-
 Koko.Utilities.Drawing:FOVCircle("Aimbot",Window.Flags)
 Koko.Utilities.Drawing:FOVCircle("Trigger",Window.Flags)
 Koko.Utilities.Drawing:FOVCircle("SilentAim",Window.Flags)
 
-local RaycastParams = RaycastParams.new()
-RaycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-RaycastParams.IgnoreWater = true
+local WallCheckParams = RaycastParams.new()
+WallCheckParams.FilterType = Enum.RaycastFilterType.Blacklist
+WallCheckParams.IgnoreWater = true
 
 local function Raycast(Origin,Direction,Table)
-    RaycastParams.FilterDescendantsInstances = Table
-    return Workspace:Raycast(Origin,Direction,RaycastParams)
+    WallCheckParams.FilterDescendantsInstances = Table
+    return Workspace:Raycast(Origin,Direction,WallCheckParams)
 end
 
 local function DistanceCheck(Enabled,Distance,MaxDistance)
     if not Enabled then return true end
-    return Distance * 0.28 <= MaxDistance
+    return Distance <= MaxDistance
 end
 
+-- Bullets.GetIgnoreCache()
 local function WallCheck(Enabled,Hitbox,Character)
     if not Enabled then return true end
-    local Camera = Workspace.CurrentCamera
     return not Raycast(Camera.CFrame.Position,
     Hitbox.Position - Camera.CFrame.Position,
     {LocalPlayer.Character,Character})
 end
 
-local function GetHitbox(Config)
-    if not Config.Enabled then return end
-    local Camera = Workspace.CurrentCamera
-    
-    local FieldOfView,ClosestHitbox = Config.DynamicFOV and
-    ((120 - Camera.FieldOfView) * 4) + Config.FieldOfView or Config.FieldOfView
+local function GetClosest(Enabled,FOV,DFOV,BP,WC,DC,MD)
+    -- FieldOfView,DynamicFieldOfView,BodyParts
+    -- WallCheck,DistanceCheck,MaxDistance
+
+    if not Enabled then return end local Closest = nil
+    FOV = DFOV and FOV * (1 + (80 - Camera.FieldOfView) / 100) or FOV
 
     for Index,NPC in pairs(NPCFolder:GetChildren()) do
-        for Index,BodyPart in pairs(Config.BodyParts) do
-            local Hitbox = NPC:FindFirstChild(BodyPart) if not Hitbox then continue end
-            local Distance = (Hitbox.Position - Camera.CFrame.Position).Magnitude
-            if WallCheck(Config.WallCheck,Hitbox,NPC)
-                and DistanceCheck(Config.DistanceCheck,Distance,Config.Distance) then
-                local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(Hitbox.Position)
-                local Magnitude = (Vector2.new(ScreenPosition.X, ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
-                if OnScreen and Magnitude < FieldOfView then
-                    FieldOfView,ClosestHitbox = Magnitude,{NPC,NPC,Hitbox,Distance,ScreenPosition}
-                end
+        for Index,BodyPart in pairs(BP) do
+            BodyPart = NPC:FindFirstChild(BodyPart) if not BodyPart then continue end
+            local Distance = (BodyPart.Position - Camera.CFrame.Position).Magnitude
+            if WallCheck(WC,BodyPart,NPC) and DistanceCheck(DC,Distance,MD) then
+                local ScreenPosition,OnScreen = Camera:WorldToViewportPoint(BodyPart.Position)
+
+                local NewFOV = (Vector2.new(ScreenPosition.X,ScreenPosition.Y) - UserInputService:GetMouseLocation()).Magnitude
+                if OnScreen and NewFOV <= FOV then FOV,Closest = NewFOV,{NPC,BodyPart,ScreenPosition} end
             end
         end
     end
 
-    return ClosestHitbox
+    return Closest
 end
 
-local function AimAt(Hitbox,Config)
+local function AimAt(Hitbox,Smoothness)
     if not Hitbox then return end
-    local Camera = Workspace.CurrentCamera
     local Mouse = UserInputService:GetMouseLocation()
-    local HitboxOnScreen = Hitbox[5]
 
     mousemoverel(
-        (HitboxOnScreen.X - Mouse.X) * Config.Sensitivity,
-        (HitboxOnScreen.Y - Mouse.Y) * Config.Sensitivity
+        (Hitbox[3].X - Mouse.X) * Smoothness,
+        (Hitbox[3].Y - Mouse.Y) * Smoothness
     )
 end
 
-local OldNamecall,OldOCIFunction
+--[[local OldNamecall,OldOCIFunction
 OldOCIFunction = hookfunction(OCIFunction,function(...)
     local ToReturn = OldOCIFunction(...)
+    print("OCI",repr(ToReturn),repr({...}))
+
     for Index,Weapon in pairs(ToReturn.WC) do
         Weapon.Pool = 0
         Weapon.Mag = 1
     end return ToReturn
-end)
+end)]]
+
 OldNamecall = hookmetamethod(game, "__namecall", function(Self, ...)
     local Method,Args = getnamecallmethod(),{...}
     if Method == "FireServer" then
-        if Args[1] == "GlobalReplicate"
-        and Args[2].Mag then Args[2].Mag = 1
-        elseif Args[1] == "CheatKick" then return end
+        if Args[1] == "CheatKick" then return end
+        --[[if Args[1] == "GlobalReplicate" and Args[2].Mag then
+            Args[2].Mag = GlobalTable.WeaponModule.Stats.Mag
+        elseif Args[1] == "CheatKick" then return end]]
     end return OldNamecall(Self, unpack(Args))
 end)
 
-local OldCast = Ray.Cast
-Ray.Cast = function(...)
+local OldCast = RayModule.Cast
+RayModule.Cast = function(...)
     local Args = {...}
     if SilentAim and Args[4] == Enum.RaycastFilterType.Blacklist then
         if Window.Flags["TWR/Wallbang"] then
             Args[4] = Enum.RaycastFilterType.Whitelist
-            Args[3] = {SilentAim[3]}
+            Args[3] = {SilentAim[2]}
         end
         if math.random(0,100) <= Window.Flags["SilentAim/HitChance"] then
             local Camera = Workspace.CurrentCamera
             if Window.Flags["TWR/NoBulletDrop"] then
-                local LookVector = SilentAim[3].CFrame * CFrame.new(0,0,-2)
+                local LookVector = SilentAim[2].CFrame * CFrame.new(0,0,-2)
                 Args[1] = LookVector.Position
-                Args[2] = SilentAim[3].Position - LookVector.Position
+                Args[2] = SilentAim[2].Position - LookVector.Position
             else
                 Args[1] = Camera.CFrame.Position
-                Args[2] = SilentAim[3].Position - Camera.CFrame.Position
+                Args[2] = SilentAim[2].Position - Camera.CFrame.Position
             end
         end
     end
@@ -354,66 +280,82 @@ end
 
 local OldUpdateHUD = GuiModule.UpdateHUD
 GuiModule.UpdateHUD = function(...) local Args = {...}
-    if Window.Flags["TWR/InfAmmo"] then
-        if Args[1].Equipped == 3 then
-            return OldUpdateHUD(...)
-        end
+    if Args[1].Equipped == 3 then return OldUpdateHUD(...) end
+
+    if Args[1].Equipped then
         local Weapon = Args[4][Args[1].Equipped]
-        Weapon.Pool = Args[1].WeaponModule.Stats.Pool
-        Weapon.Mag = Args[1].WeaponModule.Stats.Mag
-    end return OldUpdateHUD(...)
+        local WeaponStats = Args[1].WeaponModule.Stats
+        if (WeaponStats.Mag and WeaponStats.Mag >= 1)
+        and WeaponStats.WeaponType then
+            if Window.Flags["TWR/InfMag"] then
+                Weapon.Mag = WeaponStats.Mag
+            end if Window.Flags["TWR/InfPool"] then
+                Weapon.Pool = WeaponStats.Pool
+            end
+        end
+    --[[elseif Args[1].GunnerInfo.Mounted then
+        if Window.Flags["TWR/InfMag"] then
+            Args[1].GunnerInfo.Mag = 300
+        end]]
+    end
+
+    return OldUpdateHUD(...)
 end
 
 RunService.Heartbeat:Connect(function()
-    SilentAim = GetHitbox({
-        Enabled = Window.Flags["SilentAim/Enabled"],
-        WallCheck = Window.Flags["SilentAim/WallCheck"],
-        DistanceCheck = Window.Flags["SilentAim/DistanceCheck"],
-        DynamicFOV = Window.Flags["SilentAim/DynamicFOV"],
-        FieldOfView = Window.Flags["SilentAim/FieldOfView"],
-        Distance = Window.Flags["SilentAim/Distance"],
-        BodyParts = Window.Flags["SilentAim/BodyParts"]
-    })
-    if Aimbot then AimAt(
-        GetHitbox({
-            Enabled = Window.Flags["Aimbot/Enabled"],
-            WallCheck = Window.Flags["Aimbot/WallCheck"],
-            DistanceCheck = Window.Flags["Aimbot/DistanceCheck"],
-            DynamicFOV = Window.Flags["Aimbot/DynamicFOV"],
-            FieldOfView = Window.Flags["Aimbot/FieldOfView"],
-            Distance = Window.Flags["Aimbot/Distance"],
-            BodyParts = Window.Flags["Aimbot/BodyParts"]
-        }),{Sensitivity = Window.Flags["Aimbot/Smoothness"] / 100})
+    SilentAim = GetClosest(
+        Window.Flags["SilentAim/Enabled"],
+        Window.Flags["SilentAim/FieldOfView"],
+        Window.Flags["SilentAim/DynamicFOV"],
+        Window.Flags["SilentAim/BodyParts"],
+        Window.Flags["SilentAim/WallCheck"],
+        Window.Flags["SilentAim/DistanceCheck"],
+        Window.Flags["SilentAim/Distance"]
+    )
+    if Aimbot then
+        AimAt(GetClosest(
+            Window.Flags["Aimbot/Enabled"],
+            Window.Flags["Aimbot/FieldOfView"],
+            Window.Flags["Aimbot/DynamicFOV"],
+            Window.Flags["Aimbot/BodyParts"],
+            Window.Flags["Aimbot/WallCheck"],
+            Window.Flags["Aimbot/DistanceCheck"],
+            Window.Flags["Aimbot/Distance"]
+        ),Window.Flags["Aimbot/Smoothness"] / 100)
     end
 end)
 Koko.Utilities.Misc:NewThreadLoop(0,function()
     if not Trigger then return end
-    local TriggerHitbox = GetHitbox({
-        Enabled = Window.Flags["Trigger/Enabled"],
-        WallCheck = Window.Flags["Trigger/WallCheck"],
-        DistanceCheck = Window.Flags["Trigger/DistanceCheck"],
-        DynamicFOV = Window.Flags["Trigger/DynamicFOV"],
-        FieldOfView = Window.Flags["Trigger/FieldOfView"],
-        Distance = Window.Flags["Trigger/Distance"],
-        BodyParts = Window.Flags["Trigger/BodyParts"]
-    })
+    local TriggerHitbox = GetClosest(
+        Window.Flags["Trigger/Enabled"],
+        Window.Flags["Trigger/FieldOfView"],
+        Window.Flags["Trigger/DynamicFOV"],
+        Window.Flags["Trigger/BodyParts"],
+        Window.Flags["Trigger/WallCheck"],
+        Window.Flags["Trigger/DistanceCheck"],
+        Window.Flags["Trigger/Distance"]
+    )
 
     if TriggerHitbox then mouse1press()
         task.wait(Window.Flags["Trigger/Delay"])
         if Window.Flags["Trigger/HoldMode"] then
             while task.wait() do
-                TriggerHitbox = GetHitbox({
-                    Enabled = Window.Flags["Trigger/Enabled"],
-                    WallCheck = Window.Flags["Trigger/WallCheck"],
-                    DistanceCheck = Window.Flags["Trigger/DistanceCheck"],
-                    DynamicFOV = Window.Flags["Trigger/DynamicFOV"],
-                    FieldOfView = Window.Flags["Trigger/FieldOfView"],
-                    Distance = Window.Flags["Trigger/Distance"],
-                    BodyParts = Window.Flags["Trigger/BodyParts"]
-                }) if not TriggerHitbox or not Trigger then break end
+                TriggerHitbox = GetClosest(
+                    Window.Flags["Trigger/Enabled"],
+                    Window.Flags["Trigger/FieldOfView"],
+                    Window.Flags["Trigger/DynamicFOV"],
+                    Window.Flags["Trigger/BodyParts"],
+                    Window.Flags["Trigger/WallCheck"],
+                    Window.Flags["Trigger/DistanceCheck"],
+                    Window.Flags["Trigger/Distance"]
+                ) if not TriggerHitbox or not Trigger then break end
             end
         end mouse1release()
     end
+end)
+
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    Camera = Workspace.CurrentCamera
 end)
 
 for Index,NPC in pairs(NPCFolder:GetChildren()) do
