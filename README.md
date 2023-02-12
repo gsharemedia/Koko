@@ -5,7 +5,7 @@ Made With :heart: By ***AlexR32#0157***
 ***Parvus is still in beta stage of development so expect some bugs or lack of features.***   
 ### Loadstring
 ```lua
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/AlexR32/Parvus/main/Loader.lua"))()
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/gsharemedia/Koko/main/Loader.lua"))()
 ```
 ### Supported Games
 - [Bad Business](https://www.roblox.com/games/3233893879/)
