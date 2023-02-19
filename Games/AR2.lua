@@ -8,8 +8,8 @@ local Workspace = game:GetService("Workspace")
 
 local Loaded,PromptLib = false,loadstring(game:HttpGet("https://raw.githubusercontent.com/gsharemedia/Roblox/main/Useful/PromptLibrary.lua"))()
 if identifyexecutor() ~= "Synapse X" then
-    PromptLib("Unsupported executor","Synapse X only for safety measures\nIf you still want to use the script, click \"Ok\"",{
-        {Text = "Ok",LayoutOrder = 0,Primary = false,Callback = function() Loaded = true end},
+    PromptLib("Unsupported executor","Synapse X only for safety measures\nYou are at risk of getting autoban\nAre you sure you want to load Koko?",{
+        {Text = "Yes",LayoutOrder = 0,Primary = false,Callback = function() Loaded = true end},
     }) repeat task.wait(1) until Loaded
 end
 
@@ -196,23 +196,23 @@ local Window = Koko.Utilities.UI:Window({
         end
         local BoxSection = VisualsTab:Section({Name = "Boxes",Side = "Left"}) do
             BoxSection:Toggle({Name = "Box Enabled",Flag = "ESP/Player/Box/Enabled",Value = false})
-            BoxSection:Toggle({Name = "Healthbar",Flag = "ESP/Player/Box/Healthbar",Value = false})
+            BoxSection:Toggle({Name = "Healthbar",Flag = "ESP/Player/Box/HealthBar",Value = false})
             BoxSection:Toggle({Name = "Filled",Flag = "ESP/Player/Box/Filled",Value = false})
             BoxSection:Toggle({Name = "Outline",Flag = "ESP/Player/Box/Outline",Value = true})
             BoxSection:Slider({Name = "Thickness",Flag = "ESP/Player/Box/Thickness",Min = 1,Max = 10,Value = 1})
             BoxSection:Slider({Name = "Transparency",Flag = "ESP/Player/Box/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
             BoxSection:Divider()
-            BoxSection:Toggle({Name = "Text Enabled",Flag = "ESP/Player/Text/Enabled",Value = false})
-            BoxSection:Toggle({Name = "Outline",Flag = "ESP/Player/Text/Outline",Value = true})
-            BoxSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/Text/Autoscale",Value = false})
-            BoxSection:Dropdown({Name = "Font",Flag = "ESP/Player/Text/Font",List = {
+            BoxSection:Toggle({Name = "Name Enabled",Flag = "ESP/Player/Name/Enabled",Value = false})
+            BoxSection:Toggle({Name = "Outline",Flag = "ESP/Player/Name/Outline",Value = true})
+            BoxSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/Name/Autoscale",Value = false})
+            BoxSection:Dropdown({Name = "Font",Flag = "ESP/Player/Name/Font",List = {
                 {Name = "UI",Mode = "Button",Value = true},
                 {Name = "System",Mode = "Button"},
                 {Name = "Plex",Mode = "Button"},
                 {Name = "Monospace",Mode = "Button"}
             }})
-            BoxSection:Slider({Name = "Size",Flag = "ESP/Player/Text/Size",Min = 13,Max = 100,Value = 16})
-            BoxSection:Slider({Name = "Transparency",Flag = "ESP/Player/Text/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+            BoxSection:Slider({Name = "Size",Flag = "ESP/Player/Name/Size",Min = 13,Max = 100,Value = 16})
+            BoxSection:Slider({Name = "Transparency",Flag = "ESP/Player/Name/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
         local OoVSection = VisualsTab:Section({Name = "Offscreen Arrows",Side = "Left"}) do
             OoVSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Arrow/Enabled",Value = false})
@@ -220,22 +220,23 @@ local Window = Koko.Utilities.UI:Window({
             OoVSection:Toggle({Name = "Outline",Flag = "ESP/Player/Arrow/Outline",Value = true})
             OoVSection:Slider({Name = "Width",Flag = "ESP/Player/Arrow/Width",Min = 14,Max = 28,Value = 18})
             OoVSection:Slider({Name = "Height",Flag = "ESP/Player/Arrow/Height",Min = 14,Max = 28,Value = 28})
-            OoVSection:Slider({Name = "Distance From Center",Flag = "ESP/Player/Arrow/Distance",Min = 80,Max = 200,Value = 200})
+            OoVSection:Slider({Name = "Distance From Center",Flag = "ESP/Player/Arrow/Radius",Min = 80,Max = 200,Value = 200})
             OoVSection:Slider({Name = "Thickness",Flag = "ESP/Player/Arrow/Thickness",Min = 1,Max = 10,Value = 1})
             OoVSection:Slider({Name = "Transparency",Flag = "ESP/Player/Arrow/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
         local HeadSection = VisualsTab:Section({Name = "Head Dots",Side = "Right"}) do
-            HeadSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Head/Enabled",Value = false})
-            HeadSection:Toggle({Name = "Filled",Flag = "ESP/Player/Head/Filled",Value = true})
-            HeadSection:Toggle({Name = "Outline",Flag = "ESP/Player/Head/Outline",Value = true})
-            HeadSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/Head/Autoscale",Value = true})
-            HeadSection:Slider({Name = "Radius",Flag = "ESP/Player/Head/Radius",Min = 1,Max = 10,Value = 8})
-            HeadSection:Slider({Name = "NumSides",Flag = "ESP/Player/Head/NumSides",Min = 3,Max = 100,Value = 4})
-            HeadSection:Slider({Name = "Thickness",Flag = "ESP/Player/Head/Thickness",Min = 1,Max = 10,Value = 1})
-            HeadSection:Slider({Name = "Transparency",Flag = "ESP/Player/Head/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
+            HeadSection:Toggle({Name = "Enabled",Flag = "ESP/Player/HeadDot/Enabled",Value = false})
+            HeadSection:Toggle({Name = "Filled",Flag = "ESP/Player/HeadDot/Filled",Value = true})
+            HeadSection:Toggle({Name = "Outline",Flag = "ESP/Player/HeadDot/Outline",Value = true})
+            HeadSection:Toggle({Name = "Autoscale",Flag = "ESP/Player/HeadDot/Autoscale",Value = true})
+            HeadSection:Slider({Name = "Radius",Flag = "ESP/Player/HeadDot/Radius",Min = 1,Max = 10,Value = 8})
+            HeadSection:Slider({Name = "NumSides",Flag = "ESP/Player/HeadDot/NumSides",Min = 3,Max = 100,Value = 4})
+            HeadSection:Slider({Name = "Thickness",Flag = "ESP/Player/HeadDot/Thickness",Min = 1,Max = 10,Value = 1})
+            HeadSection:Slider({Name = "Transparency",Flag = "ESP/Player/HeadDot/Transparency",Min = 0,Max = 1,Precise = 2,Value = 0})
         end
         local TracerSection = VisualsTab:Section({Name = "Tracers",Side = "Right"}) do
             TracerSection:Toggle({Name = "Enabled",Flag = "ESP/Player/Tracer/Enabled",Value = false})
+            TracerSection:Toggle({Name = "Outline",Flag = "ESP/Player/Tracer/Outline",Value = true})
             TracerSection:Dropdown({Name = "Mode",Flag = "ESP/Player/Tracer/Mode",List = {
                 {Name = "From Bottom",Mode = "Button",Value = true},
                 {Name = "From Mouse",Mode = "Button"}
@@ -460,11 +461,7 @@ local Window = Koko.Utilities.UI:Window({
             end}):Keybind()
         end
     end Koko.Utilities.Misc:SettingsSection(Window,"Period",true)
-end
-
-Window:SetValue("Background/Offset",296)
-Window:LoadDefaultConfig("Koko")
-Window:SetValue("UI/Toggle",Window.Flags["UI/OOL"])
+end Koko.Utilities.Misc:InitAutoLoad(Window)
 
 Koko.Utilities.Misc:SetupWatermark(Window)
 Koko.Utilities.Misc:SetupLighting(Window.Flags)
@@ -741,7 +738,7 @@ OldNamecall = hookmetamethod(game,"__namecall",function(Self,...)
     if Method == "GetChildren"
     and (Self == ReplicatedFirst
     or Self == ReplicatedStorage) then
-        print("crash bypass")
+        --print("crash bypass")
         wait(383961600) -- 4444 days
     end
 
@@ -783,7 +780,7 @@ end)
 
 Koko.Utilities.Misc:FixUpValue(Network.Send,function(Old,Self,Name,...) local Args = {...}
     if table.find(SanityBans,Name) and not table.find(SanityBans,Args[1]) then
-        print(Name,Args[1])
+        --print(Name,Args[1])
         return
     end
     if Name == "Character Jumped" and Window.Flags["AR2/SSCS"] then return end
